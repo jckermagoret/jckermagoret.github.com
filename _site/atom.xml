@@ -1,0 +1,1321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title></title>
+ <link href="/" rel="self"/>
+ <link href=""/>
+ <updated>2013-10-14T17:56:24+02:00</updated>
+ <id></id>
+ <author>
+   <name></name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>How to initialize a git repository from an existing content</title>
+   <link href="/2013/11/13/How+to+initialize+a+git+repository+from+an+existing+content.html"/>
+   <updated>2013-11-13T00:00:00+01:00</updated>
+   <id>/2013/11/13/How to initialize a git repository from an existing content</id>
+   <content type="html">I'm sure it's not the shortest way to do it, but at least, it works :-)
+
+Create the git repository
+
+To achieve this, create the following script and name it create-git-repo.sh:
+
+#!/bin/sh
+
+REPO_NAME=$1
+DESC=$2
+
+GIT_SERVER=git.side-labs.org
+OWNER=&quot;Jean-Christophe+Kermagoret&lt;jck@bluexml.com&gt;&quot;
+REPOSITORIES=&quot;/data/local/scm/git/$GIT_SERVER/repositories&quot;
+GITWEB_PROJECTS=&quot;/&quot;
+CLONEURL=&quot;https://git.side-labs.org/git/$REPO_NAME&quot;
+
+# create a new bare repository
+cd $REPOSITORIES
+sudo -u www-data git init --bare $REPO_NAME
+cd $REPO_NAME
+#sudo -u git touch git-daemon-export-ok
+
+# additional set-up for Gitweb
+echo &quot;$DESC&quot; | sudo -u www-data tee description
+echo &quot;$REPO_NAME $OWNER&quot; | sudo -u www-data tee -a GITWEB_PROJECTS
+echo &quot;$CLONEURL&quot; | sudo -u www-data tee cloneurl
+
+Then to create the repo, just type the following
+
+root# sh create-git-repo.sh YaRma &quot;Yet Another Requisition Management Application with SIDE&quot;
+Import existing content
+
+Second, go into the directory where is stored your existing content (not the repository for the moment!)
+
+root# git init
+root# git add .
+root# git commit -m &quot;Initial import&quot;
+root# git remote add origin /opt/local/scm/git/git.side-labs.org/repositories/YaRma.git
+root# git push --all
+Now, it's time to just check your installation through gitweb.</content>
+ </entry>
+ 
+ <entry>
+   <title>Java vs javascript to develop business rules in alfresco workflows</title>
+   <link href="/2012/09/23/Java+vs+Javascript+to+develop+business+rules+in+Alfresco+workflows.html"/>
+   <updated>2012-09-23T00:00:00+02:00</updated>
+   <id>/2012/09/23/Java vs Javascript to develop business rules in Alfresco workflows</id>
+   <content type="html">While Javascript Server Side may seem easier, it's a real mess to debug. So, I clearly prefer to use Java which avoid this kind of problems thanks to JPDA.
+
+For example, use the following javascript snippet into a transition in an Alfresco Workflow based on jBPM (and generated with SIDE to make thinks a lot easier):
+
+var node =bpm_package.children[0];
+
+var destination = node.parent.parent.childByNamePath(&quot;achieved&quot;);
+
+if (node.shortType == 'YAMMA:com_bluexml_side_yamma_OutgoingMail') {
+        destination = destination.childByNamePath(&quot;mail&quot;);
+} else if (node.shortType == 'YAMMA:com_bluexml_side_yamma_Invoice') {
+        destination = destination.childByNamePath(&quot;invoice&quot;);
+} else if (node.shortType == 'YAMMA:com_bluexml_side_yamma_Quotation') {
+        destination = destination.childByNamePath(&quot;quotation&quot;);
+}
+
+node.move(destination);
+There is an error which is very difficult to diagnose if you don't know it. The error message just tells you that there is a '}' missing at the 3rd line of your script. Well, in fact, nothing's missing! You must just type node.shortType instead of node.typeShort to make things working smoothly!
+
+You can try to activate the javascript debugger but it won't be very useful because once loaded, the javascript code corresponding to your transition appears on one line. So debugging step by step is not very efficient.
+
+What a difference with Java in which you have tools, mature and well tested, to help you to develop the code you need.
+
+Thanks to JPDA, it's really easy.
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Javascript logging</title>
+   <link href="/2012/09/21/Javascript+logging.html"/>
+   <updated>2012-09-21T00:00:00+02:00</updated>
+   <id>/2012/09/21/Javascript logging</id>
+   <content type="html">When you want to develop in javascript, you look for usual tools in programing languages. One of the best tool in Java is log4j. It's a tool to help developers to insert information in their code and display this information according the configuration. I t means you may have test and production configuration without the need to change anything.
+
+I gave a glimpse to google about javascript and logging and it gave me back 2 answers which seem of interest. It was:
+
+log4js
+log4javascript
+I first gave a try to log4js because of its name, very similar to the log4j for Java. Unfortunately, it didn't work correctly with my javascript application, because of a conflict.
+
+I didn't go further and tried log4javascript. It worked immediately like a charm. Here is the magic lines. Just add the following at the top of your html page:
+
+        &lt;script type=&quot;text/javascript&quot; src=&quot;/resources/common/js/misc/log4javascript.js&quot;&gt;&lt;/script&gt;
+
+                        log4javascript.setEnabled(true);
+                        var pua = new log4javascript.PopUpAppender();
+                        log4javascript.getDefaultLogger().addAppender(pua);
+                        log4javascript.getLogger(&quot;SIDE.Observer&quot;).addAppender(pua);
+                        log4javascript.getLogger(&quot;SIDE.Tree&quot;).addAppender(pua);
+
+                        // You can define explicitely a var to set the log level
+                        var lsa = log4javascript.getLogger(&quot;SIDE.Authenticate&quot;);
+                        lsa.setLevel(log4javascript.Level.INFO);
+                        lsa.addAppender(pua);
+                        log4javascript.getLogger(&quot;SIDE.Util&quot;).addAppender(pua);
+                        log4javascript.getLogger(&quot;SIDE.Preview&quot;).addAppender(pua);
+
+As stated in the code, you can define explicitely a var to set the log level.
+
+It works very well and the log window does the job.
+
+To conclude, log4js would certainly do the job but for any reasons, it didn't when I tried. Nevermind, these tools are mature and they work the same way, so don't be worry. Take the one that does the job for you the fastest.</content>
+ </entry>
+ 
+ <entry>
+   <title>Alfresco "document Details" page customization</title>
+   <link href="/2012/09/01/Alfresco+%22document-details%22+Page+Customization.html"/>
+   <updated>2012-09-01T00:00:00+02:00</updated>
+   <id>/2012/09/01/Alfresco "document-details" Page Customization</id>
+   <content type="html">The document-details page is defined in the page directory located $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-data/pages/document-details.xml:
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;page&gt;
+   &lt;title&gt;Document Details&lt;/title&gt;
+   &lt;title-id&gt;page.documentDetails.title&lt;/title-id&gt;
+   &lt;description&gt;Document details&lt;/description&gt;
+   &lt;description-id&gt;page.documentDetails.description&lt;/description-id&gt;
+   &lt;template-instance&gt;document-details&lt;/template-instance&gt;
+   &lt;authentication&gt;user&lt;/authentication&gt;
+&lt;/page&gt;
+This page uses the document-details template as indicated, located at $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-data/template-instances/document-details.xml
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;template-instance&gt;
+   &lt;template-type&gt;org/alfresco/document-details&lt;/template-type&gt;
+   &lt;properties&gt;
+      &lt;pageFamily&gt;documentlibrary&lt;/pageFamily&gt;
+      &lt;container&gt;documentLibrary&lt;/container&gt;
+   &lt;/properties&gt;
+&lt;/template-instance&gt;
+The document-details page is the result of the agregation of the (take a deep breath :-) $TOMCAT/webapps/share/WEB-INF/classes/alfresco/templates/org/alfresco/document-details.ftl which looks like this for its most important part:
+
+&lt;div&gt;
+    &lt;div&gt;
+        &lt;@region id=doclibType + &quot;document-metadata-header&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-metadata&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-info&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-versions&quot; scope=&quot;template&quot; protected=true /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;@region id=doclibType + &quot;document-actions&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-links&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;#if doclibType?starts_with(&quot;dod5015&quot;)&gt;
+            &lt;@region id=doclibType + &quot;document-references&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;/#if&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+The only part a little strange is that the core of this page, consisting of the metadata is not processed the same way, which would make customization a lot easier. Instead of that, they use the form component to render the document metadata. Maybe to provide inline update later, but for the moment, I just want to render my metadata and I prefer to have a consistent way to do this.
+
+So, I replaced the:
+
+&lt;@region id=doclibType + &quot;document-metadata&quot; scope=&quot;template&quot; protected=true /&gt;
+by:
+
+&lt;@region id=doclibType + &quot;document-metadata-core&quot; scope=&quot;template&quot; protected=true /&gt;
+and then defined the corresponding template, webscript and component.
+
+First, indicate the component to use when the document-metadata-core region is used from the document-details template. This happens in $TOMCAT/share/WEB-INF/classes/alfresco/site-data/components/template.document-metadata-core.document-details.xml:
+
+&lt;?xml version='1.0' encoding='UTF-8'?&gt;
+&lt;component&gt;
+   &lt;scope&gt;template&lt;/scope&gt;
+   &lt;region-id&gt;document-metadata-core&lt;/region-id&gt;
+   &lt;source-id&gt;document-details&lt;/source-id&gt;
+   &lt;url&gt;/components/document-details/document-metadata-core&lt;/url&gt;
+&lt;/component&gt;
+Second, define $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-webscripts/org/alfresco/components/document-details/document-metadata-core.get.(desc|head|html).xml files with the following content: 2.1: document-metadata-core.get.desc.html:
+
+&lt;webscript&gt;
+  &lt;shortname&gt;document-metadata-core&lt;/shortname&gt;
+  &lt;description&gt;Document Metadata Core Component&lt;/description&gt;
+  &lt;url&gt;/components/document-details/document-metadata-core&lt;/url&gt;
+&lt;/webscript&gt;
+2.2: document-metadata-core.get.head.html:
+
+&lt;#include &quot;../component.head.inc&quot;&gt;
+&lt;!-- Document Metadata Header --&gt;
+&lt;@link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;${page.url.context}/components/document-details/document-metadata-core.css&quot; /&gt;
+&lt;@script type=&quot;text/javascript&quot; src=&quot;${page.url.context}/components/document-details/document-metadata-core.js&quot;&gt;&lt;/@script&gt;
+2.3: document-metadata-core.get.html:
+
+&lt;script type=&quot;text/javascript&quot;&gt;//&lt;![CDATA[
+   new Alfresco.DocumentMetadataCore(&quot;${args.htmlid}&quot;).setMessages(${messages});
+//]]&gt;&lt;/script&gt;
+&lt;div id=&quot;metadata-core&quot;&gt;
+   &lt;div&gt;${msg(&quot;document-metadata-core.heading&quot;)}&lt;/div&gt;
+   &lt;h1&gt;&gt;Woooh, juste un peu de texte :-)&lt;/h1&gt;
+&lt;/div&gt;
+Lastly, we define $TOMCAT/webapps/share/components/document-details/document-metadata-core.js which will be compressed in document-metadata-core-min.js later:
+
+/**
+ * Document metadata-core component.
+ *
+ * @namespace Alfresco
+ * @class Alfresco.DocumentMetadataCore
+ */
+(function()
+{
+   var Dom = YAHOO.util.Dom;
+   var $html = Alfresco.util.encodeHTML;
+
+   /**
+    * DocumentMetadataCore constructor.
+    *
+    * @param {String} htmlId The HTML id of the parent element
+    * @return {Alfresco.DocumentMetadataCore} The new DocumentMetadataCore instance
+    * @constructor
+    */
+   Alfresco.DocumentMetadataCore = function(htmlId)
+   {
+      Alfresco.DocumentMetadataCore.superclass.constructor.call(this, &quot;Alfresco.DocumentMetadataCore&quot;, htmlId);*/
+
+      /* Decoupled event listeners */
+      YAHOO.Bubbling.on(&quot;documentDetailsAvailable&quot;, this.onDocumentDetailsAvailable, this);
+
+      return this;
+   };
+
+   YAHOO.extend(Alfresco.DocumentMetadataCore, Alfresco.component.Base,
+   {
+      onDocumentDetailsAvailable: function DocumentMetadataCore_onDocumentDetailsAvailable(layer, args)
+      {
+      // Just write your code there
+      }
+   });
+})();
+Through the use of bubbling (kind of Observer pattern), the document-details page updates when the &quot;documentDetailsAvailable&quot; event fires and the method above is played thanks to the following line:
+
+YAHOO.Bubbling.on(&quot;documentDetailsAvailable&quot;, this.onDocumentDetailsAvailable, this);</content>
+ </entry>
+ 
+ <entry>
+   <title>Component content management system</title>
+   <link href="/2012/01/13/Component+Content+Management+System.html"/>
+   <updated>2012-01-13T00:00:00+01:00</updated>
+   <id>/2012/01/13/Component Content Management System</id>
+   <content type="html">The Problem To Address
+
+One more time, to prepare a course, I had to browse all the documentation I wrote to find the right material I needed. Of course, I had to rewrite part of it because it was not structured the right way. I think it's time to organize my content in a way I can reuse it.
+
+The Solution
+
+Some solution exist and are called Component Content System. Wikipedia gives us a very clear definition:
+
+A component content management system (CCMS) is a content management system that manages content at a granular level (component) rather than at the document level. Each component represents a single topic, concept or asset (e.g., image, table, product description). Components can be as large as a chapter or as small as a definition or even a word. Components in multiple content assemblies (content types) can be viewed as components or as traditional documents.
+So, in short, I want unit of imformation at an enough low level granularity so I can recreate the content I want it by simply recombining it by hand, through automatic queries based on classification, structure, ...
+
+The Reality
+
+Well, it looks like DITA or Docbook.
+
+DOCBOOK
+
+I already used Docbook and it's true you can do amazing things but you need to write everything in XML according the docbook schema. OOo does not support it very well and it's a little too complex for non technical users. I tried docbook2odp, which generate clean OOo Presentation but you still need to work with Docbook. I had a look to wiki syntax, such mediawiki, because there is an XML extension to get Docbook format. Unfortunately, exporting preformatted code gives a poor result, so I need to fix it manually. Too boring.
+
+I had a look too at rST (reStructuredText) to generate OOo Presentations with rST2odp which almost don't need to be fixed. Moreover, you can apply an OOo Presentation template during rST to odp generation. Unfortunately, there are no tools to convert mediawiki to rST.
+
+CONCLUSION
+
+My requirement is finally very simple. How to make all these tools communicate so I can use my preferred input type and get my preferred output for the tasks I have to achieve? Of course without fixing or rewriting anyting. Just reuse?
+
+I guess I need to go further on DITA which seems the way to go.</content>
+ </entry>
+ 
+ <entry>
+   <title>Ssl configuration on tomcat for alfresco authentication with ldaps</title>
+   <link href="/2011/08/01/SSL+configuration+on+Tomcat+for+Alfresco+authentication+with+Ldaps.html"/>
+   <updated>2011-08-01T00:00:00+02:00</updated>
+   <id>/2011/08/01/SSL configuration on Tomcat for Alfresco authentication with Ldaps</id>
+   <content type="html">Use Case
+
+I want Alfresco to be able to authenticate on a Ldap server, secured with SSL.
+
+Problem
+
+Ldaps is a ldap service secured on SSL. So you need to accept the SSL certificate to use the service.
+
+Solution
+
+To do so in the java world, you need a java keystore which stores the certificates (and private keys too). This is a file usually stored in /etc/java/keystore.jks
+
+Installation
+
+You first need to get the SSL certificate of the ldaps service. You can get it through openssl command:
+
+openssl s_client -connect YOUR_SERVER:YOUR_PORT -showcerts
+Just copy the lines beetween -BEGIN- until -END- with these latter included into ldaps.crt for example. If you want a more automated procedure, just have a look to get-cert script which wraps &quot;openssl s_client&quot;. You can then import it into your keystore:
+
+keytool -import -alias ldaps -file ldaps.crt -keystore /etc/java/keystore.jks
+Usage
+
+Just launch Tomcat with the following option:
+
+export JAVA_OPTS=$JAVA_OPTS' -Djavax.net.ssl.trustStore=/etc/java/keystore.jks'</content>
+ </entry>
+ 
+ <entry>
+   <title>Email management system</title>
+   <link href="/2011/06/12/Email+Management+System.html"/>
+   <updated>2011-06-12T00:00:00+02:00</updated>
+   <id>/2011/06/12/Email Management System</id>
+   <content type="html">Use Case
+
+How to manage emails in a document management system so it is as convenient as a mail client? Not only plain emails with only a text body, but complex ones with a text body, an html one, one or more attachments?
+
+Requirements
+
+Manage emails means:
+
+file them
+process them through workflows
+link to them
+reuse them
+resend them
+Analysis
+
+Mails can be seen:
+
+as a whole: the .eml file
+as a set of parts: the meta-data, the text body, the attachments
+While the .eml file is interesting from a legal point of view, it is not practical because of the necessity to process it each time you want to access it. In contrast, the set of parts, while very interesting from accessibility is more difficult to prevent from modifications.
+
+Solution
+
+The obvious solution is to mix the 2 solutions. So:
+
+REQ1 : a folder to store all the parts of the mail with a name corresponding to the mail subject
+REQ2: body
+REQ3: attachment1, attachment2, ...
+REQ4: some meta-data added to an element (folder or body?) to store a link on the .eml archive
+REQ5: ability to link from any document to the mail parts
+Alfresco
+
+The solution provided by Alfresco doesn't meet our requiremsnts. In Alfresco, through IMAP subsystem, messages are stored like the following:
+
+Message_1717.eml, the archive with all the embedded content
+Message_1717.eml-attachments, a folder with all the attachments extracted from the previous .eml
+It is not very interesting from a user point of view when browsing the application (Share or another one) because file names are not readable. Attachment names are readable, but not the text body corresponding to the main message which is encapsulated into the .eml file.
+
+To achieve:
+
+REQ1: store the Message-1717.eml file into the corresponding folder (+-attachments), extract the mail subject and rename the folder and the body to this latter
+REQ2: extract the body by transforming the email to text
+REQ3: attachments are ok
+REQ4: extract meta-data from the document by playing the extract common action on the message
+REQ5: let access to the elements and still protecting them from modifications
+Finally, the order to follow is:
+
+REQ1: this can be done during file replication from system 1 to 2 in a multi-tenant Alfresco server
+REQ4: configure an action to extract meta-data
+REQ2: configure an action to transform the content
+REQ3: attachments are still ok
+REQ5: security configuration
+REQ1 can be done through file manipulations REQ4 and REQ2 can be done in the same action. REQ5 is Alfresco configuration
+
+Precautions
+
+Folders containing mails must be preserved from modifications.
+
+Conclusion
+
+By adding workflows, launched automatically, it is possible to get an (e)mail management system. Based on a multi-tenant system, this architecture my provide the base for the YaMma application.</content>
+ </entry>
+ 
+ <entry>
+   <title>Ssl configuration on apache as a front end for alfresco</title>
+   <link href="/2011/05/23/SSL+configuration+on+Apache+as+a+front+end+for+Alfresco.html"/>
+   <updated>2011-05-23T00:00:00+02:00</updated>
+   <id>/2011/05/23/SSL configuration on Apache as a front end for Alfresco</id>
+   <content type="html">Use Case
+
+I want to secure Alfresco (webdav) and Share Access through SSL.
+
+Solution
+
+The solution is to secure Alfresco access through Apache-SSL.
+
+Why not directly use Tomcat SSL? Because I want to protect 2 tomcat instances and only make one SSL installation. Moreover, I need some Apache specific features like rewriting ones.
+
+Only Apache access will be available so Alfresco will be available through ProxyPass features. Direct access is prohibited at the tomcat level.
+
+Configuration
+
+SSL CONFIGURATION
+
+cd /etc/ssl
+openssl genrsa -des3 -rand file1:file2:file3:file4:file5 -out server-with-passphrase.key 2048
+openssl rsa -in server-with-passphrase.key -out server.pem
+openssl req -new -key server.pem -out server.csr
+openssl x509 -req -days 365 -in server.csr -signkey server.pem -out server.crt
+SSL APACHE CONFIGURATION
+
+You can then create the following configuration into your apache configuration file:
+
+SSLEngine on
+SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+SSLCertificateFile /etc/ssl/certs-specific/gollum.bluexml.com.crt
+SSLCertificateKeyFile  /etc/ssl/private/gollum.bluexml.com.pem
+PROXYPASS APACHE CONFIGURATION
+
+Don't forget to activate proxy_http module:
+
+a2enmod proxy_http
+You can then create the following configuration into your apache configuration file:
+
+    &lt;Proxy *&gt;
+      AddDefaultCharset Off
+      Order deny,allow
+      Allow from all
+    &lt;/Proxy&gt;
+
+    ProxyPass /share http://localhost:8080/share
+    ProxyPassReverse /share http://localhost:8080/share
+    ProxyPass /alfresco http://localhost:8080/alfresco
+    ProxyPassReverse /alfresco http://localhost:8080/alfresco
+Resources
+
+1: http://slacksite.com/apache/certifi...</content>
+ </entry>
+ 
+ <entry>
+   <title>Automatic java class generation from jbpm process definition file</title>
+   <link href="/2011/03/12/Automatic+Java+Class+Generation+From+jBPM+Process+Definition+File.html"/>
+   <updated>2011-03-12T00:00:00+01:00</updated>
+   <id>/2011/03/12/Automatic Java Class Generation From jBPM Process Definition File</id>
+   <content type="html">Goal
+
+This page explains how to automatically add action in a jBPM workflow and generate the corresponding java class from a jBPM processdefinition file for each added action. At the end, you'll have a java class with a method for each action in transitions and events. The methods only contain a log statement at first. You then can inherit from it and customize the code if you want.
+
+Solution
+
+The solution is achieved in 2 steps:
+
+add a java action for each transition and event
+generate the java class with a method for each action
+ADD A JAVA ACTION FOR EACH TRANSITION AND EVENT
+
+This is done through this xsl code snippet extracted from this xsl stylesheet.
+
+        &lt;xsl:template match=&quot;transition|event&quot;&gt;
+                &lt;xsl:element name=&quot;{name()}&quot;&gt;
+                        &lt;xsl:copy-of select=&quot;@*&quot;/&gt;
+                        &lt;xsl:choose&gt;
+                                &lt;xsl:when test=&quot;not(action)
+                                                                or (action and $replaceActions = 'true')&quot;&gt;
+                                        &lt;action&gt;
+                                                &lt;xsl:apply-templates select=&quot;.//script&quot;/&gt;
+                                        &lt;/action&gt;
+                                &lt;/xsl:when&gt;
+                                &lt;xsl:otherwise&gt;
+                                        &lt;xsl:apply-templates/&gt;
+                                &lt;/xsl:otherwise&gt;
+                        &lt;/xsl:choose&gt;
+                &lt;/xsl:element&gt;
+        &lt;/xsl:template&gt;
+/
+GENERATE THE JAVA CLASS WITH A METHOD FOR EACH ACTION
+
+This is done through this xsl code snippet extracted from this xsl stylesheet.
+
+        &lt;xsl:template name=&quot;create-java-class&quot;&gt;
+                &lt;xsl:param name=&quot;package&quot;/&gt;
+                &lt;xsl:param name=&quot;class&quot;/&gt;
+
+package &lt;xsl:value-of select=&quot;$package&quot;/&gt;;
+
+import org.sidelabs.workflow.SIDEActionHandler;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class &lt;xsl:value-of select=&quot;$class&quot;/&gt; extends SIDEActionHandler {
+
+        private static final long serialVersionUID = 1L;
+        private static Log logger = LogFactory.getLog(&lt;xsl:value-of select=&quot;$class&quot;/&gt;.class);
+
+        /**
+         * Transitions
+         */
+        &lt;xsl:apply-templates select=&quot;.//transition&quot;/&gt;
+
+        /**
+         * Events
+         */
+        &lt;xsl:apply-templates select=&quot;.//event&quot;/&gt;
+
+}
+        &lt;/xsl:template&gt;
+Action
+
+An ant script is provided in the SIDE-deployer project. Java classes will be stored into the provided package. The class name is based on the name of the workflow. Don't forget to capitalize your workflow name in your SIDE model!
+
+BUILD JAVA CLASSES (AND REPLACE EXISTING ACTIONS)
+
+Java classes will be stored into the provided package. The class name is based on the name of the workflow. Don't forget to capitalize your workflow name in your SIDE model!
+
+./build.sh improve-workflows \ -Dworkflow.action.package=&quot;org.sidelabs.is.operational.workflow&quot; -DuseProcessDefinitionName=&quot;true&quot; -DreplaceActions=&quot;true&quot;
+CHOOSE THE NAME OF THE MAIN CLASS IF REQUIRED
+
+./build.sh improve-workflows \
+  -Dworkflow.action.package=&quot;org.sidelabs.is.operational.workflow&quot;
+  -Dworkflow.action.class=&quot;Dispatch&quot;
+CHOOSE NOT TO REPLACE ALREADY EXISTING ACTIONS
+
+./build.sh improve-workflows \
+  -Dworkflow.action.package=&quot;org.sidelabs.is.operational.workflow&quot;
+  -useProcessDefinitionName=&quot;true&quot;
+  -DreplaceActions=&quot;true&quot;
+Conclusion
+
+You get the following java class:
+
+package org.sidelabs.is.operational.workflow;
+
+import org.sidelabs.workflow.SIDEActionHandler;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class Yamma extends SIDEActionHandler {
+
+        private static final long serialVersionUID = 1L;
+        private static Log logger = LogFactory.getLog(Yamma.class);
+
+        /**
+         * Transitions
+         */
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void initialize() {
+                        logger.debug(&quot;Processing: initialize&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void checkQuality() {
+                        logger.debug(&quot;Processing: checkQuality&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void accountingIsNOK() {
+                        logger.debug(&quot;Processing: accountingIsNOK&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void accountingIsOK() {
+                        logger.debug(&quot;Processing: accountingIsOK&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void legalIsNOK() {
+                        logger.debug(&quot;Processing: legalIsNOK&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void legalIsOK() {
+                        logger.debug(&quot;Processing: legalIsOK&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void finish1() {
+                        logger.debug(&quot;Processing: finish1&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void finish2() {
+                        logger.debug(&quot;Processing: finish2&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void retry() {
+                        logger.debug(&quot;Processing: retry&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void decision2() {
+                        logger.debug(&quot;Processing: decision2&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void termination() {
+                        logger.debug(&quot;Processing: termination&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void accounting() {
+                        logger.debug(&quot;Processing: accounting&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void legal() {
+                        logger.debug(&quot;Processing: legal&quot;);
+                }
+
+        /**
+         * Events
+         */
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void onEnteringNodeMove() {
+                        logger.debug(&quot;Processing: onEnteringNodeMove&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void onEnteringNodeTermination() {
+                        logger.debug(&quot;Processing: onEnteringNodeTermination&quot;);
+                }
+
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void onEnteringNodeError() {
+                        logger.debug(&quot;Processing: onEnteringNodeError&quot;);
+                }
+
+}
+ HTH</content>
+ </entry>
+ 
+ <entry>
+   <title>Alfresco multi Tenant imap4 and mount.davfs</title>
+   <link href="/2011/03/12/Alfresco+multi-tenant+IMAP4+and+mount.davfs.html"/>
+   <updated>2011-03-12T00:00:00+01:00</updated>
+   <id>/2011/03/12/Alfresco multi-tenant IMAP4 and mount.davfs</id>
+   <content type="html">Use Case
+
+In a multi-tenant Alfresco, I want to be able to use IMAP4, which is not supported in this situation, except for the host (the main tenant).
+
+A work around consists in mounting other tenants through webdav to be able to copy content from one tenant to another, and then to extract meta-data through a content rule. This feature sounds like the replicate one which is unfortunately unavailable on multi-tenant systems.
+
+Summary
+
+The Alfresco host server acts like the main tenant which receives mails for other tenants then, through webdav, copied them to other tenants.
+
+In very short, Replicate = WebDAV + Content Rule
+
+Solution
+
+The solution is based on mount.davfs.
+
+You can install it through the davfs debian package. Just do:
+
+apt-get install davfs
+Mount.davfs Configuration
+
+You then need to edit:
+
+/etc/davfs/secrets, to indicate for each mount point the user and passwd to use
+/etc/davfs/certs/yourserver.pem, to indicate the certificate for your alfresco webdav server, using SSL
+My /etc/davfs/secrets file contains the following:
+
+/mnt/davfs/test2-admin admin@test2 xxxx
+/mnt/davfs/test1-admin admin@test1 xxxx
+/mnt/davfs/demo2-admin admin@demo2 xxxx
+/mnt/davfs/demo1-admin admin@demo1 xxxx
+/mnt/davfs/main-admin admin xxxx
+where xxxx must be replaced by your password for each tenant. You can of course make some mountings with other user accounts than the admin one.
+
+You can then mount your webdav server on your mount point. For example:
+
+mount -t davfs https://your.alfresco.server/alfresco/webdav /mnt/davfs/main-admin
+where /mnt/davfs/main-admin is a directory you created before the mount command
+
+You can then use your remote alfresco server like any usual file systems and copies the data.
+
+For example, I do:
+
+cp -rf /mnt/davfs/main-admin/Imap\ Home/admin/INBOX/Alfresco/* /mnt/davfs/test1-admin/Sites/test1/documentLibrary/test/Alfresco
+Meta-data Extraction Through Content Rule
+
+E-mails are now available in my tenant, but they aren't seen like emails. So, I need to extract the meta-data corresponding to e-mails. To achieve that, I just have to create a content rule which will be triggered on new elements. This content rule will extract common meta-data from freshly copied emails.
+
+Conclusion
+
+It's a little hacky but it does the job!!!
+
+Resources
+
+http://linux.die.net/man/8/mount.davfs
+http://www.linuxquestions.org/questions/linux-software-2/force-accept-certificates-when-using-mount-davfs-632056/ to automatically accept certificates when mounting the WebDAV resource with SSL</content>
+ </entry>
+ 
+ <entry>
+   <title>Imapsync and alfresco</title>
+   <link href="/2011/03/01/imapsync+and+Alfresco.html"/>
+   <updated>2011-03-01T00:00:00+01:00</updated>
+   <id>/2011/03/01/imapsync and Alfresco</id>
+   <content type="html">Use case
+
+The YaMma (Yet Another Mail Management Application) project aims at managing mails and emails. So we want a way to input emails into the repository, which is for instance an Alfresco one. Moreover, Alfresco provides IMAP support but it lacks one important feature -IMAPS, has one important bug -folder doesn't refresh quickly, a huge drawback -the necessity to configure a new IMAP account on each customer computer.
+
+Solution
+
+To circumvent all these problems, there is a very simple solution, which only consists to create a folder, called Alfresco for example, in each already existing IMAP account of our customers. Then, we'll just need to synchronize this one with the existing IMAP account each customer has. We avoid the 3 previous drawbacks:
+
+no security hole: imapsync supports SSL so by using it on my Alfresco server, I can connect to host1 with IMAPS and to host2 with IMAP through localhost which is safe
+my Alfresco folder is always updated like my other mail folders, no refresh problem anymore
+no need to install anything on the customer's computer
+Which Software?
+
+I had a look at imap synchronization software. I noticed isync and imapsync:
+
+iSync was interesting but there was a final bug preventing me to make things work
+imapsync made finally the job but the final solution needed a few hours to get everything ok. So, here is the solution.
+Installation
+
+First, make :
+
+apt-get install imapsync
+This will install the required libraries for imapsync. Then, go on fedorahosted and get the last available imapsync version (1.434 the 2011-05-25).
+
+If you are using debian Squeeze, imapsync seems not to be available anymore. Don't worry, just add the following into your /etc/apt/sources.list to use the package available for lenny: * deb http://ftp.debian.org/debian lenny main contrib
+Then update your sources with the following: * apt-get update
+Then just do:
+
+tar xzvf imapsync-xxx.tgz
+cd imapsync-xxx
+perl -MCPAN -e shell
+install Mail::IMAPClient
+make install
+Synchronization
+
+It's now time to write a little script, called for example imapsync.sh, to make the migration occur. Note that host2 is the server where my Alfresco server resides. On host1 resides my IMAP server with my mailbox. I created an Alfresco folder in it and I only synchronized this one.
+
+///
+
+!/bin/sh
+imapsync \
+
+       -host1 yourhost1 -ssl1 -user1 mylogin@bluexml.com -passfile1 pass1.txt -folder INBOX.Alfresco \
+       -host2 localhost -prefix2 &quot;INBOX/&quot; -sep2 &quot;/&quot; -user2 myLoginOnAlfresco -passfile2 pass2.txt \
+       -useheader Subject -useheader Date \
+       -noauthmd5 -syncinternaldates
+///
+
+If you want some debug information, just add debug debugimap.
+
+Finally, just type the following:
+
+sh imapsync.sh
+If you make a man imapsync, you'll find a very interesting script to synchronize a set of mailboxes with different users and passwords. The script may be very easily updated to indicate also the folder you want to synchronize.</content>
+ </entry>
+ 
+ <entry>
+   <title>Observer pattern server side implementations</title>
+   <link href="/2011/02/25/Observer+Pattern+Server+Side+Implementations.html"/>
+   <updated>2011-02-25T00:00:00+01:00</updated>
+   <id>/2011/02/25/Observer Pattern Server Side Implementations</id>
+   <content type="html">You just discovered Observer pattern in javascript on the client, and we already talk about server side implementations.
+
+What does server side implementation add?
+
+This means that once you developed the Observer pattern on your client side application, you can very easily extend it to provide easy and widespread messaging interop among languages, platforms and brokers. This basically means you can communicate messages to a lot of others users.
+
+Server side implementation may be done through CometD, which is now part of dojo, which enable you to build very simple chat application for the most straight forward use case.
+
+Conclusion
+
+When writing these posts, I found the following resources which may be of interest:
+
+http://almaer.com/blog/enjoying-the-observer-pattern-with-custom-events
+http://stackoverflow.com/questions/390740/messaging-queues-and-esbs-i-know-where-i-want-to-be-but-not-how-to-get-there</content>
+ </entry>
+ 
+ <entry>
+   <title>Observer pattern multi framework implementation</title>
+   <link href="/2011/02/24/Observer+Pattern+Multi+Framework+Implementation.html"/>
+   <updated>2011-02-24T00:00:00+01:00</updated>
+   <id>/2011/02/24/Observer Pattern Multi Framework Implementation</id>
+   <content type="html">We have seen in the previous posts how to use Observer Pattern in dojo and jQuery. But first, why do we bother at building such a unified solution?
+
+Why such a requirement?
+
+I have 2 main reasons:
+
+I can use it the same way whatever the context I am in. I don't want to remember the specific syntax for a specific framework. It makes code understandability easier.
+I can work simultaneously with various frameworks.
+For example, in Alfresco Share, I wrote a code snippet to use dojo in the document-details view to extend the way meta data are displayed in a more friendly UI. But this extension uses dojo and Alfresco Share is based on Y!UI. So I need to interact from Y!UI with dojo and vice-versa. Architecture may evolve and I could need to interact with jquery components, so such an Observer implementation may help.
+
+In short:
+
+one publish will forward the publish on all the available Observer implementation
+one subscribe will subscribe the component on all the available Observer implementation
+Moreover by this way I can add specific code for debugging purposes.
+
+Observer Implementation
+
+Observer = {
+        log: new log4javascript.getLogger(&quot;SIDE.Observer&quot;),
+
+        subscribe: function(channel, subscriber) {
+                if (Observer.log.isDebugEnabled()) {
+                        Observer.log.debug(&quot;Observer - Subscribing&quot;);
+                        Observer.log.debug(&quot;Channel : &quot; + channel);
+                }
+                // Dojo
+                dojo.subscribe(channel, subscriber);
+                // jQuery
+                document.bind(channel, subscriber);
+                // Y!UI, ExtJS, ...
+        },
+
+        publish: function(channel, message) {
+                if (Observer.log.isDebugEnabled()) {
+                        Observer.log.debug(&quot;Observer - Publishing&quot;);
+                        Observer.log.debug(&quot;Channel : &quot;, channel);
+                        Observer.log.debug(&quot;Message : &quot;, message[0]);
+                }
+                // Dojo
+                dojo.publish(channel, message);
+                // jQuery
+                document.trigger(channel, message);
+                // Y!UI, ExtJS, ...
+        }
+}
+For the use of log4javascript, please refer to my previous post.
+
+Any comments?</content>
+ </entry>
+ 
+ <entry>
+   <title>Observer pattern jquery usage</title>
+   <link href="/2011/02/23/Observer+Pattern+jQuery+usage.html"/>
+   <updated>2011-02-23T00:00:00+01:00</updated>
+   <id>/2011/02/23/Observer Pattern jQuery usage</id>
+   <content type="html">If I take the example back, I just have to add the js corresponding to jQuery. I finally get the following html page:
+
+&lt;html&gt;
+&lt;head&gt;
+        &lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+        &lt;div id=&quot;menu&quot;&gt;
+                        &lt;h1&gt;Menu&lt;/h1&gt;
+                &lt;ul&gt;
+                        &lt;li&gt;&lt;a href=&quot;javascript:OldWay()&quot;&gt;Old way&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href=&quot;javascript:ObserverWay()&quot;&gt;Observer way&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;contentPortlet&quot;&gt;
+                &lt;h1&gt;Content&lt;/h1&gt;
+                &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;metadataPortlet&quot;&gt;
+                &lt;h1&gt;Detail&lt;/h1&gt;
+                &lt;div id=&quot;metadata&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+I now add the event mechanism through the use of the bind and trigger functions.
+
+The bind action takes 2 arguments:
+
+the event name
+the function to call
+The following code snippet will make the contentPortlet listen to the info event:
+
+doc.bind('info', contentPortlet);
+An event is triggered by simply calling the trigger action with the event name, with optional parameters:
+
+doc.trigger('info', 'View Updated Through The Old Way');
+        &lt;script type=&quot;text/javascript&quot;&gt;
+
+                var doc = $(document); // just a shortcut
+
+                var contentPortlet = function(event, message) {
+                        // replace the content div by the message received
+                        // when the event has been triggered
+                        $('#content').html('Content ' + message);
+                }
+
+                var metadataPortlet = function(event, message) {
+                        // replace the metadata div by the message received
+                        // when the event has been triggered
+                        $('#metadata').html('Metadata ' + message);
+                }
+
+                doc.bind('info', contentPortlet);
+                doc.bind('info', metadataPortlet);
+
+                function ObserverWay() {
+                        doc.trigger('info', 'View Updated Through The Old Way');
+                }
+
+        &lt;/script&gt;
+As you noticed, all these components are coupled in a very agile way. We could configure (bind) content and metadata portlets so they listen to other events.</content>
+ </entry>
+ 
+ <entry>
+   <title>Observer pattern dojo usage</title>
+   <link href="/2011/02/22/Observer+Pattern+dojo+usage.html"/>
+   <updated>2011-02-22T00:00:00+01:00</updated>
+   <id>/2011/02/22/Observer Pattern dojo usage</id>
+   <content type="html">Let's take our previous code and replace jQuery mechanism by dojo:
+
+replace jquery lib by dojo lib
+replace bind by subscribe
+replace trigger by publish
+replace jquery sugar by dojo one
+Then transform the parameter passed when the trigger is fired as an array:
+
+'View Updated Through The Old Way' becomes 'View Updated Through The Old Way'
+and remove the event from the content and metadata portlet. You don't need them anymore. If required, you can forward them in the parameters when the event is triggered.
+
+You now have the following code:
+
+&lt;html&gt;
+&lt;head&gt;
+        &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js&quot;&gt;&lt;/script&gt;
+
+        &lt;script type=&quot;text/javascript&quot;&gt;
+
+                var doc = document;
+
+                var contentPortlet = function(message) {
+                        dojo.byId(&quot;content&quot;).innerHTML = 'Content ' + message;
+                }
+
+                var metadataPortlet = function(message) {
+                        dojo.byId(&quot;metadata&quot;).innerHTML = 'Metadata ' + message;
+                }
+
+                dojo.subscribe('info', contentPortlet);
+                dojo.subscribe('info', metadataPortlet);
+
+                function OldWay() {
+                   var content = document.getElementById('content');
+                   var metadata = document.getElementById('metadata');
+
+                   content.innerHTML = &quot;Content View Updated Through The Old Way&quot;;
+                   metadata.innerHTML = &quot;Metadata View Updated Through The Old Way&quot;;
+                }
+
+                function ObserverWay() {
+                        dojo.publish('info', ['View Updated Through The Old Way']);
+                }
+
+        &lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+        &lt;div id=&quot;menu&quot;&gt;
+                        &lt;h1&gt;Menu&lt;/h1&gt;
+                &lt;ul&gt;
+                        &lt;li&gt;&lt;a href=&quot;javascript:OldWay()&quot;&gt;Old way&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href=&quot;javascript:ObserverWay()&quot;&gt;Observer way&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;contentPortlet&quot;&gt;
+                &lt;h1&gt;Content&lt;/h1&gt;
+                &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;metadataPortlet&quot;&gt;
+                &lt;h1&gt;Detail&lt;/h1&gt;
+                &lt;div id=&quot;metadata&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+Any comments?</content>
+ </entry>
+ 
+ <entry>
+   <title>Observer pattern comparison beetween jquery, dojo and yui</title>
+   <link href="/2011/02/21/Observer+Pattern+Comparison+Beetween+jQuery%2C+Dojo+and+YUI.html"/>
+   <updated>2011-02-21T00:00:00+01:00</updated>
+   <id>/2011/02/21/Observer Pattern Comparison Beetween jQuery, Dojo and YUI</id>
+   <content type="html">Observer Pattern: The Graal of The Developer
+
+In a very few words, this pattern enables to build agile software architecture by decoupling objects which produce information and objects which consume it. For example, it is really useful to update user interfaces after an event happens.
+
+First, we're going to deal with a very simple use case and provide a solution without and with this pattern (based on an algorithmic solution) to describe the problem
+Then, we'll provide a concrete solution in jQuery, Dojo and Y!UI to be able to compare them
+Then, we'll suggest a unified approach so we can use observer mechanism in an application with all these 3 frameworks. This solution can be extended to use other frameworks too.
+At last, we'll conclude with a few thoughts about server-side observer implementation like Cometd
+This approach will finally be used at the end of the tutorial to customize the metadata component of the document details page in Alfresco Share.
+
+The Use Case
+
+Let's imagine we have 3 components in an html page. These components are 3 divs named menu, content and details. We have in the menu an action to update menu and details:
+
+&lt;html&gt;
+&lt;body&gt;
+        &lt;div id=&quot;menu&quot;&gt;
+                &lt;ul&gt;
+                        &lt;li&gt;&lt;a href=&quot;javascript:OldWay()&quot;&gt;Old way&lt;/a&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;a href=&quot;javascript:ObserverWay()&quot;&gt;Observer way&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;content&quot;&gt;Content&lt;/div&gt;
+        &lt;div id=&quot;metadata&quot;&gt;Detail&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+The solution without Observer Pattern
+
+To achieve the requirements, you would write the OldWay javascript function like that:
+
+function OldWay() {
+
+   var content = document.getElementById('content');
+   var metadata = document.getElementById('metadata');
+   content.innerHTML = &quot;Content View Updated Through The Old Way&quot;;
+   metadata.innerHTML = &quot;Metadata View Updated Through The Old Way&quot;;
+   alert(&quot;Success&quot;);
+}
+
+This solution works very well but as you noticed, the OldWay function must know the components to update. It is a very annoying point. Our components are strongly coupled: it's a very bad design.
+
+The Observer Pattern Based Solution
+
+The following lines are not true code, rather alogrithmic ones.
+
+function ObserverWay() {
+
+   Publish(&quot;/info&quot;, &quot;update&quot;)
+}
+
+function UpdateContent() {
+
+   content.innerHTML = &quot;Content Updated Through The Old Way&quot;;
+}
+
+function UpdateMetadata() {
+
+   content.innerHTML = &quot;Content Updated Through The Old Way&quot;;
+}
+
+Subscribe(&quot;/info&quot;, UpdateContent()); Subscribe(&quot;/info&quot;, UpdateMetadata());
+
+We now have 3 functions, completely independant:
+
+one publisher, ObserverWay, which produces some information
+two consumers, UpdateContent and UpdateMetadata, which consume information
+The communication beetween producers and consumers is done through the info channel on which the first publishes some information while the others subscribe (or listen) to it.
+
+In this architecture, if we add a new component, it just has to subscribe to the channels it is interested with, without disturbing the architecture.
+
+We'll see tomorrow the unified approach I suggest to use.</content>
+ </entry>
+ 
+ <entry>
+   <title>Fuse and openvz</title>
+   <link href="/2011/02/01/Fuse+and+OpenVZ.html"/>
+   <updated>2011-02-01T00:00:00+01:00</updated>
+   <id>/2011/02/01/Fuse and OpenVZ</id>
+   <content type="html">Use Case
+
+To be able to use mount.davfs, I need to install fuse.
+
+My problem is I'm on a virtual machine, based on OpenVZ
+
+Problem
+
+When installing fuse-utils through apt-get, everything went fine but mount.davfs doesn't work and give a short: /sbin/mount.davfs: can't open /dev/fuse
+
+This process works smoothly on a virtual machine based on Fully Virtualized (KVE) but not on an OpenVZ
+
+Diagnostic
+
+In OpenVZ, in contrast with KVE, virtual machines share with host node kernel modules and devices. This means 2 important hings:
+
+the host node must have any module you want to use on virtual machines
+the host node must create devices and give permissions to virtual machines to use them
+Solution
+
+So, I needed, where $CTID is the container ID:
+
+to install fuse-utils on host node: apt-get install fuse-utils
+to install fuse-utils on the required container
+to create device on the host node through the following command: vzctl set $CTID --devnodes fuse:rw
+And finally, for the new module to be available, restart the container:
+
+vzctl restart $CTID
+Problem
+
+The problems you may have are often related to /dev/fuse. You can have:
+
+/sbin/mount.davfs: /dev/fuse: permission denied
+/sbin/mount.davfs: can't open /dev/fuse
+/SBIN/MOUNT.DAVFS: /DEV/FUSE: PERMISSION DENIED
+
+Your user is generally not in the right group, so add your user into fuse group and chmod 660 /dev/fuse. Ask google, a lot of people had this problem and solved it quickly (see 1).
+
+/SBIN/MOUNT.DAVFS: CAN'T OPEN /DEV/FUSE
+
+You probably first installed fuse on the virtual machine and the /dev/fuse device has so been created by your virtual machine but, as stated before, all kernel modules and devices are shared beetween the host node and containers. You can see it, with the right group and set of permissions, but you can't open it.
+
+You absolutely need to create the device in the Host Node. To do so, just remove it from the container (it means your virtual machine) with a plain &quot;rm /dev/fuse&quot; and create in the host node the corresponding /dev/fuse:
+
+vzctl set $CTID devices c:10:229:rw save
+vzctl exec $CTID mknod /dev/fuse c 10 229
+If you now look into /etc/vz/conf/$CTID.conf, you will see the following new line:
+
+DEVNODES=&quot;fuse:rw &quot;
+Restart your container:
+
+vzctl restart $CTID
+And, miracle, everything will run smoothly :-)
+
+Resources
+
+1 http://www.nullamatix.com/fixed-fuse-failed-open-dev-fuse-permission-denied/</content>
+ </entry>
+ 
+ <entry>
+   <title>Reduce pdf size after 300ppp and color scan</title>
+   <link href="/2011/01/13/Reduce+PDF+size+after+300ppp+and+color+scan.html"/>
+   <updated>2011-01-13T00:00:00+01:00</updated>
+   <id>/2011/01/13/Reduce PDF size after 300ppp and color scan</id>
+   <content type="html">Use Case
+
+To manage paper documents in YaMma (Yet Another Mail Management Application), I do the following actions:
+
+scan 24bits-colors, 300ppp for good quality
+process them to ocr
+reduce their size
+create a pdf with the text from ocr embedded into the pdf
+For a document of 17 pages, its size is about 170Mo after such a scan. While this quality is interesting for OCR, there are about 10K documents into the company intranet and I can't put a file with such a size into my content repository...
+
+So the need for a solution to reduce the size of the document.
+
+Solution
+
+I can choose and configure my output from my scan:
+
+quality (100, 200, 300, 600, 1200ppp)
+color (B&amp;W, 8, 16, 24 bits color)
+output type (pdf, image, ...)
+I generally choose PDF output, 300ppp, 24 bits color and my scanner (a very cheap Brother DCP6690CW) finally creates such a file after creating a TIFF file for each page and concatenating them all together.
+
+To reduce file size, I then can:
+
+reduce all TIFF files through convert (ImageMagick) and concatenate them into a pdf one
+directly reduce PDF file through ghostscript (gs)
+By following this second option (I haven't studied the first one), I'm able to easily get a PDF file of about 1-3Mo with an enough good quality to have a correct reading.
+
+Usage
+
+Just get a ghostscript installation for your system. Then choose the quality you are looking for (screen &lt; ebook &lt; prepress, ...)
+
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf
+or
+
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf
+You can specify options for better quality or to produce PDF/X or PDF/A. Just have a look at the gs options on the manual. For a 160Mo PDF file, you will finally get a 1Mo file with screen option and 3Mo file with ebook one. Ebook quality is really better.
+
+Pointers
+
+http://www.ubuntugeek.com/ubuntu-tiphowto-reduce-adobe-acrobat-file-size-from-command-line.html
+http://pages.cs.wisc.edu/~ghost/doc/cvs/Ps2pdf.htm</content>
+ </entry>
+ 
+ <entry>
+   <title>Qr code</title>
+   <link href="/2011/01/13/QR+Code.html"/>
+   <updated>2011-01-13T00:00:00+01:00</updated>
+   <id>/2011/01/13/QR Code</id>
+   <content type="html">I just discovered zxing.org a few days ago. It's an interesting tool to generate and analyze bar code and QR Codes.
+
+A QRCode stands for Quick Response Code and aims at replacing bar codes in the future. Here is an example of QRCode:
+
+
+
+Advantages on bar codes
+
+Bar code stores information in one dimension. QR Code stores information on 2 dimensions. You then can store more information, and this one ay be redundant so if your QRCode isn't complete, you can still get the information.
+
+Download and compile
+
+Just get the source on the svn server and compile core and javase modules. It's enough to use the command to extract the information from a QRCode
+
+Test
+
+By using the following command, you can extract the information stored into it a QRCode:
+
+java -cp javase/javase.jar:core/core.jar com.google.zxing.client.j2se.CommandLineRunner &quot;http://chart.apis.google.com/chart?cht=qr&amp;chs=230x230&amp;chl=MECARD%3AN%3AJean-Christophe+Kermagoret%3BTEL%3A%2B33240466278%3BURL%3Ahttp%3A%2F%2Fwww.bluexml.com%3BEMAIL%3Ajck-qrcode%40bluexml.com%3BADR%3A40%2C+bd+Jean+Ingres+44100+Nantes%3B%3B&quot;
+This will give you the following results:
+
+Raw result:
+MECARD:N:Jean-Christophe Kermagoret;TEL:+33240466278;URL:http://www.bluexml.com;EMAIL:jck-qrcode@bluexml.com;ADR:40, bd Jean Ingres 44100 Nantes;;
+Parsed result:
+Jean-Christophe Kermagoret
+40, bd Jean Ingres 44100 Nantes
++33240466278
+jck-qrcode@bluexml.com
+http://www.bluexml.com
+Also, there were 4 result points.
+  Point 0: (39.0,191.0)
+  Point 1: (39.0,39.0)
+  Point 2: (191.0,39.0)
+  Point 3: (179.0,179.0)
+You can then parse the results very easily to take the right decision.
+
+YaMma Use Case
+
+I'm going to use this QRCode to add information manually on paper documents for the next version of the YaMma open source project, based on Alfresco, which deals with mail (paper and electronic) management. The document can then be acquired and analyzed through an OCR to get the previous information. If quality isn't enough, you can add the --try_harder parameter. The document will then be automatically filed into the right directory of your file plan.
+
+Mobile Use Case
+
+You can also use your phone mobile to extract the information. Install the i-nigma application on your iPhone and scan the QRCode above. You'll almost instantly get the information.</content>
+ </entry>
+ 
+ <entry>
+   <title>Use case</title>
+   <link href="/2011/01/10/OpenVZ+and+disk+share+with+volume+group+and+logical+volumes.html"/>
+   <updated>2011-01-10T00:00:00+01:00</updated>
+   <id>/2011/01/10/OpenVZ and disk share with volume group and logical volumes</id>
+   <content type="html">&lt;p&gt;Use case&lt;/p&gt;
+
+&lt;p&gt;I have a virtual system with a main host and various virtual machines. I want these virtual machines to have some directories shared with the main host so the backup will be easier.&lt;/p&gt;
+
+&lt;p&gt;Solution&lt;/p&gt;
+
+&lt;p&gt;I mount a directory on my main host into the virtual machine. To be the more flexible possible, the mounted directory is based on a logical volume I can increase or decrease according to my needs.&lt;/p&gt;
+
+&lt;p&gt;Implementation&lt;/p&gt;
+
+&lt;p&gt;On your main host, create a logical volume and format it. For example, if you have a volume group called data, you could do this:&lt;/p&gt;
+
+&lt;p&gt;lvcreate -L20G -n vz106 data mkfs.ext3 /dev/data/vz106 This creates a /dev/data/vz106, which corresponds to a 20GB disk, on your system. This new disk can now be mounted on a directory which is inside one of your container:&lt;/p&gt;
+
+&lt;p&gt;mount -n &amp;#8211;bind /data/vz/106 /var/lib/vz/root/106/data To make everything automatic during the reboot, you can create corresponding files in your /etc/vz directory. On my system, I have:&lt;/p&gt;
+
+&lt;p&gt;/etc/vz/conf/106.mount:&lt;/p&gt;
+
+&lt;h10&gt;MACRO#0&lt;/h10&gt;
+
+&lt;p&gt;/etc/vz/106.unmount:&lt;/p&gt;
+
+&lt;h10&gt;MACRO#1#That&amp;#8217;s all&lt;/h10&gt;</content>
+ </entry>
+ 
+ 
+</feed>
