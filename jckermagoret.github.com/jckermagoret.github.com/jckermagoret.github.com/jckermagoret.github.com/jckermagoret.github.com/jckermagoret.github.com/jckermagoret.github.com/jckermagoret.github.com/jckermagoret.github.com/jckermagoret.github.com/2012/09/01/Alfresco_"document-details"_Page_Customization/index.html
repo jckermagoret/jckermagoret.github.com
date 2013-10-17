@@ -1,0 +1,116 @@
+<p>The document-details page is defined in the page directory located $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-data/pages/document-details.xml:</p>
+<?xml version='1.0' encoding='UTF-8'?><page>
+   <title>Document Details</title>
+   <title-id>page.documentDetails.title</title-id>
+   <description>Document details</description>
+   <description-id>page.documentDetails.description</description-id>
+   <template-instance>document-details</template-instance>
+   <authentication>user</authentication>
+</page>
+<p>This page uses the document-details template as indicated, located at $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-data/template-instances/document-details.xml</p>
+<?xml version='1.0' encoding='UTF-8'?><template-instance>
+   <template-type>org/alfresco/document-details</template-type>
+   <properties>
+      <pageFamily>documentlibrary</pageFamily>
+      <container>documentLibrary</container>
+   </properties>
+</template-instance>
+<p>The document-details page is the result of the agregation of the (take a deep breath :-) $TOMCAT/webapps/share/WEB-INF/classes/alfresco/templates/org/alfresco/document-details.ftl which looks like this for its most important part:</p>
+<pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'>REXML could not parse this XML/HTML: 
+&lt;div&gt;
+    &lt;div&gt;
+        &lt;@region id=doclibType + &quot;document-metadata-header&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-metadata&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-info&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-versions&quot; scope=&quot;template&quot; protected=true /&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;@region id=doclibType + &quot;document-actions&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;@region id=doclibType + &quot;document-links&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;#if doclibType?starts_with(&quot;dod5015&quot;)&gt;
+            &lt;@region id=doclibType + &quot;document-references&quot; scope=&quot;template&quot; protected=true /&gt;
+        &lt;/#if&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+The only part a little strange is that the core of this page, consisting of the metadata is not processed the same way, which would make customization a lot easier. Instead of that, they use the form component to render the document metadata. Maybe to provide inline update later, but for the moment, I just want to render my metadata and I prefer to have a consistent way to do this.
+
+So, I replaced the:
+
+&lt;@region id=doclibType + &quot;document-metadata&quot; scope=&quot;template&quot; protected=true /&gt;
+by:
+
+&lt;@region id=doclibType + &quot;document-metadata-core&quot; scope=&quot;template&quot; protected=true /&gt;
+and then defined the corresponding template, webscript and component.
+
+First, indicate the component to use when the document-metadata-core region is used from the document-details template. This happens in $TOMCAT/share/WEB-INF/classes/alfresco/site-data/components/template.document-metadata-core.document-details.xml:
+
+&lt;?xml version=&apos;1.0&apos; encoding=&apos;UTF-8&apos;?&gt;
+&lt;component&gt;
+   &lt;scope&gt;template&lt;/scope&gt;
+   &lt;region-id&gt;document-metadata-core&lt;/region-id&gt;
+   &lt;source-id&gt;document-details&lt;/source-id&gt;
+   &lt;url&gt;/components/document-details/document-metadata-core&lt;/url&gt;
+&lt;/component&gt;
+Second, define $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-webscripts/org/alfresco/components/document-details/document-metadata-core.get.(desc|head|html).xml files with the following content: 2.1: document-metadata-core.get.desc.html:
+
+&lt;webscript&gt;
+  &lt;shortname&gt;document-metadata-core&lt;/shortname&gt;
+  &lt;description&gt;Document Metadata Core Component&lt;/description&gt;
+  &lt;url&gt;/components/document-details/document-metadata-core&lt;/url&gt;
+&lt;/webscript&gt;
+2.2: document-metadata-core.get.head.html:
+
+&lt;#include &quot;../component.head.inc&quot;&gt;
+&lt;!-- Document Metadata Header --&gt;
+&lt;@link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;${page.url.context}/components/document-details/document-metadata-core.css&quot; /&gt;
+&lt;@script type=&quot;text/javascript&quot; src=&quot;${page.url.context}/components/document-details/document-metadata-core.js&quot;&gt;&lt;/@script&gt;
+2.3: document-metadata-core.get.html:
+
+&lt;script type=&quot;text/javascript&quot;&gt;//&lt;![CDATA[
+   new Alfresco.DocumentMetadataCore(&quot;${args.htmlid}&quot;).setMessages(${messages});
+//]]&gt;&lt;/script&gt;
+&lt;div id=&quot;metadata-core&quot;&gt;
+   &lt;div&gt;${msg(&quot;document-metadata-core.heading&quot;)}&lt;/div&gt;
+   &lt;h1&gt;&gt;Woooh, juste un peu de texte :-)&lt;/h1&gt;
+&lt;/div&gt;
+Lastly, we define $TOMCAT/webapps/share/components/document-details/document-metadata-core.js which will be compressed in document-metadata-core-min.js later:
+
+/**
+ * Document metadata-core component.
+ *
+ * @namespace Alfresco
+ * @class Alfresco.DocumentMetadataCore
+ */
+(function()
+{
+   var Dom = YAHOO.util.Dom;
+   var $html = Alfresco.util.encodeHTML;
+
+   /**
+    * DocumentMetadataCore constructor.
+    *
+    * @param {String} htmlId The HTML id of the parent element
+    * @return {Alfresco.DocumentMetadataCore} The new DocumentMetadataCore instance
+    * @constructor
+    */
+   Alfresco.DocumentMetadataCore = function(htmlId)
+   {
+      Alfresco.DocumentMetadataCore.superclass.constructor.call(this, &quot;Alfresco.DocumentMetadataCore&quot;, htmlId);*/
+
+      /* Decoupled event listeners */
+      YAHOO.Bubbling.on(&quot;documentDetailsAvailable&quot;, this.onDocumentDetailsAvailable, this);
+
+      return this;
+   };
+
+   YAHOO.extend(Alfresco.DocumentMetadataCore, Alfresco.component.Base,
+   {
+      onDocumentDetailsAvailable: function DocumentMetadataCore_onDocumentDetailsAvailable(layer, args)
+      {
+      // Just write your code there
+      }
+   });
+})();
+Through the use of bubbling (kind of Observer pattern), the document-details page updates when the &quot;documentDetailsAvailable&quot; event fires and the method above is played thanks to the following line:
+
+YAHOO.Bubbling.on(&quot;documentDetailsAvailable&quot;, this.onDocumentDetailsAvailable, this);</pre>
