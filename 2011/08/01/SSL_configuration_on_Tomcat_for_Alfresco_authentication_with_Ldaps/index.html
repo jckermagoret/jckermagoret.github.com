@@ -1,0 +1,23 @@
+<p>Use Case</p>
+
+<p>I want Alfresco to be able to authenticate on a Ldap server, secured with SSL.</p>
+
+<p>Problem</p>
+
+<p>Ldaps is a ldap service secured on SSL. So you need to accept the SSL certificate to use the service.</p>
+
+<p>Solution</p>
+
+<p>To do so in the java world, you need a java keystore which stores the certificates (and private keys too). This is a file usually stored in /etc/java/keystore.jks</p>
+
+<p>Installation</p>
+
+<p>You first need to get the SSL certificate of the ldaps service. You can get it through openssl command:</p>
+
+<p>openssl s_client -connect YOUR_SERVER:YOUR_PORT -showcerts Just copy the lines beetween -BEGIN- until -END- with these latter included into ldaps.crt for example. If you want a more automated procedure, just have a look to get-cert script which wraps &#8220;openssl s_client&#8221;. You can then import it into your keystore:</p>
+
+<p>keytool -import -alias ldaps -file ldaps.crt -keystore /etc/java/keystore.jks Usage</p>
+
+<p>Just launch Tomcat with the following option:</p>
+
+<p>export JAVA_OPTS=$JAVA_OPTS&#8217; -Djavax.net.ssl.trustStore=/etc/java/keystore.jks&#8217;</p>
