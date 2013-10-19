@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Observer Pattern Server Side Implementation</title>
     
     <meta name="author" content="Jean-Christophe KERMAGORET">
 
@@ -87,70 +87,23 @@
     <div class="container">
 
       <div class="content">
-        
+        <p>You just discovered Observer pattern in javascript on the client, and we already talk about server side implementations.</p>
 
-<div class="blog-index">
+<h1 id='what_does_server_side_implementation_add'>What does server side implementation add?</h1>
 
+<p>This means that once you developed the Observer pattern on your client side application, you can very easily extend it to provide easy and widespread messaging interop among languages, platforms and brokers. This basically means you can communicate messages to a lot of others users.</p>
 
-<h1 class="entry-title">
+<p>Server side implementation may be done through CometD, which is now part of dojo, which enable you to build very simple chat application for the most straight forward use case.</p>
 
+<h1 id='conclusion'>Conclusion</h1>
 
-<a href="/categories/git/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content">How to initialize a git repository from an existing content</a>
+<p>When writing these posts, I found the following resources which may be of interest:</p>
 
-</h1>
-<div class="entry-content"><p>I&#8217;m sure it&#8217;s not the shortest way to do it, but at least, it works :-)</p>
+<ul>
+<li>http://almaer.com/blog/enjoying-the-observer-pattern-with-custom-events</li>
 
-<h1 id='create_the_git_repository'>Create the git repository</h1>
-
-<p>To achieve this, create the following script and name it create-git-repo.sh:</p>
-
-<pre><code>#!/bin/sh
-
-REPO_NAME=$1
-DESC=$2
-
-GIT_SERVER=git.side-labs.org
-OWNER=&quot;Jean-Christophe+Kermagoret&lt;jck@bluexml.com&gt;&quot;
-REPOSITORIES=&quot;/data/local/scm/git/$GIT_SERVER/repositories&quot;
-GITWEB_PROJECTS=&quot;/&quot;
-CLONEURL=&quot;https://git.side-labs.org/git/$REPO_NAME&quot;
-
-# create a new bare repository
-cd $REPOSITORIES
-sudo -u www-data git init --bare $REPO_NAME
-cd $REPO_NAME
-#sudo -u git touch git-daemon-export-ok
-
-# additional set-up for Gitweb
-echo &quot;$DESC&quot; | sudo -u www-data tee description
-echo &quot;$REPO_NAME $OWNER&quot; | sudo -u www-data tee -a GITWEB_PROJECTS
-echo &quot;$CLONEURL&quot; | sudo -u www-data tee cloneurl</code></pre>
-
-<p>Then to create the repo, just type the following</p>
-
-<pre><code>root# sh create-git-repo.sh YaRma &quot;Yet Another Requisition Management Application with SIDE&quot;</code></pre>
-
-<h1 id='import_existing_content'>Import existing content</h1>
-
-<p>Second, go into the directory where is stored your existing content (not the repository for the moment!)</p>
-
-<pre><code>root# git init
-root# git add .
-root# git commit -m &quot;Initial import&quot;
-root# git remote add origin /opt/local/scm/git/git.side-labs.org/repositories/YaRma.git
-root# git push --all</code></pre>
-
-<p>Now, it&#8217;s time to just check your installation through gitweb.</p></div>
-
-</div>
-
-
-
-
-  
-
-
-
+<li>http://stackoverflow.com/questions/390740/messaging-queues-and-esbs-i-know-where-i-want-to-be-but-not-how-to-get-there</li>
+</ul>
       </div>
 
       <footer>

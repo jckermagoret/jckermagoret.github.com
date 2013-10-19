@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>OpenVZ and disk share with volume group and logical volumes</title>
     
     <meta name="author" content="Jean-Christophe KERMAGORET">
 
@@ -87,70 +87,30 @@
     <div class="container">
 
       <div class="content">
-        
+        <h1 id='use_case'>Use case</h1>
 
-<div class="blog-index">
+<p>I have a virtual system with a main host and various virtual machines. I want these virtual machines to have some directories shared with the main host so the backup will be easier.</p>
 
+<h1 id='solution'>Solution</h1>
 
-<h1 class="entry-title">
+<p>I mount a directory on my main host into the virtual machine. To be the more flexible possible, the mounted directory is based on a logical volume I can increase or decrease according to my needs.</p>
 
+<h1 id='implementation'>Implementation</h1>
 
-<a href="/categories/git/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content">How to initialize a git repository from an existing content</a>
+<p>On your main host, create a logical volume and format it. For example, if you have a volume group called data, you could do this:</p>
 
-</h1>
-<div class="entry-content"><p>I&#8217;m sure it&#8217;s not the shortest way to do it, but at least, it works :-)</p>
+<pre><code>lvcreate -L20G -n vz106 data
+mkfs.ext3 /dev/data/vz106</code></pre>
 
-<h1 id='create_the_git_repository'>Create the git repository</h1>
+<p>This creates a /dev/data/vz106, which corresponds to a 20GB disk, on your system. This new disk can now be mounted on a directory which is inside one of your container:</p>
 
-<p>To achieve this, create the following script and name it create-git-repo.sh:</p>
+<pre><code>mount -n --bind /data/vz/106 /var/lib/vz/root/106/data</code></pre>
 
-<pre><code>#!/bin/sh
+<p>To make everything automatic during the reboot, you can create corresponding files in your /etc/vz directory. On my system, I have:</p>
 
-REPO_NAME=$1
-DESC=$2
+<pre><code>/etc/vz/conf/106.mount:
 
-GIT_SERVER=git.side-labs.org
-OWNER=&quot;Jean-Christophe+Kermagoret&lt;jck@bluexml.com&gt;&quot;
-REPOSITORIES=&quot;/data/local/scm/git/$GIT_SERVER/repositories&quot;
-GITWEB_PROJECTS=&quot;/&quot;
-CLONEURL=&quot;https://git.side-labs.org/git/$REPO_NAME&quot;
-
-# create a new bare repository
-cd $REPOSITORIES
-sudo -u www-data git init --bare $REPO_NAME
-cd $REPO_NAME
-#sudo -u git touch git-daemon-export-ok
-
-# additional set-up for Gitweb
-echo &quot;$DESC&quot; | sudo -u www-data tee description
-echo &quot;$REPO_NAME $OWNER&quot; | sudo -u www-data tee -a GITWEB_PROJECTS
-echo &quot;$CLONEURL&quot; | sudo -u www-data tee cloneurl</code></pre>
-
-<p>Then to create the repo, just type the following</p>
-
-<pre><code>root# sh create-git-repo.sh YaRma &quot;Yet Another Requisition Management Application with SIDE&quot;</code></pre>
-
-<h1 id='import_existing_content'>Import existing content</h1>
-
-<p>Second, go into the directory where is stored your existing content (not the repository for the moment!)</p>
-
-<pre><code>root# git init
-root# git add .
-root# git commit -m &quot;Initial import&quot;
-root# git remote add origin /opt/local/scm/git/git.side-labs.org/repositories/YaRma.git
-root# git push --all</code></pre>
-
-<p>Now, it&#8217;s time to just check your installation through gitweb.</p></div>
-
-</div>
-
-
-
-
-  
-
-
-
+/etc/vz/106.unmount:</code></pre>
       </div>
 
       <footer>

@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>SSL configuration on Apache as a front end for Alfresco</title>
     
     <meta name="author" content="Jean-Christophe KERMAGORET">
 
@@ -87,70 +87,56 @@
     <div class="container">
 
       <div class="content">
-        
+        <h1 id='use_case'>Use Case</h1>
 
-<div class="blog-index">
+<p>I want to secure Alfresco (webdav) and Share Access through SSL.</p>
 
+<h1 id='solution'>Solution</h1>
 
-<h1 class="entry-title">
+<p>The solution is to secure Alfresco access through Apache-SSL.</p>
 
+<p>Why not directly use Tomcat SSL? Because I want to protect 2 tomcat instances and only make one SSL installation. Moreover, I need some Apache specific features like rewriting ones.</p>
 
-<a href="/categories/git/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content">How to initialize a git repository from an existing content</a>
+<p>Only Apache access will be available so Alfresco will be available through ProxyPass features. Direct access is prohibited at the tomcat level.</p>
 
-</h1>
-<div class="entry-content"><p>I&#8217;m sure it&#8217;s not the shortest way to do it, but at least, it works :-)</p>
+<h1 id='configuration'>Configuration</h1>
 
-<h1 id='create_the_git_repository'>Create the git repository</h1>
+<h2 id='ssl_configuration'>SSL Configuration</h2>
 
-<p>To achieve this, create the following script and name it create-git-repo.sh:</p>
+<pre><code>cd /etc/ssl
+openssl genrsa -des3 -rand file1:file2:file3:file4:file5 -out server-with-passphrase.key 2048
+openssl rsa -in server-with-passphrase.key -out server.pem
+openssl req -new -key server.pem -out server.csr
+openssl x509 -req -days 365 -in server.csr -signkey server.pem -out server.crt</code></pre>
 
-<pre><code>#!/bin/sh
+<h2 id='ssl_apache_configuration'>SSL Apache Configuration</h2>
 
-REPO_NAME=$1
-DESC=$2
+<p>You can then create the following configuration into your apache configuration file:</p>
 
-GIT_SERVER=git.side-labs.org
-OWNER=&quot;Jean-Christophe+Kermagoret&lt;jck@bluexml.com&gt;&quot;
-REPOSITORIES=&quot;/data/local/scm/git/$GIT_SERVER/repositories&quot;
-GITWEB_PROJECTS=&quot;/&quot;
-CLONEURL=&quot;https://git.side-labs.org/git/$REPO_NAME&quot;
+<pre><code>SSLEngine on
+SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+SSLCertificateFile /etc/ssl/certs-specific/gollum.bluexml.com.crt
+SSLCertificateKeyFile  /etc/ssl/private/gollum.bluexml.com.pem</code></pre>
 
-# create a new bare repository
-cd $REPOSITORIES
-sudo -u www-data git init --bare $REPO_NAME
-cd $REPO_NAME
-#sudo -u git touch git-daemon-export-ok
+<h2 id='proxypass_apache_configuration'>ProxyPass Apache Configuration</h2>
 
-# additional set-up for Gitweb
-echo &quot;$DESC&quot; | sudo -u www-data tee description
-echo &quot;$REPO_NAME $OWNER&quot; | sudo -u www-data tee -a GITWEB_PROJECTS
-echo &quot;$CLONEURL&quot; | sudo -u www-data tee cloneurl</code></pre>
+<p>Don&#8217;t forget to activate proxy_http module:</p>
 
-<p>Then to create the repo, just type the following</p>
+<pre><code>a2enmod proxy_http</code></pre>
 
-<pre><code>root# sh create-git-repo.sh YaRma &quot;Yet Another Requisition Management Application with SIDE&quot;</code></pre>
+<p>You can then create the following configuration into your apache configuration file:</p>
 
-<h1 id='import_existing_content'>Import existing content</h1>
+<pre><code>&lt;Proxy *&gt;
+  AddDefaultCharset Off
+  Order deny,allow
+  Allow from all
+&lt;/Proxy&gt;
 
-<p>Second, go into the directory where is stored your existing content (not the repository for the moment!)</p>
+ProxyPass /share http://localhost:8080/share
+ProxyPassReverse /share http://localhost:8080/share
 
-<pre><code>root# git init
-root# git add .
-root# git commit -m &quot;Initial import&quot;
-root# git remote add origin /opt/local/scm/git/git.side-labs.org/repositories/YaRma.git
-root# git push --all</code></pre>
-
-<p>Now, it&#8217;s time to just check your installation through gitweb.</p></div>
-
-</div>
-
-
-
-
-  
-
-
-
+ProxyPass /alfresco http://localhost:8080/alfresco
+ProxyPassReverse /alfresco http://localhost:8080/alfresco</code></pre>
       </div>
 
       <footer>

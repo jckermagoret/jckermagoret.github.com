@@ -4,7 +4,7 @@
  <title>JCK's Blog</title>
  <link href="http://jckermagoret.github.io/" rel="self"/>
  <link href="http://jckermagoret.github.io"/>
- <updated>2013-10-17T11:00:27+02:00</updated>
+ <updated>2013-10-19T08:21:57+02:00</updated>
  <id>http://jckermagoret.github.io</id>
  <author>
    <name>Jean-Christophe KERMAGORET</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>How to initialize a git repository from an existing content</title>
-   <link href="http://jckermagoret.github.io/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content"/>
+   <link href="http://jckermagoret.github.io/categories/git/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content"/>
    <updated>2013-11-13T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content</id>
+   <id>http://jckermagoret.github.io/categories/git/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content</id>
    <content type="html">&lt;p&gt;I&amp;#8217;m sure it&amp;#8217;s not the shortest way to do it, but at least, it works :-)&lt;/p&gt;
 
 &lt;h1 id='create_the_git_repository'&gt;Create the git repository&lt;/h1&gt;
@@ -63,21 +63,29 @@ root# git push --all&lt;/code&gt;&lt;/pre&gt;
  </entry>
  
  <entry>
-   <title>Java_vs_javascript_to_develop_business_rules_in_alfresco_workflows</title>
-   <link href="http://jckermagoret.github.io/2012/09/23/Java_vs_Javascript_to_develop_business_rules_in_Alfresco_workflows"/>
+   <title>Java vs Javascript to develop business rules in Alfresco workflows</title>
+   <link href="http://jckermagoret.github.io/java/javascript/logging/2012/09/23/Java_vs_Javascript_to_develop_business_rules_in_Alfresco_workflows"/>
    <updated>2012-09-23T00:00:00+02:00</updated>
-   <id>http://jckermagoret.github.io/2012/09/23/Java_vs_Javascript_to_develop_business_rules_in_Alfresco_workflows</id>
+   <id>http://jckermagoret.github.io/java/javascript/logging/2012/09/23/Java_vs_Javascript_to_develop_business_rules_in_Alfresco_workflows</id>
    <content type="html">&lt;p&gt;While Javascript Server Side may seem easier, it&amp;#8217;s a real mess to debug. So, I clearly prefer to use Java which avoid this kind of problems thanks to JPDA.&lt;/p&gt;
 
 &lt;p&gt;For example, use the following javascript snippet into a transition in an Alfresco Workflow based on jBPM (and generated with SIDE to make thinks a lot easier):&lt;/p&gt;
 
-&lt;p&gt;var node =bpm_package.children&lt;span&gt;0&lt;/span&gt;;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var node =bpm_package.children[0];
 
-&lt;p&gt;var destination = node.parent.parent.childByNamePath(&amp;#8220;achieved&amp;#8221;);&lt;/p&gt;
+var destination = node.parent.parent.childByNamePath(&amp;quot;achieved&amp;quot;);
 
-&lt;p&gt;if (node.shortType == &amp;#8216;YAMMA:com_bluexml_side_yamma_OutgoingMail&amp;#8217;) { destination = destination.childByNamePath(&amp;#8220;mail&amp;#8221;); } else if (node.shortType == &amp;#8216;YAMMA:com_bluexml_side_yamma_Invoice&amp;#8217;) { destination = destination.childByNamePath(&amp;#8220;invoice&amp;#8221;); } else if (node.shortType == &amp;#8216;YAMMA:com_bluexml_side_yamma_Quotation&amp;#8217;) { destination = destination.childByNamePath(&amp;#8220;quotation&amp;#8221;); }&lt;/p&gt;
+if (node.shortType == &amp;#39;YAMMA:com_bluexml_side_yamma_OutgoingMail&amp;#39;) {
+        destination = destination.childByNamePath(&amp;quot;mail&amp;quot;);
+} else if (node.shortType == &amp;#39;YAMMA:com_bluexml_side_yamma_Invoice&amp;#39;) {
+        destination = destination.childByNamePath(&amp;quot;invoice&amp;quot;);
+} else if (node.shortType == &amp;#39;YAMMA:com_bluexml_side_yamma_Quotation&amp;#39;) {
+        destination = destination.childByNamePath(&amp;quot;quotation&amp;quot;);
+}
 
-&lt;p&gt;node.move(destination); There is an error which is very difficult to diagnose if you don&amp;#8217;t know it. The error message just tells you that there is a &amp;#8217;}&amp;#8217; missing at the 3rd line of your script. Well, in fact, nothing&amp;#8217;s missing! You must just type node.shortType instead of node.typeShort to make things working smoothly!&lt;/p&gt;
+node.move(destination);&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is an error which is very difficult to diagnose if you don&amp;#8217;t know it. The error message just tells you that there is a &amp;#8217;}&amp;#8217; missing at the 3rd line of your script. Well, in fact, nothing&amp;#8217;s missing! You must just type node.shortType instead of node.typeShort to make things working smoothly!&lt;/p&gt;
 
 &lt;p&gt;You can try to activate the javascript debugger but it won&amp;#8217;t be very useful because once loaded, the javascript code corresponding to your transition appears on one line. So debugging step by step is not very efficient.&lt;/p&gt;
 
@@ -87,32 +95,39 @@ root# git push --all&lt;/code&gt;&lt;/pre&gt;
  </entry>
  
  <entry>
-   <title>Javascript_logging</title>
-   <link href="http://jckermagoret.github.io/2012/09/21/Javascript_logging"/>
+   <title>Javascript logging</title>
+   <link href="http://jckermagoret.github.io/javascript/logging/2012/09/21/Javascript_logging"/>
    <updated>2012-09-21T00:00:00+02:00</updated>
-   <id>http://jckermagoret.github.io/2012/09/21/Javascript_logging</id>
+   <id>http://jckermagoret.github.io/javascript/logging/2012/09/21/Javascript_logging</id>
    <content type="html">&lt;p&gt;When you want to develop in javascript, you look for usual tools in programing languages. One of the best tool in Java is log4j. It&amp;#8217;s a tool to help developers to insert information in their code and display this information according the configuration. I t means you may have test and production configuration without the need to change anything.&lt;/p&gt;
 
 &lt;p&gt;I gave a glimpse to google about javascript and logging and it gave me back 2 answers which seem of interest. It was:&lt;/p&gt;
 
-&lt;p&gt;log4js log4javascript I first gave a try to log4js because of its name, very similar to the log4j for Java. Unfortunately, it didn&amp;#8217;t work correctly with my javascript application, because of a conflict.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;log4js&lt;/li&gt;
+
+&lt;li&gt;log4javascript&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I first gave a try to log4js because of its name, very similar to the log4j for Java. Unfortunately, it didn&amp;#8217;t work correctly with my javascript application, because of a conflict.&lt;/p&gt;
 
 &lt;p&gt;I didn&amp;#8217;t go further and tried log4javascript. It worked immediately like a charm. Here is the magic lines. Just add the following at the top of your html page:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;    &amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;/resources/common/js/misc/log4javascript.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;/resources/common/js/misc/log4javascript.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+    log4javascript.setEnabled(true);
+    var pua = new log4javascript.PopUpAppender();
+    log4javascript.getDefaultLogger().addAppender(pua);
+    log4javascript.getLogger(&amp;quot;SIDE.Observer&amp;quot;).addAppender(pua);
+    log4javascript.getLogger(&amp;quot;SIDE.Tree&amp;quot;).addAppender(pua);
 
-                    log4javascript.setEnabled(true);
-                    var pua = new log4javascript.PopUpAppender();
-                    log4javascript.getDefaultLogger().addAppender(pua);
-                    log4javascript.getLogger(&amp;quot;SIDE.Observer&amp;quot;).addAppender(pua);
-                    log4javascript.getLogger(&amp;quot;SIDE.Tree&amp;quot;).addAppender(pua);
-
-                    // You can define explicitely a var to set the log level
-                    var lsa = log4javascript.getLogger(&amp;quot;SIDE.Authenticate&amp;quot;);
-                    lsa.setLevel(log4javascript.Level.INFO);
-                    lsa.addAppender(pua);
-                    log4javascript.getLogger(&amp;quot;SIDE.Util&amp;quot;).addAppender(pua);
-                    log4javascript.getLogger(&amp;quot;SIDE.Preview&amp;quot;).addAppender(pua);&lt;/code&gt;&lt;/pre&gt;
+    // You can define explicitely a var to set the log level
+    var lsa = log4javascript.getLogger(&amp;quot;SIDE.Authenticate&amp;quot;);
+    lsa.setLevel(log4javascript.Level.INFO);
+    lsa.addAppender(pua);
+    log4javascript.getLogger(&amp;quot;SIDE.Util&amp;quot;).addAppender(pua);
+    log4javascript.getLogger(&amp;quot;SIDE.Preview&amp;quot;).addAppender(pua);
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;As stated in the code, you can define explicitely a var to set the log level.&lt;/p&gt;
 
@@ -122,30 +137,36 @@ root# git push --all&lt;/code&gt;&lt;/pre&gt;
  </entry>
  
  <entry>
-   <title>Alfresco_"document Details"_page_customization</title>
-   <link href="http://jckermagoret.github.io/2012/09/01/Alfresco_%22document-details%22_Page_Customization"/>
+   <title>Alfresco "document-details" Page Customization</title>
+   <link href="http://jckermagoret.github.io/alfrescoshare/customization/2012/09/01/Alfresco_%22document-details%22_Page_Customization"/>
    <updated>2012-09-01T00:00:00+02:00</updated>
-   <id>http://jckermagoret.github.io/2012/09/01/Alfresco_"document-details"_Page_Customization</id>
+   <id>http://jckermagoret.github.io/alfrescoshare/customization/2012/09/01/Alfresco_"document-details"_Page_Customization</id>
    <content type="html">&lt;p&gt;The document-details page is defined in the page directory located $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-data/pages/document-details.xml:&lt;/p&gt;
-&lt;?xml version='1.0' encoding='UTF-8'?&gt;&lt;page&gt;
-   &lt;title&gt;Document Details&lt;/title&gt;
-   &lt;title-id&gt;page.documentDetails.title&lt;/title-id&gt;
-   &lt;description&gt;Document details&lt;/description&gt;
-   &lt;description-id&gt;page.documentDetails.description&lt;/description-id&gt;
-   &lt;template-instance&gt;document-details&lt;/template-instance&gt;
-   &lt;authentication&gt;user&lt;/authentication&gt;
-&lt;/page&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;#39;1.0&amp;#39; encoding=&amp;#39;UTF-8&amp;#39;?&amp;gt;
+&amp;lt;page&amp;gt;
+   &amp;lt;title&amp;gt;Document Details&amp;lt;/title&amp;gt;
+   &amp;lt;title-id&amp;gt;page.documentDetails.title&amp;lt;/title-id&amp;gt;
+   &amp;lt;description&amp;gt;Document details&amp;lt;/description&amp;gt;
+   &amp;lt;description-id&amp;gt;page.documentDetails.description&amp;lt;/description-id&amp;gt;
+   &amp;lt;template-instance&amp;gt;document-details&amp;lt;/template-instance&amp;gt;
+   &amp;lt;authentication&amp;gt;user&amp;lt;/authentication&amp;gt;
+&amp;lt;/page&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;This page uses the document-details template as indicated, located at $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-data/template-instances/document-details.xml&lt;/p&gt;
-&lt;?xml version='1.0' encoding='UTF-8'?&gt;&lt;template-instance&gt;
-   &lt;template-type&gt;org/alfresco/document-details&lt;/template-type&gt;
-   &lt;properties&gt;
-      &lt;pageFamily&gt;documentlibrary&lt;/pageFamily&gt;
-      &lt;container&gt;documentLibrary&lt;/container&gt;
-   &lt;/properties&gt;
-&lt;/template-instance&gt;
-&lt;p&gt;The document-details page is the result of the agregation of the (take a deep breath :-) $TOMCAT/webapps/share/WEB-INF/classes/alfresco/templates/org/alfresco/document-details.ftl which looks like this for its most important part:&lt;/p&gt;
-&lt;pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'&gt;REXML could not parse this XML/HTML: 
-&amp;lt;div&amp;gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;#39;1.0&amp;#39; encoding=&amp;#39;UTF-8&amp;#39;?&amp;gt;
+&amp;lt;template-instance&amp;gt;
+   &amp;lt;template-type&amp;gt;org/alfresco/document-details&amp;lt;/template-type&amp;gt;
+   &amp;lt;properties&amp;gt;
+      &amp;lt;pageFamily&amp;gt;documentlibrary&amp;lt;/pageFamily&amp;gt;
+      &amp;lt;container&amp;gt;documentLibrary&amp;lt;/container&amp;gt;
+   &amp;lt;/properties&amp;gt;
+&amp;lt;/template-instance&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The document-details page is the result of the aggregation of the (take a deep breath :-) $TOMCAT/webapps/share/WEB-INF/classes/alfresco/templates/org/alfresco/document-details.ftl which looks like this for its most important part:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div&amp;gt;
     &amp;lt;div&amp;gt;
         &amp;lt;@region id=doclibType + &amp;quot;document-metadata-header&amp;quot; scope=&amp;quot;template&amp;quot; protected=true /&amp;gt;
         &amp;lt;@region id=doclibType + &amp;quot;document-metadata&amp;quot; scope=&amp;quot;template&amp;quot; protected=true /&amp;gt;
@@ -159,51 +180,58 @@ root# git push --all&lt;/code&gt;&lt;/pre&gt;
             &amp;lt;@region id=doclibType + &amp;quot;document-references&amp;quot; scope=&amp;quot;template&amp;quot; protected=true /&amp;gt;
         &amp;lt;/#if&amp;gt;
     &amp;lt;/div&amp;gt;
-&amp;lt;/div&amp;gt;
-The only part a little strange is that the core of this page, consisting of the metadata is not processed the same way, which would make customization a lot easier. Instead of that, they use the form component to render the document metadata. Maybe to provide inline update later, but for the moment, I just want to render my metadata and I prefer to have a consistent way to do this.
+&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
-So, I replaced the:
+&lt;p&gt;The only part a little strange is that the core of this page, consisting of the metadata is not processed the same way, which would make customization a lot easier. Instead of that, they use the form component to render the document metadata. Maybe to provide inline update later, but for the moment, I just want to render my metadata and I prefer to have a consistent way to do this.&lt;/p&gt;
 
-&amp;lt;@region id=doclibType + &amp;quot;document-metadata&amp;quot; scope=&amp;quot;template&amp;quot; protected=true /&amp;gt;
-by:
+&lt;p&gt;So, I replaced the:&lt;/p&gt;
 
-&amp;lt;@region id=doclibType + &amp;quot;document-metadata-core&amp;quot; scope=&amp;quot;template&amp;quot; protected=true /&amp;gt;
-and then defined the corresponding template, webscript and component.
+&lt;pre&gt;&lt;code&gt;&amp;lt;@region id=doclibType + &amp;quot;document-metadata&amp;quot; scope=&amp;quot;template&amp;quot; protected=true /&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
-First, indicate the component to use when the document-metadata-core region is used from the document-details template. This happens in $TOMCAT/share/WEB-INF/classes/alfresco/site-data/components/template.document-metadata-core.document-details.xml:
+&lt;p&gt;by:&lt;/p&gt;
 
-&amp;lt;?xml version=&amp;apos;1.0&amp;apos; encoding=&amp;apos;UTF-8&amp;apos;?&amp;gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;@region id=doclibType + &amp;quot;document-metadata-core&amp;quot; scope=&amp;quot;template&amp;quot; protected=true /&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and then defined the corresponding template, webscript and component.&lt;/p&gt;
+
+&lt;p&gt;First, indicate the component to use when the document-metadata-core region is used from the document-details template. This happens in $TOMCAT/share/WEB-INF/classes/alfresco/site-data/components/template.document-metadata-core.document-details.xml:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;#39;1.0&amp;#39; encoding=&amp;#39;UTF-8&amp;#39;?&amp;gt;
 &amp;lt;component&amp;gt;
    &amp;lt;scope&amp;gt;template&amp;lt;/scope&amp;gt;
    &amp;lt;region-id&amp;gt;document-metadata-core&amp;lt;/region-id&amp;gt;
    &amp;lt;source-id&amp;gt;document-details&amp;lt;/source-id&amp;gt;
    &amp;lt;url&amp;gt;/components/document-details/document-metadata-core&amp;lt;/url&amp;gt;
-&amp;lt;/component&amp;gt;
-Second, define $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-webscripts/org/alfresco/components/document-details/document-metadata-core.get.(desc|head|html).xml files with the following content: 2.1: document-metadata-core.get.desc.html:
+&amp;lt;/component&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
-&amp;lt;webscript&amp;gt;
+&lt;p&gt;Second, define $TOMCAT/webapps/share/WEB-INF/classes/alfresco/site-webscripts/org/alfresco/components/document-details/document-metadata-core.get.(desc|head|html).xml files with the following content: 2.1: document-metadata-core.get.desc.html:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;webscript&amp;gt;
   &amp;lt;shortname&amp;gt;document-metadata-core&amp;lt;/shortname&amp;gt;
   &amp;lt;description&amp;gt;Document Metadata Core Component&amp;lt;/description&amp;gt;
   &amp;lt;url&amp;gt;/components/document-details/document-metadata-core&amp;lt;/url&amp;gt;
-&amp;lt;/webscript&amp;gt;
-2.2: document-metadata-core.get.head.html:
+&amp;lt;/webscript&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
-&amp;lt;#include &amp;quot;../component.head.inc&amp;quot;&amp;gt;
+&lt;h2 id='documentmetadatacoregetheadhtml'&gt;document-metadata-core.get.head.html:&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;#include &amp;quot;../component.head.inc&amp;quot;&amp;gt;
 &amp;lt;!-- Document Metadata Header --&amp;gt;
 &amp;lt;@link rel=&amp;quot;stylesheet&amp;quot; type=&amp;quot;text/css&amp;quot; href=&amp;quot;${page.url.context}/components/document-details/document-metadata-core.css&amp;quot; /&amp;gt;
-&amp;lt;@script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;${page.url.context}/components/document-details/document-metadata-core.js&amp;quot;&amp;gt;&amp;lt;/@script&amp;gt;
-2.3: document-metadata-core.get.html:
+&amp;lt;@script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;${page.url.context}/components/document-details/document-metadata-core.js&amp;quot;&amp;gt;&amp;lt;/@script&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
-&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;//&amp;lt;![CDATA[
+&lt;h2 id='documentmetadatacoregethtml'&gt;document-metadata-core.get.html:&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;//&amp;lt;![CDATA[
    new Alfresco.DocumentMetadataCore(&amp;quot;${args.htmlid}&amp;quot;).setMessages(${messages});
 //]]&amp;gt;&amp;lt;/script&amp;gt;
 &amp;lt;div id=&amp;quot;metadata-core&amp;quot;&amp;gt;
    &amp;lt;div&amp;gt;${msg(&amp;quot;document-metadata-core.heading&amp;quot;)}&amp;lt;/div&amp;gt;
    &amp;lt;h1&amp;gt;&amp;gt;Woooh, juste un peu de texte :-)&amp;lt;/h1&amp;gt;
-&amp;lt;/div&amp;gt;
-Lastly, we define $TOMCAT/webapps/share/components/document-details/document-metadata-core.js which will be compressed in document-metadata-core-min.js later:
+&amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
-/**
+&lt;p&gt;Lastly, we define $TOMCAT/webapps/share/components/document-details/document-metadata-core.js which will be compressed in document-metadata-core-min.js later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
  * Document metadata-core component.
  *
  * @namespace Alfresco
@@ -238,38 +266,41 @@ Lastly, we define $TOMCAT/webapps/share/components/document-details/document-met
       // Just write your code there
       }
    });
-})();
-Through the use of bubbling (kind of Observer pattern), the document-details page updates when the &amp;quot;documentDetailsAvailable&amp;quot; event fires and the method above is played thanks to the following line:
+})();&lt;/code&gt;&lt;/pre&gt;
 
-YAHOO.Bubbling.on(&amp;quot;documentDetailsAvailable&amp;quot;, this.onDocumentDetailsAvailable, this);&lt;/pre&gt;</content>
+&lt;p&gt;Through the use of bubbling (kind of Observer pattern), the document-details page updates when the &amp;#8220;documentDetailsAvailable&amp;#8221; event fires and the method above is played thanks to the following line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;YAHOO.Bubbling.on(&amp;quot;documentDetailsAvailable&amp;quot;, this.onDocumentDetailsAvailable, this);&lt;/code&gt;&lt;/pre&gt;</content>
  </entry>
  
  <entry>
-   <title>Component_content_management_system</title>
-   <link href="http://jckermagoret.github.io/2012/01/13/Component_Content_Management_System"/>
+   <title>Component Content Management System</title>
+   <link href="http://jckermagoret.github.io/ccm/2012/01/13/Component_Content_Management_System"/>
    <updated>2012-01-13T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2012/01/13/Component_Content_Management_System</id>
-   <content type="html">&lt;p&gt;The Problem To Address&lt;/p&gt;
+   <id>http://jckermagoret.github.io/ccm/2012/01/13/Component_Content_Management_System</id>
+   <content type="html">&lt;h1 id='the_problem_to_address'&gt;The Problem To Address&lt;/h1&gt;
 
 &lt;p&gt;One more time, to prepare a course, I had to browse all the documentation I wrote to find the right material I needed. Of course, I had to rewrite part of it because it was not structured the right way. I think it&amp;#8217;s time to organize my content in a way I can reuse it.&lt;/p&gt;
 
-&lt;p&gt;The Solution&lt;/p&gt;
+&lt;h1 id='the_solution'&gt;The Solution&lt;/h1&gt;
 
 &lt;p&gt;Some solution exist and are called Component Content System. Wikipedia gives us a very clear definition:&lt;/p&gt;
 
 &lt;p&gt;A component content management system (CCMS) is a content management system that manages content at a granular level (component) rather than at the document level. Each component represents a single topic, concept or asset (e.g., image, table, product description). Components can be as large as a chapter or as small as a definition or even a word. Components in multiple content assemblies (content types) can be viewed as components or as traditional documents. So, in short, I want unit of imformation at an enough low level granularity so I can recreate the content I want it by simply recombining it by hand, through automatic queries based on classification, structure, &amp;#8230;&lt;/p&gt;
 
-&lt;p&gt;The Reality&lt;/p&gt;
+&lt;h1 id='the_reality'&gt;The Reality&lt;/h1&gt;
 
 &lt;p&gt;Well, it looks like DITA or Docbook.&lt;/p&gt;
 
-&lt;p&gt;DOCBOOK&lt;/p&gt;
+&lt;h2 id='docbook'&gt;DocBook&lt;/h2&gt;
 
 &lt;p&gt;I already used Docbook and it&amp;#8217;s true you can do amazing things but you need to write everything in XML according the docbook schema. OOo does not support it very well and it&amp;#8217;s a little too complex for non technical users. I tried docbook2odp, which generate clean OOo Presentation but you still need to work with Docbook. I had a look to wiki syntax, such mediawiki, because there is an XML extension to get Docbook format. Unfortunately, exporting preformatted code gives a poor result, so I need to fix it manually. Too boring.&lt;/p&gt;
 
+&lt;h2 id='rst'&gt;rST&lt;/h2&gt;
+
 &lt;p&gt;I had a look too at rST (reStructuredText) to generate OOo Presentations with rST2odp which almost don&amp;#8217;t need to be fixed. Moreover, you can apply an OOo Presentation template during rST to odp generation. Unfortunately, there are no tools to convert mediawiki to rST.&lt;/p&gt;
 
-&lt;p&gt;CONCLUSION&lt;/p&gt;
+&lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
 
 &lt;p&gt;My requirement is finally very simple. How to make all these tools communicate so I can use my preferred input type and get my preferred output for the tasks I have to achieve? Of course without fixing or rewriting anyting. Just reuse?&lt;/p&gt;
 
@@ -277,89 +308,153 @@ YAHOO.Bubbling.on(&amp;quot;documentDetailsAvailable&amp;quot;, this.onDocumentD
  </entry>
  
  <entry>
-   <title>Ssl_configuration_on_tomcat_for_alfresco_authentication_with_ldaps</title>
-   <link href="http://jckermagoret.github.io/2011/08/01/SSL_configuration_on_Tomcat_for_Alfresco_authentication_with_Ldaps"/>
+   <title>SSL configuration on Tomcat for Alfresco authentication with Ldaps</title>
+   <link href="http://jckermagoret.github.io/tomcat/ssl/alfresco/2011/08/01/SSL_configuration_on_Tomcat_for_Alfresco_authentication_with_Ldaps"/>
    <updated>2011-08-01T00:00:00+02:00</updated>
-   <id>http://jckermagoret.github.io/2011/08/01/SSL_configuration_on_Tomcat_for_Alfresco_authentication_with_Ldaps</id>
-   <content type="html">&lt;p&gt;Use Case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/tomcat/ssl/alfresco/2011/08/01/SSL_configuration_on_Tomcat_for_Alfresco_authentication_with_Ldaps</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use Case&lt;/h1&gt;
 
 &lt;p&gt;I want Alfresco to be able to authenticate on a Ldap server, secured with SSL.&lt;/p&gt;
 
-&lt;p&gt;Problem&lt;/p&gt;
+&lt;h1 id='problem'&gt;Problem&lt;/h1&gt;
 
 &lt;p&gt;Ldaps is a ldap service secured on SSL. So you need to accept the SSL certificate to use the service.&lt;/p&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;To do so in the java world, you need a java keystore which stores the certificates (and private keys too). This is a file usually stored in /etc/java/keystore.jks&lt;/p&gt;
 
-&lt;p&gt;Installation&lt;/p&gt;
+&lt;h2 id='installation'&gt;Installation&lt;/h2&gt;
 
 &lt;p&gt;You first need to get the SSL certificate of the ldaps service. You can get it through openssl command:&lt;/p&gt;
 
-&lt;p&gt;openssl s_client -connect YOUR_SERVER:YOUR_PORT -showcerts Just copy the lines beetween -BEGIN- until -END- with these latter included into ldaps.crt for example. If you want a more automated procedure, just have a look to get-cert script which wraps &amp;#8220;openssl s_client&amp;#8221;. You can then import it into your keystore:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;openssl s_client -connect YOUR_SERVER:YOUR_PORT -showcerts&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;keytool -import -alias ldaps -file ldaps.crt -keystore /etc/java/keystore.jks Usage&lt;/p&gt;
+&lt;p&gt;Just copy the lines beetween -BEGIN- until -END- with these latter included into ldaps.crt for example. If you want a more automated procedure, just have a look to get-cert script which wraps &amp;#8220;openssl s_client&amp;#8221;. You can then import it into your keystore:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;keytool -import -alias ldaps -file ldaps.crt -keystore /etc/java/keystore.jks&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='usage'&gt;Usage&lt;/h1&gt;
 
 &lt;p&gt;Just launch Tomcat with the following option:&lt;/p&gt;
 
-&lt;p&gt;export JAVA_OPTS=$JAVA_OPTS&amp;#8217; -Djavax.net.ssl.trustStore=/etc/java/keystore.jks&amp;#8217;&lt;/p&gt;</content>
+&lt;pre&gt;&lt;code&gt;export JAVA_OPTS=$JAVA_OPTS&amp;#39; -Djavax.net.ssl.trustStore=/etc/java/keystore.jks&amp;#39;&lt;/code&gt;&lt;/pre&gt;</content>
  </entry>
  
  <entry>
-   <title>Email_management_system</title>
-   <link href="http://jckermagoret.github.io/2011/06/12/Email_Management_System"/>
+   <title>Email Management System</title>
+   <link href="http://jckermagoret.github.io/mail/2011/06/12/Email_Management_System"/>
    <updated>2011-06-12T00:00:00+02:00</updated>
-   <id>http://jckermagoret.github.io/2011/06/12/Email_Management_System</id>
-   <content type="html">&lt;p&gt;Use Case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/mail/2011/06/12/Email_Management_System</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use Case&lt;/h1&gt;
 
 &lt;p&gt;How to manage emails in a document management system so it is as convenient as a mail client? Not only plain emails with only a text body, but complex ones with a text body, an html one, one or more attachments?&lt;/p&gt;
 
-&lt;p&gt;Requirements&lt;/p&gt;
+&lt;h1 id='requirements'&gt;Requirements&lt;/h1&gt;
 
 &lt;p&gt;Manage emails means:&lt;/p&gt;
 
-&lt;p&gt;file them process them through workflows link to them reuse them resend them Analysis&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;file them&lt;/li&gt;
+
+&lt;li&gt;process them through workflows&lt;/li&gt;
+
+&lt;li&gt;link to them&lt;/li&gt;
+
+&lt;li&gt;reuse them&lt;/li&gt;
+
+&lt;li&gt;resend them&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id='analysis'&gt;Analysis&lt;/h1&gt;
 
 &lt;p&gt;Mails can be seen:&lt;/p&gt;
 
-&lt;p&gt;as a whole: the .eml file as a set of parts: the meta-data, the text body, the attachments While the .eml file is interesting from a legal point of view, it is not practical because of the necessity to process it each time you want to access it. In contrast, the set of parts, while very interesting from accessibility is more difficult to prevent from modifications.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;as a whole: the .eml file&lt;/li&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;li&gt;as a set of parts: the meta-data, the text body, the attachments&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;While the .eml file is interesting from a legal point of view, it is not practical because of the necessity to process it each time you want to access it. In contrast, the set of parts, while very interesting from accessibility is more difficult to prevent from modifications.&lt;/p&gt;
+
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;The obvious solution is to mix the 2 solutions. So:&lt;/p&gt;
 
-&lt;p&gt;REQ1 : a folder to store all the parts of the mail with a name corresponding to the mail subject REQ2: body REQ3: attachment1, attachment2, &amp;#8230; REQ4: some meta-data added to an element (folder or body?) to store a link on the .eml archive REQ5: ability to link from any document to the mail parts Alfresco&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;REQ1 : a folder to store all the parts of the mail with a name corresponding to the mail subject&lt;/li&gt;
+
+&lt;li&gt;REQ2: body&lt;/li&gt;
+
+&lt;li&gt;REQ3: attachment1, attachment2, &amp;#8230;&lt;/li&gt;
+
+&lt;li&gt;REQ4: some meta-data added to an element (folder or body?) to store a link on the .eml archive&lt;/li&gt;
+
+&lt;li&gt;REQ5: ability to link from any document to the mail parts&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id='alfresco'&gt;Alfresco&lt;/h1&gt;
 
 &lt;p&gt;The solution provided by Alfresco doesn&amp;#8217;t meet our requiremsnts. In Alfresco, through IMAP subsystem, messages are stored like the following:&lt;/p&gt;
 
-&lt;p&gt;Message_1717.eml, the archive with all the embedded content Message_1717.eml-attachments, a folder with all the attachments extracted from the previous .eml It is not very interesting from a user point of view when browsing the application (Share or another one) because file names are not readable. Attachment names are readable, but not the text body corresponding to the main message which is encapsulated into the .eml file.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Message_1717.eml, the archive with all the embedded content&lt;/li&gt;
+
+&lt;li&gt;Message_1717.eml-attachments, a folder with all the attachments extracted from the previous .eml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It is not very interesting from a user point of view when browsing the application (Share or another one) because file names are not readable. Attachment names are readable, but not the text body corresponding to the main message which is encapsulated into the .eml file.&lt;/p&gt;
 
 &lt;p&gt;To achieve:&lt;/p&gt;
 
-&lt;p&gt;REQ1: store the Message-1717.eml file into the corresponding folder (+-attachments), extract the mail subject and rename the folder and the body to this latter REQ2: extract the body by transforming the email to text REQ3: attachments are ok REQ4: extract meta-data from the document by playing the extract common action on the message REQ5: let access to the elements and still protecting them from modifications Finally, the order to follow is:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;REQ1: store the Message-1717.eml file into the corresponding folder (+-attachments), extract the mail subject and rename the folder and the body to this latter&lt;/li&gt;
 
-&lt;p&gt;REQ1: this can be done during file replication from system 1 to 2 in a multi-tenant Alfresco server REQ4: configure an action to extract meta-data REQ2: configure an action to transform the content REQ3: attachments are still ok REQ5: security configuration REQ1 can be done through file manipulations REQ4 and REQ2 can be done in the same action. REQ5 is Alfresco configuration&lt;/p&gt;
+&lt;li&gt;REQ2: extract the body by transforming the email to text&lt;/li&gt;
 
-&lt;p&gt;Precautions&lt;/p&gt;
+&lt;li&gt;REQ3: attachments are ok&lt;/li&gt;
+
+&lt;li&gt;REQ4: extract meta-data from the document by playing the extract common action on the message&lt;/li&gt;
+
+&lt;li&gt;REQ5: let access to the elements and still protecting them from modifications&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Finally, the order to follow is:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;REQ1: this can be done during file replication from system 1 to 2 in a multi-tenant Alfresco server&lt;/li&gt;
+
+&lt;li&gt;REQ4: configure an action to extract meta-data&lt;/li&gt;
+
+&lt;li&gt;REQ2: configure an action to transform the content&lt;/li&gt;
+
+&lt;li&gt;REQ3: attachments are still ok&lt;/li&gt;
+
+&lt;li&gt;REQ5: security configuration&lt;/li&gt;
+
+&lt;li&gt;REQ1 can be done through file manipulations REQ4 and REQ2 can be done in the same action. REQ5 is Alfresco configuration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id='precautions'&gt;Precautions&lt;/h1&gt;
 
 &lt;p&gt;Folders containing mails must be preserved from modifications.&lt;/p&gt;
 
-&lt;p&gt;Conclusion&lt;/p&gt;
+&lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
 
 &lt;p&gt;By adding workflows, launched automatically, it is possible to get an (e)mail management system. Based on a multi-tenant system, this architecture my provide the base for the YaMma application.&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>Ssl_configuration_on_apache_as_a_front_end_for_alfresco</title>
-   <link href="http://jckermagoret.github.io/2011/05/23/SSL_configuration_on_Apache_as_a_front_end_for_Alfresco"/>
+   <title>SSL configuration on Apache as a front end for Alfresco</title>
+   <link href="http://jckermagoret.github.io/apache/ssl/alfresco/2011/05/23/SSL_configuration_on_Apache_as_a_front_end_for_Alfresco"/>
    <updated>2011-05-23T00:00:00+02:00</updated>
-   <id>http://jckermagoret.github.io/2011/05/23/SSL_configuration_on_Apache_as_a_front_end_for_Alfresco</id>
-   <content type="html">&lt;p&gt;Use Case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/apache/ssl/alfresco/2011/05/23/SSL_configuration_on_Apache_as_a_front_end_for_Alfresco</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use Case&lt;/h1&gt;
 
 &lt;p&gt;I want to secure Alfresco (webdav) and Share Access through SSL.&lt;/p&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;The solution is to secure Alfresco access through Apache-SSL.&lt;/p&gt;
 
@@ -367,19 +462,32 @@ YAHOO.Bubbling.on(&amp;quot;documentDetailsAvailable&amp;quot;, this.onDocumentD
 
 &lt;p&gt;Only Apache access will be available so Alfresco will be available through ProxyPass features. Direct access is prohibited at the tomcat level.&lt;/p&gt;
 
-&lt;p&gt;Configuration&lt;/p&gt;
+&lt;h1 id='configuration'&gt;Configuration&lt;/h1&gt;
 
-&lt;p&gt;SSL CONFIGURATION&lt;/p&gt;
+&lt;h2 id='ssl_configuration'&gt;SSL Configuration&lt;/h2&gt;
 
-&lt;p&gt;cd /etc/ssl openssl genrsa -des3 -rand file1:file2:file3:file4:file5 -out server-with-passphrase.key 2048 openssl rsa -in server-with-passphrase.key -out server.pem openssl req -new -key server.pem -out server.csr openssl x509 -req -days 365 -in server.csr -signkey server.pem -out server.crt SSL APACHE CONFIGURATION&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd /etc/ssl
+openssl genrsa -des3 -rand file1:file2:file3:file4:file5 -out server-with-passphrase.key 2048
+openssl rsa -in server-with-passphrase.key -out server.pem
+openssl req -new -key server.pem -out server.csr
+openssl x509 -req -days 365 -in server.csr -signkey server.pem -out server.crt&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id='ssl_apache_configuration'&gt;SSL Apache Configuration&lt;/h2&gt;
 
 &lt;p&gt;You can then create the following configuration into your apache configuration file:&lt;/p&gt;
 
-&lt;p&gt;SSLEngine on SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL SSLCertificateFile /etc/ssl/certs-specific/gollum.bluexml.com.crt SSLCertificateKeyFile /etc/ssl/private/gollum.bluexml.com.pem PROXYPASS APACHE CONFIGURATION&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SSLEngine on
+SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL
+SSLCertificateFile /etc/ssl/certs-specific/gollum.bluexml.com.crt
+SSLCertificateKeyFile  /etc/ssl/private/gollum.bluexml.com.pem&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id='proxypass_apache_configuration'&gt;ProxyPass Apache Configuration&lt;/h2&gt;
 
 &lt;p&gt;Don&amp;#8217;t forget to activate proxy_http module:&lt;/p&gt;
 
-&lt;p&gt;a2enmod proxy_http You can then create the following configuration into your apache configuration file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;a2enmod proxy_http&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then create the following configuration into your apache configuration file:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;lt;Proxy *&amp;gt;
   AddDefaultCharset Off
@@ -389,772 +497,984 @@ YAHOO.Bubbling.on(&amp;quot;documentDetailsAvailable&amp;quot;, this.onDocumentD
 
 ProxyPass /share http://localhost:8080/share
 ProxyPassReverse /share http://localhost:8080/share
+
 ProxyPass /alfresco http://localhost:8080/alfresco
-ProxyPassReverse /alfresco http://localhost:8080/alfresco&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Resources&lt;/p&gt;
-
-&lt;p&gt;1: http://slacksite.com/apache/certifi&amp;#8230;&lt;/p&gt;</content>
+ProxyPassReverse /alfresco http://localhost:8080/alfresco&lt;/code&gt;&lt;/pre&gt;</content>
  </entry>
  
  <entry>
-   <title>Automatic_java_class_generation_from_jbpm_process_definition_file</title>
-   <link href="http://jckermagoret.github.io/2011/03/12/Automatic_Java_Class_Generation_From_jBPM_Process_Definition_File"/>
+   <title>Automatic Java Class Generation From jBPM Process Definition File</title>
+   <link href="http://jckermagoret.github.io/java/alfresco/jbpm/2011/03/12/Automatic_Java_Class_Generation_From_jBPM_Process_Definition_File"/>
    <updated>2011-03-12T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/03/12/Automatic_Java_Class_Generation_From_jBPM_Process_Definition_File</id>
-   <content type="html">&lt;p&gt;Goal&lt;/p&gt;
+   <id>http://jckermagoret.github.io/java/alfresco/jbpm/2011/03/12/Automatic_Java_Class_Generation_From_jBPM_Process_Definition_File</id>
+   <content type="html">&lt;h1 id='goal'&gt;Goal&lt;/h1&gt;
 
 &lt;p&gt;This page explains how to automatically add action in a jBPM workflow and generate the corresponding java class from a jBPM processdefinition file for each added action. At the end, you&amp;#8217;ll have a java class with a method for each action in transitions and events. The methods only contain a log statement at first. You then can inherit from it and customize the code if you want.&lt;/p&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;The solution is achieved in 2 steps:&lt;/p&gt;
 
-&lt;p&gt;add a java action for each transition and event generate the java class with a method for each action ADD A JAVA ACTION FOR EACH TRANSITION AND EVENT&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add a java action for each transition and event&lt;/li&gt;
+
+&lt;li&gt;generate the java class with a method for each action&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id='add_a_java_action_for_each_transition_and_event'&gt;Add a Java action for each transition and event&lt;/h1&gt;
 
 &lt;p&gt;This is done through this xsl code snippet extracted from this xsl stylesheet.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;    &amp;lt;xsl:template match=&amp;quot;transition|event&amp;quot;&amp;gt;
-            &amp;lt;xsl:element name=&amp;quot;{name()}&amp;quot;&amp;gt;
-                    &amp;lt;xsl:copy-of select=&amp;quot;@*&amp;quot;/&amp;gt;
-                    &amp;lt;xsl:choose&amp;gt;
-                            &amp;lt;xsl:when test=&amp;quot;not(action)
-                                                            or (action and $replaceActions = &amp;#39;true&amp;#39;)&amp;quot;&amp;gt;
-                                    &amp;lt;action&amp;gt;
-                                            &amp;lt;xsl:apply-templates select=&amp;quot;.//script&amp;quot;/&amp;gt;
-                                    &amp;lt;/action&amp;gt;
-                            &amp;lt;/xsl:when&amp;gt;
-                            &amp;lt;xsl:otherwise&amp;gt;
-                                    &amp;lt;xsl:apply-templates/&amp;gt;
-                            &amp;lt;/xsl:otherwise&amp;gt;
-                    &amp;lt;/xsl:choose&amp;gt;
-            &amp;lt;/xsl:element&amp;gt;
-    &amp;lt;/xsl:template&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;xsl:template match=&amp;quot;transition|event&amp;quot;&amp;gt;
+        &amp;lt;xsl:element name=&amp;quot;{name()}&amp;quot;&amp;gt;
+                &amp;lt;xsl:copy-of select=&amp;quot;@*&amp;quot;/&amp;gt;
+                &amp;lt;xsl:choose&amp;gt;
+                        &amp;lt;xsl:when test=&amp;quot;not(action)
+                                        or (action and $replaceActions = &amp;#39;true&amp;#39;)&amp;quot;&amp;gt;
+                                &amp;lt;action&amp;gt;
+                                        &amp;lt;xsl:apply-templates select=&amp;quot;.//script&amp;quot;/&amp;gt;
+                                &amp;lt;/action&amp;gt;
+                        &amp;lt;/xsl:when&amp;gt;
+                        &amp;lt;xsl:otherwise&amp;gt;
+                                &amp;lt;xsl:apply-templates/&amp;gt;
+                        &amp;lt;/xsl:otherwise&amp;gt;
+                &amp;lt;/xsl:choose&amp;gt;
+        &amp;lt;/xsl:element&amp;gt;
+&amp;lt;/xsl:template&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;/ GENERATE THE JAVA CLASS WITH A METHOD FOR EACH ACTION&lt;/p&gt;
+&lt;h1 id='generate_the_java_class_with_a_method_for_each_action'&gt;Generate the Java class with a method for each action&lt;/h1&gt;
 
 &lt;p&gt;This is done through this xsl code snippet extracted from this xsl stylesheet.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;    &amp;lt;xsl:template name=&amp;quot;create-java-class&amp;quot;&amp;gt;
-            &amp;lt;xsl:param name=&amp;quot;package&amp;quot;/&amp;gt;
-            &amp;lt;xsl:param name=&amp;quot;class&amp;quot;/&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;xsl:template name=&amp;quot;create-java-class&amp;quot;&amp;gt;
+        &amp;lt;xsl:param name=&amp;quot;package&amp;quot;/&amp;gt;
+        &amp;lt;xsl:param name=&amp;quot;class&amp;quot;/&amp;gt;
 
-&lt;p&gt;package &lt;a href='xsl:value-of select=&amp;quot;$package&amp;quot;/'&gt;xsl:value-of select=&amp;quot;$package&amp;quot;/&lt;/a&gt;;&lt;/p&gt;
+package &amp;lt;xsl:value-of select=&amp;quot;$package&amp;quot;/&amp;gt;;
 
-&lt;p&gt;import org.sidelabs.workflow.SIDEActionHandler;&lt;/p&gt;
+import org.sidelabs.workflow.SIDEActionHandler;
 
-&lt;p&gt;import org.apache.commons.logging.Log; import org.apache.commons.logging.LogFactory;&lt;/p&gt;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-&lt;p&gt;public class &lt;a href='xsl:value-of select=&amp;quot;$class&amp;quot;/'&gt;xsl:value-of select=&amp;quot;$class&amp;quot;/&lt;/a&gt; extends SIDEActionHandler {&lt;/p&gt;
+public class &amp;lt;xsl:value-of select=&amp;quot;$class&amp;quot;/&amp;gt; extends SIDEActionHandler {
 
-&lt;pre&gt;&lt;code&gt;    private static final long serialVersionUID = 1L;
-    private static Log logger = LogFactory.getLog(&amp;lt;xsl:value-of select=&amp;quot;$class&amp;quot;/&amp;gt;.class);
+        private static final long serialVersionUID = 1L;
+        private static Log logger = LogFactory.getLog(&amp;lt;xsl:value-of select=&amp;quot;$class&amp;quot;/&amp;gt;.class);
 
-    /**
-     * Transitions
-     */
-    &amp;lt;xsl:apply-templates select=&amp;quot;.//transition&amp;quot;/&amp;gt;
+        /**
+         * Transitions
+         */
+        &amp;lt;xsl:apply-templates select=&amp;quot;.//transition&amp;quot;/&amp;gt;
 
-    /**
-     * Events
-     */
-    &amp;lt;xsl:apply-templates select=&amp;quot;.//event&amp;quot;/&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+        /**
+         * Events
+         */
+        &amp;lt;xsl:apply-templates select=&amp;quot;.//event&amp;quot;/&amp;gt;
 
-&lt;p&gt;} &amp;lt;/xsl:template&amp;gt; Action&lt;/p&gt;
+}
+	    &amp;lt;/xsl:template&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='action'&gt;Action&lt;/h1&gt;
 
 &lt;p&gt;An ant script is provided in the SIDE-deployer project. Java classes will be stored into the provided package. The class name is based on the name of the workflow. Don&amp;#8217;t forget to capitalize your workflow name in your SIDE model!&lt;/p&gt;
 
-&lt;p&gt;BUILD JAVA CLASSES (AND REPLACE EXISTING ACTIONS)&lt;/p&gt;
+&lt;h1 id='build_java_classes_and_replace_existing_actions'&gt;Build Java classes (and replace existing actions)&lt;/h1&gt;
 
 &lt;p&gt;Java classes will be stored into the provided package. The class name is based on the name of the workflow. Don&amp;#8217;t forget to capitalize your workflow name in your SIDE model!&lt;/p&gt;
 
-&lt;p&gt;./build.sh improve-workflows \ -Dworkflow.action.package=&amp;#8221;org.sidelabs.is.operational.workflow&amp;#8221; -DuseProcessDefinitionName=&amp;#8221;true&amp;#8221; -DreplaceActions=&amp;#8221;true&amp;#8221; CHOOSE THE NAME OF THE MAIN CLASS IF REQUIRED&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./build.sh improve-workflows \ -Dworkflow.action.package=&amp;quot;org.sidelabs.is.operational.workflow&amp;quot; -DuseProcessDefinitionName=&amp;quot;true&amp;quot; -DreplaceActions=&amp;quot;true&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;./build.sh improve-workflows \ -Dworkflow.action.package=&amp;#8221;org.sidelabs.is.operational.workflow&amp;#8221; -Dworkflow.action.class=&amp;#8221;Dispatch&amp;#8221; CHOOSE NOT TO REPLACE ALREADY EXISTING ACTIONS&lt;/p&gt;
+&lt;h1 id='choose_the_name_of_the_main_class_if_required'&gt;Choose the name of the main class if required&lt;/h1&gt;
 
-&lt;p&gt;./build.sh improve-workflows \ -Dworkflow.action.package=&amp;#8221;org.sidelabs.is.operational.workflow&amp;#8221; -useProcessDefinitionName=&amp;#8221;true&amp;#8221; -DreplaceActions=&amp;#8221;true&amp;#8221; Conclusion&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;./build.sh improve-workflows \
+  -Dworkflow.action.package=&amp;quot;org.sidelabs.is.operational.workflow&amp;quot;
+  -Dworkflow.action.class=&amp;quot;Dispatch&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Choose not to replace already existing actions&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./build.sh improve-workflows \
+  -Dworkflow.action.package=&amp;quot;org.sidelabs.is.operational.workflow&amp;quot;
+  -useProcessDefinitionName=&amp;quot;true&amp;quot;
+  -DreplaceActions=&amp;quot;true&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
 
 &lt;p&gt;You get the following java class:&lt;/p&gt;
 
-&lt;p&gt;package org.sidelabs.is.operational.workflow;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;package org.sidelabs.is.operational.workflow;
 
-&lt;p&gt;import org.sidelabs.workflow.SIDEActionHandler;&lt;/p&gt;
+import org.sidelabs.workflow.SIDEActionHandler;
 
-&lt;p&gt;import org.apache.commons.logging.Log; import org.apache.commons.logging.LogFactory;&lt;/p&gt;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-&lt;p&gt;public class Yamma extends SIDEActionHandler {&lt;/p&gt;
+public class Yamma extends SIDEActionHandler {
 
-&lt;pre&gt;&lt;code&gt;    private static final long serialVersionUID = 1L;
-    private static Log logger = LogFactory.getLog(Yamma.class);
+        private static final long serialVersionUID = 1L;
+        private static Log logger = LogFactory.getLog(Yamma.class);
 
-    /**
-     * Transitions
-     */
+        /**
+         * Transitions
+         */
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void initialize() {
-                    logger.debug(&amp;quot;Processing: initialize&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void initialize() {
+                        logger.debug(&amp;quot;Processing: initialize&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void checkQuality() {
-                    logger.debug(&amp;quot;Processing: checkQuality&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void checkQuality() {
+                        logger.debug(&amp;quot;Processing: checkQuality&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void accountingIsNOK() {
-                    logger.debug(&amp;quot;Processing: accountingIsNOK&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void accountingIsNOK() {
+                        logger.debug(&amp;quot;Processing: accountingIsNOK&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void accountingIsOK() {
-                    logger.debug(&amp;quot;Processing: accountingIsOK&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void accountingIsOK() {
+                        logger.debug(&amp;quot;Processing: accountingIsOK&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void legalIsNOK() {
-                    logger.debug(&amp;quot;Processing: legalIsNOK&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void legalIsNOK() {
+                        logger.debug(&amp;quot;Processing: legalIsNOK&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void legalIsOK() {
-                    logger.debug(&amp;quot;Processing: legalIsOK&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void legalIsOK() {
+                        logger.debug(&amp;quot;Processing: legalIsOK&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void finish1() {
-                    logger.debug(&amp;quot;Processing: finish1&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void finish1() {
+                        logger.debug(&amp;quot;Processing: finish1&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void finish2() {
-                    logger.debug(&amp;quot;Processing: finish2&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void finish2() {
+                        logger.debug(&amp;quot;Processing: finish2&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void retry() {
-                    logger.debug(&amp;quot;Processing: retry&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void retry() {
+                        logger.debug(&amp;quot;Processing: retry&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void decision2() {
-                    logger.debug(&amp;quot;Processing: decision2&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void decision2() {
+                        logger.debug(&amp;quot;Processing: decision2&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void termination() {
-                    logger.debug(&amp;quot;Processing: termination&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void termination() {
+                        logger.debug(&amp;quot;Processing: termination&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void accounting() {
-                    logger.debug(&amp;quot;Processing: accounting&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void accounting() {
+                        logger.debug(&amp;quot;Processing: accounting&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void legal() {
-                    logger.debug(&amp;quot;Processing: legal&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void legal() {
+                        logger.debug(&amp;quot;Processing: legal&amp;quot;);
+                }
 
-    /**
-     * Events
-     */
+        /**
+         * Events
+         */
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void onEnteringNodeMove() {
-                    logger.debug(&amp;quot;Processing: onEnteringNodeMove&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void onEnteringNodeMove() {
+                        logger.debug(&amp;quot;Processing: onEnteringNodeMove&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void onEnteringNodeTermination() {
-                    logger.debug(&amp;quot;Processing: onEnteringNodeTermination&amp;quot;);
-            }
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void onEnteringNodeTermination() {
+                        logger.debug(&amp;quot;Processing: onEnteringNodeTermination&amp;quot;);
+                }
 
-            /**
-              * @param none
-              *
-              * @return void
-              **/
-            public void onEnteringNodeError() {
-                    logger.debug(&amp;quot;Processing: onEnteringNodeError&amp;quot;);
-            }&lt;/code&gt;&lt;/pre&gt;
+                /**
+                  * @param none
+                  *
+                  * @return void
+                  **/
+                public void onEnteringNodeError() {
+                        logger.debug(&amp;quot;Processing: onEnteringNodeError&amp;quot;);
+                }
 
-&lt;p&gt;} HTH&lt;/p&gt;</content>
+}&lt;/code&gt;&lt;/pre&gt;</content>
  </entry>
  
  <entry>
-   <title>Alfresco_multi Tenant_imap4_and_mount.davfs</title>
-   <link href="http://jckermagoret.github.io/2011/03/12/Alfresco_multi-tenant_IMAP4_and_mount.davfs"/>
+   <title>Alfresco multi tenant IMAP4 and mount.davfs</title>
+   <link href="http://jckermagoret.github.io/alfresco/multi-tenant/2011/03/12/Alfresco_multi-tenant_IMAP4_and_mount.davfs"/>
    <updated>2011-03-12T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/03/12/Alfresco_multi-tenant_IMAP4_and_mount.davfs</id>
-   <content type="html">&lt;p&gt;Use Case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/alfresco/multi-tenant/2011/03/12/Alfresco_multi-tenant_IMAP4_and_mount.davfs</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use Case&lt;/h1&gt;
 
 &lt;p&gt;In a multi-tenant Alfresco, I want to be able to use IMAP4, which is not supported in this situation, except for the host (the main tenant).&lt;/p&gt;
 
 &lt;p&gt;A work around consists in mounting other tenants through webdav to be able to copy content from one tenant to another, and then to extract meta-data through a content rule. This feature sounds like the replicate one which is unfortunately unavailable on multi-tenant systems.&lt;/p&gt;
 
-&lt;p&gt;Summary&lt;/p&gt;
+&lt;h1 id='summary'&gt;Summary&lt;/h1&gt;
 
 &lt;p&gt;The Alfresco host server acts like the main tenant which receives mails for other tenants then, through webdav, copied them to other tenants.&lt;/p&gt;
 
 &lt;p&gt;In very short, Replicate = WebDAV + Content Rule&lt;/p&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;The solution is based on mount.davfs.&lt;/p&gt;
 
 &lt;p&gt;You can install it through the davfs debian package. Just do:&lt;/p&gt;
 
-&lt;p&gt;apt-get install davfs Mount.davfs Configuration&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apt-get install davfs&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='mountdavfs_configuration'&gt;Mount.davfs Configuration&lt;/h1&gt;
 
 &lt;p&gt;You then need to edit:&lt;/p&gt;
 
-&lt;p&gt;/etc/davfs/secrets, to indicate for each mount point the user and passwd to use /etc/davfs/certs/yourserver.pem, to indicate the certificate for your alfresco webdav server, using SSL My /etc/davfs/secrets file contains the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/etc/davfs/secrets, to indicate for each mount point the user and passwd to use&lt;/li&gt;
 
-&lt;p&gt;/mnt/davfs/test2-admin admin@test2 xxxx /mnt/davfs/test1-admin admin@test1 xxxx /mnt/davfs/demo2-admin admin@demo2 xxxx /mnt/davfs/demo1-admin admin@demo1 xxxx /mnt/davfs/main-admin admin xxxx where xxxx must be replaced by your password for each tenant. You can of course make some mountings with other user accounts than the admin one.&lt;/p&gt;
+&lt;li&gt;/etc/davfs/certs/yourserver.pem, to indicate the certificate for your alfresco webdav server, using SSL&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My /etc/davfs/secrets file contains the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/mnt/davfs/test2-admin admin@test2 xxxx
+/mnt/davfs/test1-admin admin@test1 xxxx
+/mnt/davfs/demo2-admin admin@demo2 xxxx
+/mnt/davfs/demo1-admin admin@demo1 xxxx
+/mnt/davfs/main-admin admin xxxx&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where xxxx must be replaced by your password for each tenant. You can of course make some mountings with other user accounts than the admin one.&lt;/p&gt;
 
 &lt;p&gt;You can then mount your webdav server on your mount point. For example:&lt;/p&gt;
 
-&lt;p&gt;mount -t davfs https://your.alfresco.server/alfresco/webdav /mnt/davfs/main-admin where /mnt/davfs/main-admin is a directory you created before the mount command&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mount -t davfs https://your.alfresco.server/alfresco/webdav /mnt/davfs/main-admin&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where /mnt/davfs/main-admin is a directory you created before the mount command&lt;/p&gt;
 
 &lt;p&gt;You can then use your remote alfresco server like any usual file systems and copies the data.&lt;/p&gt;
 
 &lt;p&gt;For example, I do:&lt;/p&gt;
 
-&lt;p&gt;cp -rf /mnt/davfs/main-admin/Imap\ Home/admin/INBOX/Alfresco/* /mnt/davfs/test1-admin/Sites/test1/documentLibrary/test/Alfresco Meta-data Extraction Through Content Rule&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp -rf /mnt/davfs/main-admin/Imap\ Home/admin/INBOX/Alfresco/* /mnt/davfs/test1-admin/Sites/test1/documentLibrary/test/Alfresco&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='metadata_extraction_through_content_rule'&gt;Meta-data Extraction Through Content Rule&lt;/h1&gt;
 
 &lt;p&gt;E-mails are now available in my tenant, but they aren&amp;#8217;t seen like emails. So, I need to extract the meta-data corresponding to e-mails. To achieve that, I just have to create a content rule which will be triggered on new elements. This content rule will extract common meta-data from freshly copied emails.&lt;/p&gt;
 
-&lt;p&gt;Conclusion&lt;/p&gt;
+&lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
 
 &lt;p&gt;It&amp;#8217;s a little hacky but it does the job!!!&lt;/p&gt;
 
-&lt;p&gt;Resources&lt;/p&gt;
+&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;
 
-&lt;p&gt;http://linux.die.net/man/8/mount.davfs http://www.linuxquestions.org/questions/linux-software-2/force-accept-certificates-when-using-mount-davfs-632056/ to automatically accept certificates when mounting the WebDAV resource with SSL&lt;/p&gt;</content>
+&lt;ul&gt;
+&lt;li&gt;http://linux.die.net/man/8/mount.davfs&lt;/li&gt;
+
+&lt;li&gt;http://www.linuxquestions.org/questions/linux-software-2/force-accept-certificates-when-using-mount-davfs-632056/ to automatically accept certificates when mounting the WebDAV resource with SSL&lt;/li&gt;
+&lt;/ul&gt;</content>
  </entry>
  
  <entry>
-   <title>Imapsync_and_alfresco</title>
-   <link href="http://jckermagoret.github.io/2011/03/01/imapsync_and_Alfresco"/>
+   <title>imapsync and Alfresco</title>
+   <link href="http://jckermagoret.github.io/system/imap/alfresco/2011/03/01/imapsync_and_Alfresco"/>
    <updated>2011-03-01T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/03/01/imapsync_and_Alfresco</id>
-   <content type="html">&lt;p&gt;Use case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/system/imap/alfresco/2011/03/01/imapsync_and_Alfresco</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use case&lt;/h1&gt;
 
 &lt;p&gt;The YaMma (Yet Another Mail Management Application) project aims at managing mails and emails. So we want a way to input emails into the repository, which is for instance an Alfresco one. Moreover, Alfresco provides IMAP support but it lacks one important feature -IMAPS, has one important bug -folder doesn&amp;#8217;t refresh quickly, a huge drawback -the necessity to configure a new IMAP account on each customer computer.&lt;/p&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;To circumvent all these problems, there is a very simple solution, which only consists to create a folder, called Alfresco for example, in each already existing IMAP account of our customers. Then, we&amp;#8217;ll just need to synchronize this one with the existing IMAP account each customer has. We avoid the 3 previous drawbacks:&lt;/p&gt;
 
-&lt;p&gt;no security hole: imapsync supports SSL so by using it on my Alfresco server, I can connect to host1 with IMAPS and to host2 with IMAP through localhost which is safe my Alfresco folder is always updated like my other mail folders, no refresh problem anymore no need to install anything on the customer&amp;#8217;s computer Which Software?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;no security hole: imapsync supports SSL so by using it on my Alfresco server, I can connect to host1 with IMAPS and to host2 with IMAP through localhost which is safe&lt;/li&gt;
+
+&lt;li&gt;my Alfresco folder is always updated like my other mail folders, no refresh problem anymore&lt;/li&gt;
+
+&lt;li&gt;no need to install anything on the customer&amp;#8217;s computer&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id='which_software'&gt;Which Software?&lt;/h1&gt;
 
 &lt;p&gt;I had a look at imap synchronization software. I noticed isync and imapsync:&lt;/p&gt;
 
-&lt;p&gt;iSync was interesting but there was a final bug preventing me to make things work imapsync made finally the job but the final solution needed a few hours to get everything ok. So, here is the solution. Installation&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;iSync was interesting but there was a final bug preventing me to make things work&lt;/li&gt;
+
+&lt;li&gt;imapsync made finally the job but the final solution needed a few hours to get everything ok. So, here is the solution.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id='installation'&gt;Installation&lt;/h1&gt;
 
 &lt;p&gt;First, make :&lt;/p&gt;
 
-&lt;p&gt;apt-get install imapsync This will install the required libraries for imapsync. Then, go on fedorahosted and get the last available imapsync version (1.434 the 2011-05-25).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;apt-get install imapsync&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;If you are using debian Squeeze, imapsync seems not to be available anymore. Don&amp;#8217;t worry, just add the following into your /etc/apt/sources.list to use the package available for lenny: * deb http://ftp.debian.org/debian lenny main contrib Then update your sources with the following: * apt-get update Then just do:&lt;/p&gt;
+&lt;p&gt;This will install the required libraries for imapsync. Then, go on fedorahosted and get the last available imapsync version (1.434 the 2011-05-25).&lt;/p&gt;
 
-&lt;p&gt;tar xzvf imapsync-xxx.tgz cd imapsync-xxx perl -MCPAN -e shell install Mail::IMAPClient make install Synchronization&lt;/p&gt;
+&lt;p&gt;If you are using debian Squeeze, imapsync seems not to be available anymore. Don&amp;#8217;t worry, just add the following into your /etc/apt/sources.list to use the package available for lenny:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;deb http://ftp.debian.org/debian lenny main contrib&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then update your sources with the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apt-get update&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then just do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tar xzvf imapsync-xxx.tgz
+cd imapsync-xxx
+perl -MCPAN -e shell
+install Mail::IMAPClient
+make install&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='synchronization'&gt;Synchronization&lt;/h1&gt;
 
 &lt;p&gt;It&amp;#8217;s now time to write a little script, called for example imapsync.sh, to make the migration occur. Note that host2 is the server where my Alfresco server resides. On host1 resides my IMAP server with my mailbox. I created an Alfresco folder in it and I only synchronized this one.&lt;/p&gt;
 
-&lt;p&gt;///&lt;/p&gt;
-
-&lt;p&gt;!/bin/sh imapsync \&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;   -host1 yourhost1 -ssl1 -user1 mylogin@bluexml.com -passfile1 pass1.txt -folder INBOX.Alfresco \
-   -host2 localhost -prefix2 &amp;quot;INBOX/&amp;quot; -sep2 &amp;quot;/&amp;quot; -user2 myLoginOnAlfresco -passfile2 pass2.txt \
-   -useheader Subject -useheader Date \
-   -noauthmd5 -syncinternaldates&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;///&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;!/bin/sh
+imapsync \
+       -host1 yourhost1 -ssl1 -user1 mylogin@bluexml.com -passfile1 pass1.txt -folder INBOX.Alfresco \
+       -host2 localhost -prefix2 &amp;quot;INBOX/&amp;quot; -sep2 &amp;quot;/&amp;quot; -user2 myLoginOnAlfresco -passfile2 pass2.txt \
+       -useheader Subject -useheader Date \
+       -noauthmd5 -syncinternaldates&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;If you want some debug information, just add debug debugimap.&lt;/p&gt;
 
 &lt;p&gt;Finally, just type the following:&lt;/p&gt;
 
-&lt;p&gt;sh imapsync.sh If you make a man imapsync, you&amp;#8217;ll find a very interesting script to synchronize a set of mailboxes with different users and passwords. The script may be very easily updated to indicate also the folder you want to synchronize.&lt;/p&gt;</content>
+&lt;pre&gt;&lt;code&gt;sh imapsync.sh&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you make a man imapsync, you&amp;#8217;ll find a very interesting script to synchronize a set of mailboxes with different users and passwords. The script may be very easily updated to indicate also the folder you want to synchronize.&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>Observer_pattern_server_side_implementations</title>
-   <link href="http://jckermagoret.github.io/2011/02/25/Observer_Pattern_Server_Side_Implementations"/>
+   <title>Observer Pattern Server Side Implementation</title>
+   <link href="http://jckermagoret.github.io/javascript/observer/2011/02/25/Observer_Pattern_Server_Side_Implementations"/>
    <updated>2011-02-25T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/02/25/Observer_Pattern_Server_Side_Implementations</id>
+   <id>http://jckermagoret.github.io/javascript/observer/2011/02/25/Observer_Pattern_Server_Side_Implementations</id>
    <content type="html">&lt;p&gt;You just discovered Observer pattern in javascript on the client, and we already talk about server side implementations.&lt;/p&gt;
 
-&lt;p&gt;What does server side implementation add?&lt;/p&gt;
+&lt;h1 id='what_does_server_side_implementation_add'&gt;What does server side implementation add?&lt;/h1&gt;
 
 &lt;p&gt;This means that once you developed the Observer pattern on your client side application, you can very easily extend it to provide easy and widespread messaging interop among languages, platforms and brokers. This basically means you can communicate messages to a lot of others users.&lt;/p&gt;
 
 &lt;p&gt;Server side implementation may be done through CometD, which is now part of dojo, which enable you to build very simple chat application for the most straight forward use case.&lt;/p&gt;
 
-&lt;p&gt;Conclusion&lt;/p&gt;
+&lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
 
 &lt;p&gt;When writing these posts, I found the following resources which may be of interest:&lt;/p&gt;
 
-&lt;p&gt;http://almaer.com/blog/enjoying-the-observer-pattern-with-custom-events http://stackoverflow.com/questions/390740/messaging-queues-and-esbs-i-know-where-i-want-to-be-but-not-how-to-get-there&lt;/p&gt;</content>
+&lt;ul&gt;
+&lt;li&gt;http://almaer.com/blog/enjoying-the-observer-pattern-with-custom-events&lt;/li&gt;
+
+&lt;li&gt;http://stackoverflow.com/questions/390740/messaging-queues-and-esbs-i-know-where-i-want-to-be-but-not-how-to-get-there&lt;/li&gt;
+&lt;/ul&gt;</content>
  </entry>
  
  <entry>
-   <title>Observer_pattern_multi_framework_implementation</title>
-   <link href="http://jckermagoret.github.io/2011/02/24/Observer_Pattern_Multi_Framework_Implementation"/>
+   <title>Observer Pattern multi framework implementation</title>
+   <link href="http://jckermagoret.github.io/javascript/observer/2011/02/24/Observer_Pattern_Multi_Framework_Implementation"/>
    <updated>2011-02-24T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/02/24/Observer_Pattern_Multi_Framework_Implementation</id>
+   <id>http://jckermagoret.github.io/javascript/observer/2011/02/24/Observer_Pattern_Multi_Framework_Implementation</id>
    <content type="html">&lt;p&gt;We have seen in the previous posts how to use Observer Pattern in dojo and jQuery. But first, why do we bother at building such a unified solution?&lt;/p&gt;
 
 &lt;p&gt;Why such a requirement?&lt;/p&gt;
 
 &lt;p&gt;I have 2 main reasons:&lt;/p&gt;
 
-&lt;p&gt;I can use it the same way whatever the context I am in. I don&amp;#8217;t want to remember the specific syntax for a specific framework. It makes code understandability easier. I can work simultaneously with various frameworks. For example, in Alfresco Share, I wrote a code snippet to use dojo in the document-details view to extend the way meta data are displayed in a more friendly UI. But this extension uses dojo and Alfresco Share is based on Y!UI. So I need to interact from Y!UI with dojo and vice-versa. Architecture may evolve and I could need to interact with jquery components, so such an Observer implementation may help.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;I can use it the same way whatever the context I am in. I don&amp;#8217;t want to remember the specific syntax for a specific framework. It makes code understandability easier.&lt;/li&gt;
+
+&lt;li&gt;I can work simultaneously with various frameworks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For example, in Alfresco Share, I wrote a code snippet to use dojo in the document-details view to extend the way meta data are displayed in a more friendly UI. But this extension uses dojo and Alfresco Share is based on Y!UI. So I need to interact from Y!UI with dojo and vice-versa. Architecture may evolve and I could need to interact with jquery components, so such an Observer implementation may help.&lt;/p&gt;
 
 &lt;p&gt;In short:&lt;/p&gt;
 
-&lt;p&gt;one publish will forward the publish on all the available Observer implementation one subscribe will subscribe the component on all the available Observer implementation Moreover by this way I can add specific code for debugging purposes.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;one publish will forward the publish on all the available Observer implementation&lt;/li&gt;
 
-&lt;p&gt;Observer Implementation&lt;/p&gt;
+&lt;li&gt;one subscribe will subscribe the component on all the available Observer implementation&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;Observer = { log: new log4javascript.getLogger(&amp;#8220;SIDE.Observer&amp;#8221;),&lt;/p&gt;
+&lt;p&gt;Moreover by this way I can add specific code for debugging purposes.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;    subscribe: function(channel, subscriber) {
-            if (Observer.log.isDebugEnabled()) {
-                    Observer.log.debug(&amp;quot;Observer - Subscribing&amp;quot;);
-                    Observer.log.debug(&amp;quot;Channel : &amp;quot; + channel);
-            }
-            // Dojo
-            dojo.subscribe(channel, subscriber);
-            // jQuery
-            document.bind(channel, subscriber);
-            // Y!UI, ExtJS, ...
-    },
+&lt;h1 id='observer_implementation'&gt;Observer Implementation&lt;/h1&gt;
 
-    publish: function(channel, message) {
-            if (Observer.log.isDebugEnabled()) {
-                    Observer.log.debug(&amp;quot;Observer - Publishing&amp;quot;);
-                    Observer.log.debug(&amp;quot;Channel : &amp;quot;, channel);
-                    Observer.log.debug(&amp;quot;Message : &amp;quot;, message[0]);
-            }
-            // Dojo
-            dojo.publish(channel, message);
-            // jQuery
-            document.trigger(channel, message);
-            // Y!UI, ExtJS, ...
-    }&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Observer = {
+        log: new log4javascript.getLogger(&amp;quot;SIDE.Observer&amp;quot;),
 
-&lt;p&gt;} For the use of log4javascript, please refer to my previous post.&lt;/p&gt;
+        subscribe: function(channel, subscriber) {
+                if (Observer.log.isDebugEnabled()) {
+                        Observer.log.debug(&amp;quot;Observer - Subscribing&amp;quot;);
+                        Observer.log.debug(&amp;quot;Channel : &amp;quot; + channel);
+                }
+                // Dojo
+                dojo.subscribe(channel, subscriber);
+                // jQuery
+                document.bind(channel, subscriber);
+                // Y!UI, ExtJS, ...
+        },
+
+        publish: function(channel, message) {
+                if (Observer.log.isDebugEnabled()) {
+                        Observer.log.debug(&amp;quot;Observer - Publishing&amp;quot;);
+                        Observer.log.debug(&amp;quot;Channel : &amp;quot;, channel);
+                        Observer.log.debug(&amp;quot;Message : &amp;quot;, message[0]);
+                }
+                // Dojo
+                dojo.publish(channel, message);
+                // jQuery
+                document.trigger(channel, message);
+                // Y!UI, ExtJS, ...
+        }
+}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For the use of log4javascript, please refer to my previous post.&lt;/p&gt;
 
 &lt;p&gt;Any comments?&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>Observer_pattern_jquery_usage</title>
-   <link href="http://jckermagoret.github.io/2011/02/23/Observer_Pattern_jQuery_usage"/>
+   <title>Observer Pattern jQuery usage</title>
+   <link href="http://jckermagoret.github.io/javascript/observer/2011/02/23/Observer_Pattern_jQuery_usage"/>
    <updated>2011-02-23T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/02/23/Observer_Pattern_jQuery_usage</id>
+   <id>http://jckermagoret.github.io/javascript/observer/2011/02/23/Observer_Pattern_jQuery_usage</id>
    <content type="html">&lt;p&gt;If I take the example back, I just have to add the js corresponding to jQuery. I finally get the following html page:&lt;/p&gt;
-&lt;html&gt;
-&lt;head&gt;
-        &lt;script src='http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js' /&gt;
-&lt;/head&gt;
-&lt;body&gt;
-        &lt;div id='menu'&gt;
-                        &lt;h1&gt;Menu&lt;/h1&gt;
-                &lt;ul&gt;
-                        &lt;li&gt;&lt;a href='javascript:OldWay()'&gt;Old way&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a href='javascript:ObserverWay()'&gt;Observer way&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-        &lt;/div&gt;
-        &lt;div id='contentPortlet'&gt;
-                &lt;h1&gt;Content&lt;/h1&gt;
-                &lt;div id='content' /&gt;
-        &lt;/div&gt;
-        &lt;div id='metadataPortlet'&gt;
-                &lt;h1&gt;Detail&lt;/h1&gt;
-                &lt;div id='metadata' /&gt;
-        &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+        &amp;lt;script src=&amp;quot;http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+        &amp;lt;div id=&amp;quot;menu&amp;quot;&amp;gt;
+                        &amp;lt;h1&amp;gt;Menu&amp;lt;/h1&amp;gt;
+                &amp;lt;ul&amp;gt;
+                        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;javascript:OldWay()&amp;quot;&amp;gt;Old way&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+                        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;javascript:ObserverWay()&amp;quot;&amp;gt;Observer way&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+                &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div id=&amp;quot;contentPortlet&amp;quot;&amp;gt;
+                &amp;lt;h1&amp;gt;Content&amp;lt;/h1&amp;gt;
+                &amp;lt;div id=&amp;quot;content&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div id=&amp;quot;metadataPortlet&amp;quot;&amp;gt;
+                &amp;lt;h1&amp;gt;Detail&amp;lt;/h1&amp;gt;
+                &amp;lt;div id=&amp;quot;metadata&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+        &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;I now add the event mechanism through the use of the bind and trigger functions.&lt;/p&gt;
 
 &lt;p&gt;The bind action takes 2 arguments:&lt;/p&gt;
 
-&lt;p&gt;the event name the function to call The following code snippet will make the contentPortlet listen to the info event:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the event name&lt;/li&gt;
 
-&lt;p&gt;doc.bind(&amp;#8216;info&amp;#8217;, contentPortlet); An event is triggered by simply calling the trigger action with the event name, with optional parameters:&lt;/p&gt;
+&lt;li&gt;the function to call&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;doc.trigger(&amp;#8216;info&amp;#8217;, &amp;#8216;View Updated Through The Old Way&amp;#8217;); &lt;pre class='markdown-html-error' style='border: solid 3px red; background-color: pink'&gt;REXML could not parse this XML/HTML: 
-&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;&lt;/pre&gt;&lt;/p&gt;
+&lt;p&gt;The following code snippet will make the contentPortlet listen to the info event:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;            var doc = $(document); // just a shortcut
+&lt;pre&gt;&lt;code&gt;doc.bind(&amp;#39;info&amp;#39;, contentPortlet);&lt;/code&gt;&lt;/pre&gt;
 
-            var contentPortlet = function(event, message) {
-                    // replace the content div by the message received
-                    // when the event has been triggered
-                    $(&amp;#39;#content&amp;#39;).html(&amp;#39;Content &amp;#39; + message);
-            }
+&lt;p&gt;An event is triggered by simply calling the trigger action with the event name, with optional parameters:&lt;/p&gt;
 
-            var metadataPortlet = function(event, message) {
-                    // replace the metadata div by the message received
-                    // when the event has been triggered
-                    $(&amp;#39;#metadata&amp;#39;).html(&amp;#39;Metadata &amp;#39; + message);
-            }
+&lt;pre&gt;&lt;code&gt;doc.trigger(&amp;#39;info&amp;#39;, &amp;#39;View Updated Through The Old Way&amp;#39;);
+&amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
 
-            doc.bind(&amp;#39;info&amp;#39;, contentPortlet);
-            doc.bind(&amp;#39;info&amp;#39;, metadataPortlet);
+        var doc = $(document); // just a shortcut
 
-            function ObserverWay() {
-                    doc.trigger(&amp;#39;info&amp;#39;, &amp;#39;View Updated Through The Old Way&amp;#39;);
-            }
+        var contentPortlet = function(event, message) {
+                // replace the content div by the message received
+                // when the event has been triggered
+                $(&amp;#39;#content&amp;#39;).html(&amp;#39;Content &amp;#39; + message);
+        }
 
-    &amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+        var metadataPortlet = function(event, message) {
+                // replace the metadata div by the message received
+                // when the event has been triggered
+                $(&amp;#39;#metadata&amp;#39;).html(&amp;#39;Metadata &amp;#39; + message);
+        }
+
+        doc.bind(&amp;#39;info&amp;#39;, contentPortlet);
+        doc.bind(&amp;#39;info&amp;#39;, metadataPortlet);
+
+        function ObserverWay() {
+                doc.trigger(&amp;#39;info&amp;#39;, &amp;#39;View Updated Through The Old Way&amp;#39;);
+        }
+
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;As you noticed, all these components are coupled in a very agile way. We could configure (bind) content and metadata portlets so they listen to other events.&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>Observer_pattern_dojo_usage</title>
-   <link href="http://jckermagoret.github.io/2011/02/22/Observer_Pattern_dojo_usage"/>
+   <title>Observer Pattern dojo usage</title>
+   <link href="http://jckermagoret.github.io/javascript/observer/2011/02/22/Observer_Pattern_dojo_usage"/>
    <updated>2011-02-22T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/02/22/Observer_Pattern_dojo_usage</id>
+   <id>http://jckermagoret.github.io/javascript/observer/2011/02/22/Observer_Pattern_dojo_usage</id>
    <content type="html">&lt;p&gt;Let&amp;#8217;s take our previous code and replace jQuery mechanism by dojo:&lt;/p&gt;
 
-&lt;p&gt;replace jquery lib by dojo lib replace bind by subscribe replace trigger by publish replace jquery sugar by dojo one Then transform the parameter passed when the trigger is fired as an array:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;replace jquery lib by dojo lib&lt;/li&gt;
 
-&lt;p&gt;&amp;#8216;View Updated Through The Old Way&amp;#8217; becomes &amp;#8216;View Updated Through The Old Way&amp;#8217; and remove the event from the content and metadata portlet. You don&amp;#8217;t need them anymore. If required, you can forward them in the parameters when the event is triggered.&lt;/p&gt;
+&lt;li&gt;replace bind by subscribe&lt;/li&gt;
+
+&lt;li&gt;replace trigger by publish&lt;/li&gt;
+
+&lt;li&gt;replace jquery sugar by dojo one&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then transform the parameter passed when the trigger is fired as an array:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;#8216;View Updated Through The Old Way&amp;#8217; becomes &amp;#8216;View Updated Through The Old Way&amp;#8217;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;and remove the event from the content and metadata portlet. You don&amp;#8217;t need them anymore. If required, you can forward them in the parameters when the event is triggered.&lt;/p&gt;
 
 &lt;p&gt;You now have the following code:&lt;/p&gt;
-&lt;html&gt;
-&lt;head&gt;
-        &lt;script src='https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js' /&gt;
 
-        &lt;script type='text/javascript'&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+        &amp;lt;script src=&amp;quot;https://ajax.googleapis.com/ajax/libs/dojo/1.5/dojo/dojo.xd.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+
+        &amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt;
 
                 var doc = document;
 
                 var contentPortlet = function(message) {
-                        dojo.byId(&quot;content&quot;).innerHTML = 'Content ' + message;
+                        dojo.byId(&amp;quot;content&amp;quot;).innerHTML = &amp;#39;Content &amp;#39; + message;
                 }
 
                 var metadataPortlet = function(message) {
-                        dojo.byId(&quot;metadata&quot;).innerHTML = 'Metadata ' + message;
+                        dojo.byId(&amp;quot;metadata&amp;quot;).innerHTML = &amp;#39;Metadata &amp;#39; + message;
                 }
 
-                dojo.subscribe('info', contentPortlet);
-                dojo.subscribe('info', metadataPortlet);
+                dojo.subscribe(&amp;#39;info&amp;#39;, contentPortlet);
+                dojo.subscribe(&amp;#39;info&amp;#39;, metadataPortlet);
 
                 function OldWay() {
-                   var content = document.getElementById('content');
-                   var metadata = document.getElementById('metadata');
+                   var content = document.getElementById(&amp;#39;content&amp;#39;);
+                   var metadata = document.getElementById(&amp;#39;metadata&amp;#39;);
 
-                   content.innerHTML = &quot;Content View Updated Through The Old Way&quot;;
-                   metadata.innerHTML = &quot;Metadata View Updated Through The Old Way&quot;;
+                   content.innerHTML = &amp;quot;Content View Updated Through The Old Way&amp;quot;;
+                   metadata.innerHTML = &amp;quot;Metadata View Updated Through The Old Way&amp;quot;;
                 }
 
                 function ObserverWay() {
-                        dojo.publish('info', ['View Updated Through The Old Way']);
+                        dojo.publish(&amp;#39;info&amp;#39;, [&amp;#39;View Updated Through The Old Way&amp;#39;]);
                 }
 
-        &lt;/script&gt;
+        &amp;lt;/script&amp;gt;
 
-&lt;/head&gt;
-&lt;body&gt;
-        &lt;div id='menu'&gt;
-                        &lt;h1&gt;Menu&lt;/h1&gt;
-                &lt;ul&gt;
-                        &lt;li&gt;&lt;a href='javascript:OldWay()'&gt;Old way&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a href='javascript:ObserverWay()'&gt;Observer way&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-        &lt;/div&gt;
-        &lt;div id='contentPortlet'&gt;
-                &lt;h1&gt;Content&lt;/h1&gt;
-                &lt;div id='content' /&gt;
-        &lt;/div&gt;
-        &lt;div id='metadataPortlet'&gt;
-                &lt;h1&gt;Detail&lt;/h1&gt;
-                &lt;div id='metadata' /&gt;
-        &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+        &amp;lt;div id=&amp;quot;menu&amp;quot;&amp;gt;
+                        &amp;lt;h1&amp;gt;Menu&amp;lt;/h1&amp;gt;
+                &amp;lt;ul&amp;gt;
+                        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;javascript:OldWay()&amp;quot;&amp;gt;Old way&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+                        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;javascript:ObserverWay()&amp;quot;&amp;gt;Observer way&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+                &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div id=&amp;quot;contentPortlet&amp;quot;&amp;gt;
+                &amp;lt;h1&amp;gt;Content&amp;lt;/h1&amp;gt;
+                &amp;lt;div id=&amp;quot;content&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div id=&amp;quot;metadataPortlet&amp;quot;&amp;gt;
+                &amp;lt;h1&amp;gt;Detail&amp;lt;/h1&amp;gt;
+                &amp;lt;div id=&amp;quot;metadata&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+        &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Any comments?&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>Observer_pattern_comparison_beetween_jquery,_dojo_and_yui</title>
-   <link href="http://jckermagoret.github.io/2011/02/21/Observer_Pattern_Comparison_Beetween_jQuery%2C_Dojo_and_YUI"/>
+   <title>Observer Pattern Comparison Beetween jQuery, Dojo and YUI</title>
+   <link href="http://jckermagoret.github.io/javascript/observer/2011/02/21/Observer_Pattern_Comparison_Beetween_jQuery%2C_Dojo_and_YUI"/>
    <updated>2011-02-21T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/02/21/Observer_Pattern_Comparison_Beetween_jQuery,_Dojo_and_YUI</id>
-   <content type="html">&lt;p&gt;In a very few words, this pattern enables to build agile software architecture by decoupling objects which produce information and objects which consume it. For example, it is really useful to update user interfaces after an event happens.&lt;/p&gt;
+   <id>http://jckermagoret.github.io/javascript/observer/2011/02/21/Observer_Pattern_Comparison_Beetween_jQuery,_Dojo_and_YUI</id>
+   <content type="html">&lt;h1 id='observer_pattern_the_graal_of_the_developer'&gt;Observer Pattern: The Graal of The Developer&lt;/h1&gt;
+
+&lt;p&gt;In a very few words, this pattern enables to build agile software architecture by decoupling objects which produce information and objects which consume it. For example, it is really useful to update user interfaces after an event happens.&lt;/p&gt;
 
 &lt;p&gt;First, we&amp;#8217;re going to deal with a very simple use case and provide a solution without and with this pattern (based on an algorithmic solution) to describe the problem Then, we&amp;#8217;ll provide a concrete solution in jQuery, Dojo and Y!UI to be able to compare them Then, we&amp;#8217;ll suggest a unified approach so we can use observer mechanism in an application with all these 3 frameworks. This solution can be extended to use other frameworks too. At last, we&amp;#8217;ll conclude with a few thoughts about server-side observer implementation like Cometd This approach will finally be used at the end of the tutorial to customize the metadata component of the document details page in Alfresco Share.&lt;/p&gt;
 
-&lt;p&gt;The Use Case&lt;/p&gt;
+&lt;h1 id='the_use_case'&gt;The Use Case&lt;/h1&gt;
 
 &lt;p&gt;Let&amp;#8217;s imagine we have 3 components in an html page. These components are 3 divs named menu, content and details. We have in the menu an action to update menu and details:&lt;/p&gt;
-&lt;html&gt;
-&lt;body&gt;
-        &lt;div id='menu'&gt;
-                &lt;ul&gt;
-                        &lt;li&gt;&lt;a href='javascript:OldWay()'&gt;Old way&lt;/a&gt;&lt;/li&gt;
-                        &lt;li&gt;&lt;a href='javascript:ObserverWay()'&gt;Observer way&lt;/a&gt;&lt;/li&gt;
-                &lt;/ul&gt;
-        &lt;/div&gt;
-        &lt;div id='content'&gt;Content&lt;/div&gt;
-        &lt;div id='metadata'&gt;Detail&lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-&lt;p&gt;The solution without Observer Pattern&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html&amp;gt;
+&amp;lt;body&amp;gt;
+        &amp;lt;div id=&amp;quot;menu&amp;quot;&amp;gt;
+                &amp;lt;ul&amp;gt;
+                        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;javascript:OldWay()&amp;quot;&amp;gt;Old way&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+                        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;javascript:ObserverWay()&amp;quot;&amp;gt;Observer way&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+                &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div id=&amp;quot;content&amp;quot;&amp;gt;Content&amp;lt;/div&amp;gt;
+        &amp;lt;div id=&amp;quot;metadata&amp;quot;&amp;gt;Detail&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='the_solution_without_observer_pattern'&gt;The solution without Observer Pattern&lt;/h1&gt;
 
 &lt;p&gt;To achieve the requirements, you would write the OldWay javascript function like that:&lt;/p&gt;
 
-&lt;p&gt;function OldWay() {&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function OldWay() {
 
-&lt;p&gt;var content = document.getElementById(&amp;#8216;content&amp;#8217;); var metadata = document.getElementById(&amp;#8216;metadata&amp;#8217;); content.innerHTML = &amp;#8220;Content View Updated Through The Old Way&amp;#8221;; metadata.innerHTML = &amp;#8220;Metadata View Updated Through The Old Way&amp;#8221;; alert(&amp;#8220;Success&amp;#8221;); }&lt;/p&gt;
+   var content = document.getElementById(&amp;#39;content&amp;#39;);
+   var metadata = document.getElementById(&amp;#39;metadata&amp;#39;);
+   content.innerHTML = &amp;quot;Content View Updated Through The Old Way&amp;quot;;
+   metadata.innerHTML = &amp;quot;Metadata View Updated Through The Old Way&amp;quot;;
+   alert(&amp;quot;Success&amp;quot;);
+}&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This solution works very well but as you noticed, the OldWay function must know the components to update. It is a very annoying point. Our components are strongly coupled: it&amp;#8217;s a very bad design.&lt;/p&gt;
 
-&lt;p&gt;The Observer Pattern Based Solution&lt;/p&gt;
+&lt;h1 id='the_observer_pattern_based_solution'&gt;The Observer Pattern Based Solution&lt;/h1&gt;
 
 &lt;p&gt;The following lines are not true code, rather alogrithmic ones.&lt;/p&gt;
 
-&lt;p&gt;function ObserverWay() {&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function ObserverWay() {
 
-&lt;p&gt;Publish(&amp;#8220;/info&amp;#8221;, &amp;#8220;update&amp;#8221;) }&lt;/p&gt;
+   Publish(&amp;quot;/info&amp;quot;, &amp;quot;update&amp;quot;)
+}
 
-&lt;p&gt;function UpdateContent() {&lt;/p&gt;
+function UpdateContent() {
 
-&lt;p&gt;content.innerHTML = &amp;#8220;Content Updated Through The Old Way&amp;#8221;; }&lt;/p&gt;
+   content.innerHTML = &amp;quot;Content Updated Through The Old Way&amp;quot;;
+}
 
-&lt;p&gt;function UpdateMetadata() {&lt;/p&gt;
+function UpdateMetadata() {
 
-&lt;p&gt;content.innerHTML = &amp;#8220;Content Updated Through The Old Way&amp;#8221;; }&lt;/p&gt;
+   content.innerHTML = &amp;quot;Content Updated Through The Old Way&amp;quot;;
+}
 
-&lt;p&gt;Subscribe(&amp;#8220;/info&amp;#8221;, UpdateContent()); Subscribe(&amp;#8220;/info&amp;#8221;, UpdateMetadata());&lt;/p&gt;
+Subscribe(&amp;quot;/info&amp;quot;, UpdateContent()); Subscribe(&amp;quot;/info&amp;quot;, UpdateMetadata());&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;We now have 3 functions, completely independant:&lt;/p&gt;
 
-&lt;p&gt;one publisher, ObserverWay, which produces some information two consumers, UpdateContent and UpdateMetadata, which consume information The communication beetween producers and consumers is done through the info channel on which the first publishes some information while the others subscribe (or listen) to it.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;one publisher, ObserverWay, which produces some information&lt;/li&gt;
+
+&lt;li&gt;two consumers, UpdateContent and UpdateMetadata, which consume information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The communication beetween producers and consumers is done through the info channel on which the first publishes some information while the others subscribe (or listen) to it.&lt;/p&gt;
 
 &lt;p&gt;In this architecture, if we add a new component, it just has to subscribe to the channels it is interested with, without disturbing the architecture.&lt;/p&gt;
 
-&lt;p&gt;We&amp;#8217;ll see tomorrow the unified approach I suggest to use.&lt;/p&gt;</content>
+&lt;p&gt;We&amp;#8217;ll see next time the unified approach I suggest to use.&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>Fuse_and_openvz</title>
-   <link href="http://jckermagoret.github.io/2011/02/01/Fuse_and_OpenVZ"/>
+   <title>Fuse and OpenVZ</title>
+   <link href="http://jckermagoret.github.io/system/openvz/2011/02/01/Fuse_and_OpenVZ"/>
    <updated>2011-02-01T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/02/01/Fuse_and_OpenVZ</id>
-   <content type="html">&lt;p&gt;Use Case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/system/openvz/2011/02/01/Fuse_and_OpenVZ</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use Case&lt;/h1&gt;
 
 &lt;p&gt;To be able to use mount.davfs, I need to install fuse.&lt;/p&gt;
 
-&lt;p&gt;My problem is I&amp;#8217;m on a virtual machine, based on OpenVZ&lt;/p&gt;
+&lt;p&gt;My problem is I&amp;#8217;m on a virtual machine, based on OpenVZ.&lt;/p&gt;
 
-&lt;p&gt;Problem&lt;/p&gt;
+&lt;h1 id='problem'&gt;Problem&lt;/h1&gt;
 
 &lt;p&gt;When installing fuse-utils through apt-get, everything went fine but mount.davfs doesn&amp;#8217;t work and give a short: /sbin/mount.davfs: can&amp;#8217;t open /dev/fuse&lt;/p&gt;
 
 &lt;p&gt;This process works smoothly on a virtual machine based on Fully Virtualized (KVE) but not on an OpenVZ&lt;/p&gt;
 
-&lt;p&gt;Diagnostic&lt;/p&gt;
+&lt;h1 id='diagnostic'&gt;Diagnostic&lt;/h1&gt;
 
 &lt;p&gt;In OpenVZ, in contrast with KVE, virtual machines share with host node kernel modules and devices. This means 2 important hings:&lt;/p&gt;
 
-&lt;p&gt;the host node must have any module you want to use on virtual machines the host node must create devices and give permissions to virtual machines to use them Solution&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the host node must have any module you want to use on virtual machines&lt;/li&gt;
+
+&lt;li&gt;the host node must create devices and give permissions to virtual machines to use them&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;So, I needed, where $CTID is the container ID:&lt;/p&gt;
 
-&lt;p&gt;to install fuse-utils on host node: apt-get install fuse-utils to install fuse-utils on the required container to create device on the host node through the following command: vzctl set $CTID &amp;#8211;devnodes fuse:rw And finally, for the new module to be available, restart the container:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;to install fuse-utils on host node: apt-get install fuse-utils&lt;/li&gt;
 
-&lt;p&gt;vzctl restart $CTID Problem&lt;/p&gt;
+&lt;li&gt;to install fuse-utils on the required container&lt;/li&gt;
+
+&lt;li&gt;to create device on the host node through the following command: vzctl set $CTID &amp;#8211;devnodes fuse:rw&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And finally, for the new module to be available, restart the container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vzctl restart $CTID&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='problem'&gt;Problem&lt;/h1&gt;
 
 &lt;p&gt;The problems you may have are often related to /dev/fuse. You can have:&lt;/p&gt;
 
-&lt;p&gt;/sbin/mount.davfs: /dev/fuse: permission denied /sbin/mount.davfs: can&amp;#8217;t open /dev/fuse /SBIN/MOUNT.DAVFS: /DEV/FUSE: PERMISSION DENIED&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/sbin/mount.davfs: /dev/fuse: permission denied&lt;/li&gt;
+
+&lt;li&gt;/sbin/mount.davfs: can&amp;#8217;t open /dev/fuse&lt;/li&gt;
+
+&lt;li&gt;/SBIN/MOUNT.DAVFS: /DEV/FUSE: PERMISSION DENIED&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;Your user is generally not in the right group, so add your user into fuse group and chmod 660 /dev/fuse. Ask google, a lot of people had this problem and solved it quickly (see 1).&lt;/p&gt;
 
-&lt;p&gt;/SBIN/MOUNT.DAVFS: CAN&amp;#8217;T OPEN /DEV/FUSE&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/SBIN/MOUNT.DAVFS: CAN&amp;#8217;T OPEN /DEV/FUSE&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;You probably first installed fuse on the virtual machine and the /dev/fuse device has so been created by your virtual machine but, as stated before, all kernel modules and devices are shared beetween the host node and containers. You can see it, with the right group and set of permissions, but you can&amp;#8217;t open it.&lt;/p&gt;
 
 &lt;p&gt;You absolutely need to create the device in the Host Node. To do so, just remove it from the container (it means your virtual machine) with a plain &amp;#8220;rm /dev/fuse&amp;#8221; and create in the host node the corresponding /dev/fuse:&lt;/p&gt;
 
-&lt;p&gt;vzctl set $CTID devices c:10:229:rw save vzctl exec $CTID mknod /dev/fuse c 10 229 If you now look into /etc/vz/conf/$CTID.conf, you will see the following new line:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vzctl set $CTID devices c:10:229:rw save
+vzctl exec $CTID mknod /dev/fuse c 10 229&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;DEVNODES=&amp;#8221;fuse:rw &amp;#8221; Restart your container:&lt;/p&gt;
+&lt;p&gt;If you now look into /etc/vz/conf/$CTID.conf, you will see the following new line:&lt;/p&gt;
 
-&lt;p&gt;vzctl restart $CTID And, miracle, everything will run smoothly :-)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;DEVNODES=&amp;quot;fuse:rw &amp;quot;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Resources&lt;/p&gt;
+&lt;p&gt;Restart your container:&lt;/p&gt;
 
-&lt;p&gt;1 http://www.nullamatix.com/fixed-fuse-failed-open-dev-fuse-permission-denied/&lt;/p&gt;</content>
+&lt;pre&gt;&lt;code&gt;vzctl restart $CTID&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And, miracle, everything will run smoothly :-)&lt;/p&gt;
+
+&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://www.nullamatix.com/fixed-fuse-failed-open-dev-fuse-permission-denied/&lt;/li&gt;
+&lt;/ul&gt;</content>
  </entry>
  
  <entry>
-   <title>Reduce_pdf_size_after_300ppp_and_color_scan</title>
-   <link href="http://jckermagoret.github.io/2011/01/13/Reduce_PDF_size_after_300ppp_and_color_scan"/>
+   <title>Reduce PDF size after 300ppp and color scan.md</title>
+   <link href="http://jckermagoret.github.io/digitization/2011/01/13/Reduce_PDF_size_after_300ppp_and_color_scan"/>
    <updated>2011-01-13T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/01/13/Reduce_PDF_size_after_300ppp_and_color_scan</id>
-   <content type="html">&lt;p&gt;Use Case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/digitization/2011/01/13/Reduce_PDF_size_after_300ppp_and_color_scan</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use Case&lt;/h1&gt;
 
 &lt;p&gt;To manage paper documents in YaMma (Yet Another Mail Management Application), I do the following actions:&lt;/p&gt;
 
-&lt;p&gt;scan 24bits-colors, 300ppp for good quality process them to ocr reduce their size create a pdf with the text from ocr embedded into the pdf For a document of 17 pages, its size is about 170Mo after such a scan. While this quality is interesting for OCR, there are about 10K documents into the company intranet and I can&amp;#8217;t put a file with such a size into my content repository&amp;#8230;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;scan 24bits-colors, 300ppp for good quality&lt;/li&gt;
+
+&lt;li&gt;process them to ocr&lt;/li&gt;
+
+&lt;li&gt;reduce their size&lt;/li&gt;
+
+&lt;li&gt;create a pdf with the text from ocr embedded into the pdf&lt;/li&gt;
+
+&lt;li&gt;For a document of 17 pages, its size is about 170Mo after such a scan. While this quality is interesting for OCR, there are about 10K documents into the company intranet and I can&amp;#8217;t put a file with such a size into my content repository&amp;#8230;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;So the need for a solution to reduce the size of the document.&lt;/p&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;I can choose and configure my output from my scan:&lt;/p&gt;
 
-&lt;p&gt;quality (100, 200, 300, 600, 1200ppp) color (B&amp;amp;W, 8, 16, 24 bits color) output type (pdf, image, &amp;#8230;) I generally choose PDF output, 300ppp, 24 bits color and my scanner (a very cheap Brother DCP6690CW) finally creates such a file after creating a TIFF file for each page and concatenating them all together.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;quality (100, 200, 300, 600, 1200ppp)&lt;/li&gt;
+
+&lt;li&gt;color (B&amp;amp;W, 8, 16, 24 bits color)&lt;/li&gt;
+
+&lt;li&gt;output type (pdf, image, &amp;#8230;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I generally choose PDF output, 300ppp, 24 bits color and my scanner (a very cheap Brother DCP6690CW) finally creates such a file after creating a TIFF file for each page and concatenating them all together.&lt;/p&gt;
 
 &lt;p&gt;To reduce file size, I then can:&lt;/p&gt;
 
-&lt;p&gt;reduce all TIFF files through convert (ImageMagick) and concatenate them into a pdf one directly reduce PDF file through ghostscript (gs) By following this second option (I haven&amp;#8217;t studied the first one), I&amp;#8217;m able to easily get a PDF file of about 1-3Mo with an enough good quality to have a correct reading.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;reduce all TIFF files through convert (ImageMagick) and concatenate them into a pdf one&lt;/li&gt;
 
-&lt;p&gt;Usage&lt;/p&gt;
+&lt;li&gt;directly reduce PDF file through ghostscript (gs)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;By following this second option (I haven&amp;#8217;t studied the first one), I&amp;#8217;m able to easily get a PDF file of about 1-3Mo with an enough good quality to have a correct reading.&lt;/p&gt;
+
+&lt;h1 id='usage'&gt;Usage&lt;/h1&gt;
 
 &lt;p&gt;Just get a ghostscript installation for your system. Then choose the quality you are looking for (screen &amp;lt; ebook &amp;lt; prepress, &amp;#8230;)&lt;/p&gt;
 
-&lt;p&gt;gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf or&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf You can specify options for better quality or to produce PDF/X or PDF/A. Just have a look at the gs options on the manual. For a 160Mo PDF file, you will finally get a 1Mo file with screen option and 3Mo file with ebook one. Ebook quality is really better.&lt;/p&gt;
+&lt;p&gt;or&lt;/p&gt;
 
-&lt;p&gt;Pointers&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;http://www.ubuntugeek.com/ubuntu-tiphowto-reduce-adobe-acrobat-file-size-from-command-line.html http://pages.cs.wisc.edu/~ghost/doc/cvs/Ps2pdf.htm&lt;/p&gt;</content>
+&lt;p&gt;You can specify options for better quality or to produce PDF/X or PDF/A. Just have a look at the gs options on the manual. For a 160Mo PDF file, you will finally get a 1Mo file with screen option and 3Mo file with ebook one. Ebook quality is really better.&lt;/p&gt;
+
+&lt;h1 id='pointers'&gt;Pointers&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://www.ubuntugeek.com/ubuntu-tiphowto-reduce-adobe-acrobat-file-size-from-command-line.html&lt;/li&gt;
+
+&lt;li&gt;http://pages.cs.wisc.edu/~ghost/doc/cvs/Ps2pdf.htm&lt;/li&gt;
+&lt;/ul&gt;</content>
  </entry>
  
  <entry>
-   <title>Qr_code</title>
-   <link href="http://jckermagoret.github.io/2011/01/13/QR_Code"/>
+   <title>QRCode</title>
+   <link href="http://jckermagoret.github.io/digitization/2011/01/13/QR_Code"/>
    <updated>2011-01-13T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/01/13/QR_Code</id>
-   <content type="html">&lt;p&gt;I just discovered zxing.org a few days ago. It&amp;#8217;s an interesting tool to generate and analyze bar code and QR Codes.&lt;/p&gt;
+   <id>http://jckermagoret.github.io/digitization/2011/01/13/QR_Code</id>
+   <content type="html">&lt;h1 id='introduction_to_zxingorg'&gt;Introduction to zxing.org&lt;/h1&gt;
+
+&lt;p&gt;I just discovered zxing.org a few days ago. It&amp;#8217;s an interesting tool to generate and analyze bar code and QR Codes.&lt;/p&gt;
 
 &lt;p&gt;A QRCode stands for Quick Response Code and aims at replacing bar codes in the future. Here is an example of QRCode:&lt;/p&gt;
-
-&lt;p&gt;Advantages on bar codes&lt;/p&gt;
+&lt;img height='100px' class='center' src='http://www.myxph.com/photos/29315-qr-code-barcode-example-ets.png' width='100px' /&gt;
+&lt;h1 id='advantages_on_bar_codes'&gt;Advantages on bar codes&lt;/h1&gt;
 
 &lt;p&gt;Bar code stores information in one dimension. QR Code stores information on 2 dimensions. You then can store more information, and this one ay be redundant so if your QRCode isn&amp;#8217;t complete, you can still get the information.&lt;/p&gt;
 
-&lt;p&gt;Download and compile&lt;/p&gt;
+&lt;h1 id='download_and_compile'&gt;Download and compile&lt;/h1&gt;
 
 &lt;p&gt;Just get the source on the svn server and compile core and javase modules. It&amp;#8217;s enough to use the command to extract the information from a QRCode&lt;/p&gt;
 
-&lt;p&gt;Test&lt;/p&gt;
+&lt;h1 id='test'&gt;Test&lt;/h1&gt;
 
 &lt;p&gt;By using the following command, you can extract the information stored into it a QRCode:&lt;/p&gt;
 
-&lt;p&gt;java -cp javase/javase.jar:core/core.jar com.google.zxing.client.j2se.CommandLineRunner &amp;#8220;http://chart.apis.google.com/chart?cht=qr&amp;amp;chs=230x230&amp;amp;chl=MECARD%3AN%3AJean-Christophe+Kermagoret%3BTEL%3A%2B33240466278%3BURL%3Ahttp%3A%2F%2Fwww.bluexml.com%3BEMAIL%3Ajck-qrcode%40bluexml.com%3BADR%3A40%2C+bd+Jean+Ingres+44100+Nantes%3B%3B&amp;#8221; This will give you the following results:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;java -cp javase/javase.jar:core/core.jar com.google.zxing.client.j2se.CommandLineRunner &amp;quot;http://chart.apis.google.com/chart?cht=qr&amp;amp;chs=230x230&amp;amp;chl=MECARD%3AN%3AJean-Christophe+Kermagoret%3BTEL%3A%2B33240466278%3BURL%3Ahttp%3A%2F%2Fwww.bluexml.com%3BEMAIL%3Ajck-qrcode%40bluexml.com%3BADR%3A40%2C+bd+Jean+Ingres+44100+Nantes%3B%3B&amp;quot;&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Raw result: MECARD:N:Jean-Christophe Kermagoret;TEL:+33240466278;URL:http://www.bluexml.com;EMAIL:jck-qrcode@bluexml.com;ADR:40, bd Jean Ingres 44100 Nantes;; Parsed result: Jean-Christophe Kermagoret 40, bd Jean Ingres 44100 Nantes +33240466278 jck-qrcode@bluexml.com http://www.bluexml.com Also, there were 4 result points. Point 0: (39.0,191.0) Point 1: (39.0,39.0) Point 2: (191.0,39.0) Point 3: (179.0,179.0) You can then parse the results very easily to take the right decision.&lt;/p&gt;
+&lt;p&gt;This will give you the following results:&lt;/p&gt;
 
-&lt;p&gt;YaMma Use Case&lt;/p&gt;
+&lt;p&gt;Raw result: MECARD:N:Jean-Christophe Kermagoret;TEL:+33240466278;URL:http://www.bluexml.com;EMAIL:jck-qrcode@bluexml.com;ADR:40, bd Jean Ingres 44100 Nantes;; Parsed result: Jean-Christophe Kermagoret 40, bd Jean Ingres 44100 Nantes +33240466278 jck-qrcode@bluexml.com http://www.bluexml.com&lt;/p&gt;
+
+&lt;p&gt;Also, there were 4 result points.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Point 0: (39.0,191.0)
+Point 1: (39.0,39.0)
+Point 2: (191.0,39.0)
+Point 3: (179.0,179.0)&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then parse the results very easily to take the right decision.&lt;/p&gt;
+
+&lt;h1 id='yamma_use_case'&gt;YaMma Use Case&lt;/h1&gt;
 
 &lt;p&gt;I&amp;#8217;m going to use this QRCode to add information manually on paper documents for the next version of the YaMma open source project, based on Alfresco, which deals with mail (paper and electronic) management. The document can then be acquired and analyzed through an OCR to get the previous information. If quality isn&amp;#8217;t enough, you can add the &amp;#8211;try_harder parameter. The document will then be automatically filed into the right directory of your file plan.&lt;/p&gt;
 
-&lt;p&gt;Mobile Use Case&lt;/p&gt;
+&lt;h1 id='mobile_use_case'&gt;Mobile Use Case&lt;/h1&gt;
 
 &lt;p&gt;You can also use your phone mobile to extract the information. Install the i-nigma application on your iPhone and scan the QRCode above. You&amp;#8217;ll almost instantly get the information.&lt;/p&gt;</content>
  </entry>
  
  <entry>
-   <title>Openvz_and_disk_share_with_volume_group_and_logical_volumes</title>
-   <link href="http://jckermagoret.github.io/2011/01/10/OpenVZ_and_disk_share_with_volume_group_and_logical_volumes"/>
+   <title>OpenVZ and disk share with volume group and logical volumes</title>
+   <link href="http://jckermagoret.github.io/system/openvz/2011/01/10/OpenVZ_and_disk_share_with_volume_group_and_logical_volumes"/>
    <updated>2011-01-10T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/2011/01/10/OpenVZ_and_disk_share_with_volume_group_and_logical_volumes</id>
-   <content type="html">&lt;p&gt;Use case&lt;/p&gt;
+   <id>http://jckermagoret.github.io/system/openvz/2011/01/10/OpenVZ_and_disk_share_with_volume_group_and_logical_volumes</id>
+   <content type="html">&lt;h1 id='use_case'&gt;Use case&lt;/h1&gt;
 
 &lt;p&gt;I have a virtual system with a main host and various virtual machines. I want these virtual machines to have some directories shared with the main host so the backup will be easier.&lt;/p&gt;
 
-&lt;p&gt;Solution&lt;/p&gt;
+&lt;h1 id='solution'&gt;Solution&lt;/h1&gt;
 
 &lt;p&gt;I mount a directory on my main host into the virtual machine. To be the more flexible possible, the mounted directory is based on a logical volume I can increase or decrease according to my needs.&lt;/p&gt;
 
-&lt;p&gt;Implementation&lt;/p&gt;
+&lt;h1 id='implementation'&gt;Implementation&lt;/h1&gt;
 
 &lt;p&gt;On your main host, create a logical volume and format it. For example, if you have a volume group called data, you could do this:&lt;/p&gt;
 
-&lt;p&gt;lvcreate -L20G -n vz106 data mkfs.ext3 /dev/data/vz106 This creates a /dev/data/vz106, which corresponds to a 20GB disk, on your system. This new disk can now be mounted on a directory which is inside one of your container:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;lvcreate -L20G -n vz106 data
+mkfs.ext3 /dev/data/vz106&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;mount -n &amp;#8211;bind /data/vz/106 /var/lib/vz/root/106/data To make everything automatic during the reboot, you can create corresponding files in your /etc/vz directory. On my system, I have:&lt;/p&gt;
+&lt;p&gt;This creates a /dev/data/vz106, which corresponds to a 20GB disk, on your system. This new disk can now be mounted on a directory which is inside one of your container:&lt;/p&gt;
 
-&lt;p&gt;/etc/vz/conf/106.mount:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mount -n --bind /data/vz/106 /var/lib/vz/root/106/data&lt;/code&gt;&lt;/pre&gt;
 
-&lt;h10&gt;MACRO#0&lt;/h10&gt;
+&lt;p&gt;To make everything automatic during the reboot, you can create corresponding files in your /etc/vz directory. On my system, I have:&lt;/p&gt;
 
-&lt;p&gt;/etc/vz/106.unmount:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/etc/vz/conf/106.mount:
 
-&lt;h10&gt;MACRO#1#That&amp;#8217;s all&lt;/h10&gt;</content>
+/etc/vz/106.unmount:&lt;/code&gt;&lt;/pre&gt;</content>
  </entry>
  
  
