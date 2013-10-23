@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Javascript logging</title>
+    <title>SMB (or CIFS) over SSH</title>
     
     <meta name="author" content="Jean-Christophe KERMAGORET">
 
@@ -99,41 +99,25 @@
     <div class="container">
 
       <div class="content">
-        <p>When you want to develop in javascript, you look for usual tools in programing languages. One of the best tool in Java is log4j. It&#8217;s a tool to help developers to insert information in their code and display this information according the configuration. I t means you may have test and production configuration without the need to change anything.</p>
+        <h1 id='the_goal'>The goal</h1>
 
-<p>I gave a glimpse to google about javascript and logging and it gave me back 2 answers which seem of interest. It was:</p>
+<h1 id='resources'>Resources</h1>
 
-<ul>
-<li>log4js</li>
+<h2 id='description'>Description</h2>
 
-<li>log4javascript</li>
-</ul>
+<p>http://www.petri.co.il/whats_port_445_in_w2k_xp_2003.htm#</p>
 
-<p>I first gave a try to log4js because of its name, very similar to the log4j for Java. Unfortunately, it didn&#8217;t work correctly with my javascript application, because of a conflict.</p>
+<h2 id='solutions'>Solutions</h2>
 
-<p>I didn&#8217;t go further and tried log4javascript. It worked immediately like a charm. Here is the magic lines. Just add the following at the top of your html page:</p>
+<p>http://www.minek.com/?port_redirection http://www.nikhef.nl/~janjust/CifsOverSSH/Win7Loopback.html#MountHome http://www.blisstonia.com/eolson/notes/smboverssh.php</p>
 
-<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;/resources/common/js/misc/log4javascript.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-    log4javascript.setEnabled(true);
-    var pua = new log4javascript.PopUpAppender();
-    log4javascript.getDefaultLogger().addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Observer&quot;).addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Tree&quot;).addAppender(pua);
+<h2 id='summary'>Summary</h2>
 
-    // You can define explicitely a var to set the log level
-    var lsa = log4javascript.getLogger(&quot;SIDE.Authenticate&quot;);
-    lsa.setLevel(log4javascript.Level.INFO);
-    lsa.addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Util&quot;).addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Preview&quot;).addAppender(pua);
-&lt;/script&gt;</code></pre>
+<p>http://sumofungus.wordpress.com/2010/07/23/ssh-tunneling-samba-on-windows-7/</p>
 
-<p>As stated in the code, you can define explicitely a var to set the log level.</p>
+<h2 id='questions'>Questions</h2>
 
-<p>It works very well and the log window does the job.</p>
-
-<p>To conclude, log4js would certainly do the job but for any reasons, it didn&#8217;t when I tried. Nevermind, these tools are mature and they work the same way, so don&#8217;t be worry. Take the one that does the job for you the fastest.</p>
+<p>http://serverfault.com/questions/356369/smb-proxy-connect-to-smb-server-through-ssh-tunnel-between-two-other-hosts http://superuser.com/questions/270678/ports-for-nated-windows-share http://forums.alfresco.com/forum/installation-upgrades-configuration-integration/configuration/cifs-server-subsystem-community</p>
       </div>
 
       <footer>

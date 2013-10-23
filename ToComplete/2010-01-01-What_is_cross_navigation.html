@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>OpenVZ and disk share with volume group and logical volumes</title>
+    <title>What is cross navigation</title>
     
     <meta name="author" content="Jean-Christophe KERMAGORET">
 
@@ -99,30 +99,9 @@
     <div class="container">
 
       <div class="content">
-        <h1 id='use_case'>Use case</h1>
+        <h1 id='the_goal'>The goal</h1>
 
-<p>I have a virtual system with a main host and various virtual machines. I want these virtual machines to have some directories shared with the main host so the backup will be easier.</p>
-
-<h1 id='solution'>Solution</h1>
-
-<p>I mount a directory on my main host into the virtual machine. To be the more flexible possible, the mounted directory is based on a logical volume I can increase or decrease according to my needs.</p>
-
-<h1 id='implementation'>Implementation</h1>
-
-<p>On your main host, create a logical volume and format it. For example, if you have a volume group called data, you could do this:</p>
-
-<pre><code>lvcreate -L20G -n vz106 data
-mkfs.ext3 /dev/data/vz106</code></pre>
-
-<p>This creates a /dev/data/vz106, which corresponds to a 20GB disk, on your system. This new disk can now be mounted on a directory which is inside one of your container:</p>
-
-<pre><code>mount -n --bind /data/vz/106 /var/lib/vz/root/106/data</code></pre>
-
-<p>To make everything automatic during the reboot, you can create corresponding files in your /etc/vz directory. On my system, I have:</p>
-
-<pre><code>/etc/vz/conf/106.mount:
-
-/etc/vz/106.unmount:</code></pre>
+<h1 id='resources'>Resources</h1>
       </div>
 
       <footer>

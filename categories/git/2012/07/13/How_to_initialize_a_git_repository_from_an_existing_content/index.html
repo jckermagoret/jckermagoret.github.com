@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Javascript logging</title>
+    <title>How to initialize a git repository from an existing content</title>
     
     <meta name="author" content="Jean-Christophe KERMAGORET">
 
@@ -99,41 +99,49 @@
     <div class="container">
 
       <div class="content">
-        <p>When you want to develop in javascript, you look for usual tools in programing languages. One of the best tool in Java is log4j. It&#8217;s a tool to help developers to insert information in their code and display this information according the configuration. I t means you may have test and production configuration without the need to change anything.</p>
+        <p>I&#8217;m sure it&#8217;s not the shortest way to do it, but at least, it works :-)</p>
 
-<p>I gave a glimpse to google about javascript and logging and it gave me back 2 answers which seem of interest. It was:</p>
+<h1 id='create_the_git_repository'>Create the git repository</h1>
 
-<ul>
-<li>log4js</li>
+<p>To achieve this, create the following script and name it create-git-repo.sh:</p>
 
-<li>log4javascript</li>
-</ul>
+<pre><code>#!/bin/sh
 
-<p>I first gave a try to log4js because of its name, very similar to the log4j for Java. Unfortunately, it didn&#8217;t work correctly with my javascript application, because of a conflict.</p>
+REPO_NAME=$1
+DESC=$2
 
-<p>I didn&#8217;t go further and tried log4javascript. It worked immediately like a charm. Here is the magic lines. Just add the following at the top of your html page:</p>
+GIT_SERVER=git.side-labs.org
+OWNER=&quot;Jean-Christophe+Kermagoret&lt;jck@bluexml.com&gt;&quot;
+REPOSITORIES=&quot;/data/local/scm/git/$GIT_SERVER/repositories&quot;
+GITWEB_PROJECTS=&quot;/&quot;
+CLONEURL=&quot;https://git.side-labs.org/git/$REPO_NAME&quot;
 
-<pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;/resources/common/js/misc/log4javascript.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-    log4javascript.setEnabled(true);
-    var pua = new log4javascript.PopUpAppender();
-    log4javascript.getDefaultLogger().addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Observer&quot;).addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Tree&quot;).addAppender(pua);
+# create a new bare repository
+cd $REPOSITORIES
+sudo -u www-data git init --bare $REPO_NAME
+cd $REPO_NAME
+#sudo -u git touch git-daemon-export-ok
 
-    // You can define explicitely a var to set the log level
-    var lsa = log4javascript.getLogger(&quot;SIDE.Authenticate&quot;);
-    lsa.setLevel(log4javascript.Level.INFO);
-    lsa.addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Util&quot;).addAppender(pua);
-    log4javascript.getLogger(&quot;SIDE.Preview&quot;).addAppender(pua);
-&lt;/script&gt;</code></pre>
+# additional set-up for Gitweb
+echo &quot;$DESC&quot; | sudo -u www-data tee description
+echo &quot;$REPO_NAME $OWNER&quot; | sudo -u www-data tee -a GITWEB_PROJECTS
+echo &quot;$CLONEURL&quot; | sudo -u www-data tee cloneurl</code></pre>
 
-<p>As stated in the code, you can define explicitely a var to set the log level.</p>
+<p>Then to create the repo, just type the following</p>
 
-<p>It works very well and the log window does the job.</p>
+<pre><code>root# sh create-git-repo.sh YaRma &quot;Yet Another Requisition Management Application with SIDE&quot;</code></pre>
 
-<p>To conclude, log4js would certainly do the job but for any reasons, it didn&#8217;t when I tried. Nevermind, these tools are mature and they work the same way, so don&#8217;t be worry. Take the one that does the job for you the fastest.</p>
+<h1 id='import_existing_content'>Import existing content</h1>
+
+<p>Second, go into the directory where is stored your existing content (not the repository for the moment!)</p>
+
+<pre><code>root# git init
+root# git add .
+root# git commit -m &quot;Initial import&quot;
+root# git remote add origin /opt/local/scm/git/git.side-labs.org/repositories/YaRma.git
+root# git push --all</code></pre>
+
+<p>Now, it&#8217;s time to just check your installation through gitweb.</p>
       </div>
 
       <footer>

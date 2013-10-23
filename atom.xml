@@ -4,7 +4,7 @@
  <title>JCK's Blog</title>
  <link href="http://jckermagoret.github.io/" rel="self"/>
  <link href="http://jckermagoret.github.io"/>
- <updated>2013-10-19T08:21:57+02:00</updated>
+ <updated>2013-10-23T11:45:21+02:00</updated>
  <id>http://jckermagoret.github.io</id>
  <author>
    <name>Jean-Christophe KERMAGORET</name>
@@ -13,53 +13,105 @@
 
  
  <entry>
-   <title>How to initialize a git repository from an existing content</title>
-   <link href="http://jckermagoret.github.io/categories/git/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content"/>
-   <updated>2013-11-13T00:00:00+01:00</updated>
-   <id>http://jckermagoret.github.io/categories/git/2013/11/13/How_to_initialize_a_git_repository_from_an_existing_content</id>
-   <content type="html">&lt;p&gt;I&amp;#8217;m sure it&amp;#8217;s not the shortest way to do it, but at least, it works :-)&lt;/p&gt;
+   <title>How to cross navigate your Alfresco repository and relate things like never before/Implementation</title>
+   <link href="http://jckermagoret.github.io/tocomplete,alfresco,categories,semantic/2013/10/23/How_to_enhance_your_Alfresco_repository"/>
+   <updated>2013-10-23T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/tocomplete,alfresco,categories,semantic/2013/10/23/How_to_enhance_your_Alfresco_repository</id>
+   <content type="html">&lt;h1 id='the_goal'&gt;The goal&lt;/h1&gt;
 
-&lt;h1 id='create_the_git_repository'&gt;Create the git repository&lt;/h1&gt;
+&lt;p&gt;I want a system to help me to cross navigate my organization&amp;#8217;s Alfresco repository.&lt;/p&gt;
 
-&lt;p&gt;To achieve this, create the following script and name it create-git-repo.sh:&lt;/p&gt;
+&lt;p&gt;Being able to browse categories in Alfresco, I need to enhance my content by adding relevant categories. There are 2 kinds of solutions:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;#!/bin/sh
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;semantic improvement through content analysis and specific part identification in this content like place, people and organization.&lt;/p&gt;
+&lt;/li&gt;
 
-REPO_NAME=$1
-DESC=$2
+&lt;li&gt;
+&lt;p&gt;semantic improvement through paths&amp;#8217; and content&amp;#8217;s name analysis&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 
-GIT_SERVER=git.side-labs.org
-OWNER=&amp;quot;Jean-Christophe+Kermagoret&amp;lt;jck@bluexml.com&amp;gt;&amp;quot;
-REPOSITORIES=&amp;quot;/data/local/scm/git/$GIT_SERVER/repositories&amp;quot;
-GITWEB_PROJECTS=&amp;quot;/&amp;quot;
-CLONEURL=&amp;quot;https://git.side-labs.org/git/$REPO_NAME&amp;quot;
+&lt;h1 id='the_solution_semantic_improvement'&gt;The solution: semantic improvement&lt;/h1&gt;
 
-# create a new bare repository
-cd $REPOSITORIES
-sudo -u www-data git init --bare $REPO_NAME
-cd $REPO_NAME
-#sudo -u git touch git-daemon-export-ok
+&lt;p&gt;People don&amp;#8217;t like to input metadata like categories. We&amp;#8217;re all lazy and even if people were eager at entering some information, the risk would exist they choose the wrong one.&lt;/p&gt;
 
-# additional set-up for Gitweb
-echo &amp;quot;$DESC&amp;quot; | sudo -u www-data tee description
-echo &amp;quot;$REPO_NAME $OWNER&amp;quot; | sudo -u www-data tee -a GITWEB_PROJECTS
-echo &amp;quot;$CLONEURL&amp;quot; | sudo -u www-data tee cloneurl&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id='semantic_improvement_through_content_analysis'&gt;Semantic improvement through content analysis&lt;/h2&gt;
 
-&lt;p&gt;Then to create the repo, just type the following&lt;/p&gt;
+&lt;p&gt;There are at least 2 solutions :&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;root# sh create-git-repo.sh YaRma &amp;quot;Yet Another Requisition Management Application with SIDE&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Stanbol, an apache project, which you can download and install into your system&lt;/p&gt;
+&lt;/li&gt;
 
-&lt;h1 id='import_existing_content'&gt;Import existing content&lt;/h1&gt;
+&lt;li&gt;
+&lt;p&gt;OpenCalais, a private project in the cloud from Reuters, which you can use&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;Second, go into the directory where is stored your existing content (not the repository for the moment!)&lt;/p&gt;
+&lt;p&gt;These 2 solutions analyse the content of a document and tag the document when specific information is identified into it and linked with an external database. For example, if a document contains the word &amp;#8220;Paris&amp;#8221;, this latter will be suggested as a category because there is such an information into external database (dbpedia). The ability to detect places is directly related to the solution and the richness of your external database.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;root# git init
-root# git add .
-root# git commit -m &amp;quot;Initial import&amp;quot;
-root# git remote add origin /opt/local/scm/git/git.side-labs.org/repositories/YaRma.git
-root# git push --all&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For example, if your document content contains the word &amp;#8220;Marseille&amp;#8221;, which is the 2nd french city (for the number of people), Stanbol won&amp;#8217;t give you any information, which is disappointing enough to prevent people to use such a system.&lt;/p&gt;
 
-&lt;p&gt;Now, it&amp;#8217;s time to just check your installation through gitweb.&lt;/p&gt;</content>
+&lt;p&gt;More information on this in another post, to write&amp;#8230;&lt;/p&gt;
+
+&lt;h2 id='semantic_improvement_through_paths_and_contents_name_analysis'&gt;Semantic improvement through paths&amp;#8217; and content&amp;#8217;s name analysis&lt;/h2&gt;
+
+&lt;p&gt;Another kind of solution consists in analyzing paths and content to extract relevant information. Indeed, while people are reluctant to input metadata, there is one they are used to enter: directory and file names. Moreover, these informations are related to the content.&lt;/p&gt;
+
+&lt;p&gt;By analyzing your repository in such a way, you&amp;#8217;ll have numerous categories at the end. Just eliminate the ones present once, which means there no added value in cross navigation, and think about the others. Of course, the most used these categories are, the most interesting they are. It&amp;#8217;s up to you to choose the right analysis level. You may conclude your work with 200 or 300 categories structured into 2 or 3 levels.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;You can then cross navigate on your repository content and relate things like never before.&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;I think this technique provides quickly some added value to your repository.&lt;/p&gt;
+
+&lt;p&gt;Next post will provide an implementation example so you can set up this cross navigation.&lt;/p&gt;
+
+&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;&lt;span&gt;stanbol&lt;/span&gt; http://stanbol.apache.org &lt;span&gt;semantics4alfresco&lt;/span&gt; https://code.google.com/p/semantics4alfresco/&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Alfresco Audit Analysis solutions benchmark</title>
+   <link href="http://jckermagoret.github.io/towrite,alfresco,audit,benchmark/2013/10/18/Alfresco_audit_analysis_solutions_benchmark"/>
+   <updated>2013-10-18T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/towrite,alfresco,audit,benchmark/2013/10/18/Alfresco_audit_analysis_solutions_benchmark</id>
+   <content type="html">&lt;h1 id='the_goal'&gt;The goal&lt;/h1&gt;
+
+&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;&lt;span&gt;auditsurf/github&lt;/span&gt; http://www.atolcd.com/btn-ll/audit-alfresco.html &lt;span&gt;auditsurf/overview&lt;/span&gt; https://github.com/atolcd/alfresco-auditsurf&lt;/p&gt;
+
+&lt;p&gt;&lt;span&gt;aaar/overview&lt;/span&gt; http://fcorti.com/alfresco-audit-analysis-reporting/ &lt;span&gt;aaar/vm&lt;/span&gt; http://fcorti.com/alfresco-audit-analysis-reporting/aaar-alfresco-audit-analysis-reporting-cloud&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>Comment améliorer votre application grâce aux tests utilisauteurs faits avec JIRA Capture</title>
+   <link href="http://jckermagoret.github.io/jira,jiracapture,test,quality/2013/08/02/Comment_ameliorer_votre_application_grace_aux_tests_utilisateurs_avec_JIRA_Capture"/>
+   <updated>2013-08-02T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/jira,jiracapture,test,quality/2013/08/02/Comment_ameliorer_votre_application_grace_aux_tests_utilisateurs_avec_JIRA_Capture</id>
+   <content type="html">&lt;h1 id='introduction'&gt;Introduction&lt;/h1&gt;
+
+&lt;h1 id='exemple'&gt;Exemple&lt;/h1&gt;
+
+&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/yarma-form.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/JIRA-Capture-1.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/JIRA-Capture-2.png' /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/JIRA-Capture-3.png' /&gt;&lt;/p&gt;
+
+&lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;JIRA Capture facilite la réalisation des tests grâce à cet outil. En effet, le principal obstacle est levé.&lt;/p&gt;
+
+&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;</content>
  </entry>
  
  <entry>
@@ -271,6 +323,56 @@ node.move(destination);&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Through the use of bubbling (kind of Observer pattern), the document-details page updates when the &amp;#8220;documentDetailsAvailable&amp;#8221; event fires and the method above is played thanks to the following line:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;YAHOO.Bubbling.on(&amp;quot;documentDetailsAvailable&amp;quot;, this.onDocumentDetailsAvailable, this);&lt;/code&gt;&lt;/pre&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>How to initialize a git repository from an existing content</title>
+   <link href="http://jckermagoret.github.io/categories/git/2012/07/13/How_to_initialize_a_git_repository_from_an_existing_content"/>
+   <updated>2012-07-13T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/categories/git/2012/07/13/How_to_initialize_a_git_repository_from_an_existing_content</id>
+   <content type="html">&lt;p&gt;I&amp;#8217;m sure it&amp;#8217;s not the shortest way to do it, but at least, it works :-)&lt;/p&gt;
+
+&lt;h1 id='create_the_git_repository'&gt;Create the git repository&lt;/h1&gt;
+
+&lt;p&gt;To achieve this, create the following script and name it create-git-repo.sh:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+
+REPO_NAME=$1
+DESC=$2
+
+GIT_SERVER=git.side-labs.org
+OWNER=&amp;quot;Jean-Christophe+Kermagoret&amp;lt;jck@bluexml.com&amp;gt;&amp;quot;
+REPOSITORIES=&amp;quot;/data/local/scm/git/$GIT_SERVER/repositories&amp;quot;
+GITWEB_PROJECTS=&amp;quot;/&amp;quot;
+CLONEURL=&amp;quot;https://git.side-labs.org/git/$REPO_NAME&amp;quot;
+
+# create a new bare repository
+cd $REPOSITORIES
+sudo -u www-data git init --bare $REPO_NAME
+cd $REPO_NAME
+#sudo -u git touch git-daemon-export-ok
+
+# additional set-up for Gitweb
+echo &amp;quot;$DESC&amp;quot; | sudo -u www-data tee description
+echo &amp;quot;$REPO_NAME $OWNER&amp;quot; | sudo -u www-data tee -a GITWEB_PROJECTS
+echo &amp;quot;$CLONEURL&amp;quot; | sudo -u www-data tee cloneurl&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then to create the repo, just type the following&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root# sh create-git-repo.sh YaRma &amp;quot;Yet Another Requisition Management Application with SIDE&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id='import_existing_content'&gt;Import existing content&lt;/h1&gt;
+
+&lt;p&gt;Second, go into the directory where is stored your existing content (not the repository for the moment!)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;root# git init
+root# git add .
+root# git commit -m &amp;quot;Initial import&amp;quot;
+root# git remote add origin /opt/local/scm/git/git.side-labs.org/repositories/YaRma.git
+root# git push --all&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, it&amp;#8217;s time to just check your installation through gitweb.&lt;/p&gt;</content>
  </entry>
  
  <entry>
@@ -1409,7 +1511,7 @@ vzctl exec $CTID mknod /dev/fuse c 10 229&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I just discovered zxing.org a few days ago. It&amp;#8217;s an interesting tool to generate and analyze bar code and QR Codes.&lt;/p&gt;
 
 &lt;p&gt;A QRCode stands for Quick Response Code and aims at replacing bar codes in the future. Here is an example of QRCode:&lt;/p&gt;
-&lt;img height='100px' class='center' src='http://www.myxph.com/photos/29315-qr-code-barcode-example-ets.png' width='100px' /&gt;
+&lt;img width='100px' src='http://www.myxph.com/photos/29315-qr-code-barcode-example-ets.png' class='center' height='100px' /&gt;
 &lt;h1 id='advantages_on_bar_codes'&gt;Advantages on bar codes&lt;/h1&gt;
 
 &lt;p&gt;Bar code stores information in one dimension. QR Code stores information on 2 dimensions. You then can store more information, and this one ay be redundant so if your QRCode isn&amp;#8217;t complete, you can still get the information.&lt;/p&gt;
