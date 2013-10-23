@@ -4,7 +4,7 @@
  <title>JCK's Blog</title>
  <link href="http://jckermagoret.github.io/" rel="self"/>
  <link href="http://jckermagoret.github.io"/>
- <updated>2013-10-23T11:49:06+02:00</updated>
+ <updated>2013-10-23T12:08:27+02:00</updated>
  <id>http://jckermagoret.github.io</id>
  <author>
    <name>Jean-Christophe KERMAGORET</name>
@@ -97,21 +97,43 @@
    <id>http://jckermagoret.github.io/jira,jiracapture,test,quality/2013/08/02/Comment_ameliorer_votre_application_grace_aux_tests_utilisateurs_avec_JIRA_Capture</id>
    <content type="html">&lt;h1 id='introduction'&gt;Introduction&lt;/h1&gt;
 
+&lt;p&gt;JIRA Capture est un outil développé par Atlassian pour faciliter la remontée d&amp;#8217;informations par les testeurs et les utilisateurs.&lt;/p&gt;
+
 &lt;h1 id='exemple'&gt;Exemple&lt;/h1&gt;
 
-&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/yarma-form.png' /&gt;&lt;/p&gt;
+&lt;p&gt;Lorsque vous testez une application, l&amp;#8217;idéal est de pouvoir saisir toutes les informations concernant votre test dans le contexte de celui-ci.&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/JIRA-Capture-1.png' /&gt;&lt;/p&gt;
+&lt;p&gt;Vous êtes par exemple sur l&amp;#8217;application suivante, en l&amp;#8217;occurrence un formulaire Alfresco intégré dans une application JS.&lt;/p&gt;
+&lt;img width='800px' src='/assets/images/yarma-form.png' /&gt;
+&lt;p&gt;Vous remarquez que les libellés sont en anglais au lieu d&amp;#8217;être en français. Avec JIRA Capture, il vous suffit de cliquer sur l&amp;#8217;icône JIRA en haut à droite de l&amp;#8217;URL de votre page en cours.&lt;/p&gt;
+&lt;img width='800px' src='/assets/images/JIRA-Capture-1.png' /&gt;
+&lt;p&gt;Un nouvel onglet s&amp;#8217;ouvre alors avec une capture d&amp;#8217;écran de la page où vous étiez précédemment. Vous pouvez annoter cette capture d&amp;#8217;écran grâce aux outils de retouche intégrés à JIRA Capture.&lt;/p&gt;
+&lt;img width='800px' src='/assets/images/JIRA-Capture-2.png' /&gt;
+&lt;p&gt;Vous pouvez maintenant saisir les informations caractérisant l&amp;#8217;erreur constatée lors de votre test. Le formulaire situé à gauche de la capture d&amp;#8217;écran précédente vous permet de renseigner toutes les informations nécessaires :&lt;/p&gt;
 
-&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/JIRA-Capture-2.png' /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;le projet&lt;/li&gt;
 
-&lt;p&gt;&lt;img alt='Alt text' src='/assets/images/JIRA-Capture-3.png' /&gt;&lt;/p&gt;
+&lt;li&gt;le type de remarque (nouvelle fonctionnalité, bogue, tâche, &amp;#8230;)&lt;/li&gt;
 
+&lt;li&gt;le résumé&lt;/li&gt;
+
+&lt;li&gt;la priorité&lt;/li&gt;
+
+&lt;li&gt;le descriptif&lt;/li&gt;
+
+&lt;li&gt;le composant * &amp;#8230;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Après avoir cliqué sur le bouton &amp;#8220;Créer&amp;#8230; &amp;#8220;, les informations sont ainsi ajoutées dans JIRA comme vous pouvez le constater dans la capture d&amp;#8217;écran suivante :&lt;/p&gt;
+&lt;img width='800px' src='/assets/images/JIRA-Capture-3.png' /&gt;
 &lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
 
-&lt;p&gt;JIRA Capture facilite la rŽalisation des tests gr‰ce ˆ cet outil. En effet, le principal obstacle est levŽ.&lt;/p&gt;
+&lt;p&gt;JIRA Capture facilite la réalisation des tests grâce à cet outil. En effet, le principal obstacle constitué par la réalisation des captures d&amp;#8217;écran est levé car la procédure est extrêmement simplifiée.&lt;/p&gt;
 
-&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;</content>
+&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;&lt;span&gt;JIRA Capture&lt;/span&gt; https://www.atlassian.com/software/jira-capture/overview&lt;/p&gt;</content>
  </entry>
  
  <entry>
