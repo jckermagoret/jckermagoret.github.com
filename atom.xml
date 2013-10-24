@@ -4,13 +4,31 @@
  <title>JCK's Blog</title>
  <link href="http://jckermagoret.github.io/" rel="self"/>
  <link href="http://jckermagoret.github.io"/>
- <updated>2013-10-23T12:08:27+02:00</updated>
+ <updated>2013-10-24T14:40:55+02:00</updated>
  <id>http://jckermagoret.github.io</id>
  <author>
    <name>Jean-Christophe KERMAGORET</name>
    <email>jc@kermagoret.net</email>
  </author>
 
+ 
+ <entry>
+   <title>Vid√©o de JIRA Capture</title>
+   <link href="http://jckermagoret.github.io/jira,jiracapture,test,quality/2013/10/24/Video_JIRA_Capture"/>
+   <updated>2013-10-24T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/jira,jiracapture,test,quality/2013/10/24/Video_JIRA_Capture</id>
+   <content type="html">&lt;h1 id='introduction'&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;JIRA Capture est un outil d√©velopp√© par Atlassian pour faciliter la remont√©e d&amp;#8217;informations par les testeurs et les utilisateurs.&lt;/p&gt;
+
+&lt;p&gt;Cette courte vid√©o illustre l&amp;#8217;utilisation de JIRA Capture pour faciliter les tests et la saisie de bugs. En effet, vous pouvez faire une copie d&amp;#8217;√©cran de l&amp;#8217;application tout en l&amp;#8217;int√©grant dans JIRA d&amp;#8217;un seul clic, sans n√©cessiter de r√©aliser un document avec un traitement de texte pour l&amp;#8217;y mettre. En outre, cela permet aux d√©veloppeurs de tout de suite constater le bug sans t√©l√©charger le document, ouvrir le traitement de texte, &amp;#8230;&lt;/p&gt;
+
+&lt;h1 id='vido'&gt;Vid√©o&lt;/h1&gt;
+&lt;div class='video-container'&gt;&lt;iframe frameborder='0' class='vimeo-iframe' src='http://player.vimeo.com/video/77685089 '&gt;   &lt;/iframe&gt;&lt;/div&gt;
+&lt;h1 id='resources'&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;&lt;span&gt;JIRA Capture&lt;/span&gt; https://www.atlassian.com/software/jira-capture/overview&lt;/p&gt;</content>
+ </entry>
  
  <entry>
    <title>How to cross navigate your Alfresco repository and relate things like never before/Implementation</title>
@@ -97,39 +115,39 @@
    <id>http://jckermagoret.github.io/jira,jiracapture,test,quality/2013/08/02/Comment_ameliorer_votre_application_grace_aux_tests_utilisateurs_avec_JIRA_Capture</id>
    <content type="html">&lt;h1 id='introduction'&gt;Introduction&lt;/h1&gt;
 
-&lt;p&gt;JIRA Capture est un outil dÈveloppÈ par Atlassian pour faciliter la remontÈe d&amp;#8217;informations par les testeurs et les utilisateurs.&lt;/p&gt;
+&lt;p&gt;JIRA Capture est un outil d√©velopp√© par Atlassian pour faciliter la remont√©e d&amp;#8217;informations par les testeurs et les utilisateurs.&lt;/p&gt;
 
 &lt;h1 id='exemple'&gt;Exemple&lt;/h1&gt;
 
-&lt;p&gt;Lorsque vous testez une application, l&amp;#8217;idÈal est de pouvoir saisir toutes les informations concernant votre test dans le contexte de celui-ci.&lt;/p&gt;
+&lt;p&gt;Lorsque vous testez une application, l&amp;#8217;id√©al est de pouvoir saisir toutes les informations concernant votre test dans le contexte de celui-ci.&lt;/p&gt;
 
-&lt;p&gt;Vous Ítes par exemple sur l&amp;#8217;application suivante, en l&amp;#8217;occurrence un formulaire Alfresco intÈgrÈ dans une application JS.&lt;/p&gt;
-&lt;img width='800px' src='/assets/images/yarma-form.png' /&gt;
-&lt;p&gt;Vous remarquez que les libellÈs sont en anglais au lieu d&amp;#8217;Ítre en franÁais. Avec JIRA Capture, il vous suffit de cliquer sur l&amp;#8217;icÙne JIRA en haut ‡ droite de l&amp;#8217;URL de votre page en cours.&lt;/p&gt;
-&lt;img width='800px' src='/assets/images/JIRA-Capture-1.png' /&gt;
-&lt;p&gt;Un nouvel onglet s&amp;#8217;ouvre alors avec une capture d&amp;#8217;Ècran de la page o˘ vous Ètiez prÈcÈdemment. Vous pouvez annoter cette capture d&amp;#8217;Ècran gr‚ce aux outils de retouche intÈgrÈs ‡ JIRA Capture.&lt;/p&gt;
-&lt;img width='800px' src='/assets/images/JIRA-Capture-2.png' /&gt;
-&lt;p&gt;Vous pouvez maintenant saisir les informations caractÈrisant l&amp;#8217;erreur constatÈe lors de votre test. Le formulaire situÈ ‡ gauche de la capture d&amp;#8217;Ècran prÈcÈdente vous permet de renseigner toutes les informations nÈcessaires :&lt;/p&gt;
+&lt;p&gt;Vous √™tes par exemple sur l&amp;#8217;application suivante, en l&amp;#8217;occurrence un formulaire Alfresco int√©gr√© dans une application JS.&lt;/p&gt;
+&lt;img src='/assets/images/yarma-form.png' width='800px' /&gt;
+&lt;p&gt;Vous remarquez que les libell√©s sont en anglais au lieu d&amp;#8217;√™tre en fran√ßais. Avec JIRA Capture, il vous suffit de cliquer sur l&amp;#8217;ic√¥ne JIRA en haut √† droite de l&amp;#8217;URL de votre page en cours.&lt;/p&gt;
+&lt;img src='/assets/images/JIRA-Capture-1.png' width='800px' /&gt;
+&lt;p&gt;Un nouvel onglet s&amp;#8217;ouvre alors avec une capture d&amp;#8217;√©cran de la page o√π vous √©tiez pr√©c√©demment. Vous pouvez annoter cette capture d&amp;#8217;√©cran gr√¢ce aux outils de retouche int√©gr√©s √† JIRA Capture.&lt;/p&gt;
+&lt;img src='/assets/images/JIRA-Capture-2.png' width='800px' /&gt;
+&lt;p&gt;Vous pouvez maintenant saisir les informations caract√©risant l&amp;#8217;erreur constat√©e lors de votre test. Le formulaire situ√© √† gauche de la capture d&amp;#8217;√©cran pr√©c√©dente vous permet de renseigner toutes les informations n√©cessaires :&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;le projet&lt;/li&gt;
 
-&lt;li&gt;le type de remarque (nouvelle fonctionnalitÈ, bogue, t‚che, &amp;#8230;)&lt;/li&gt;
+&lt;li&gt;le type de remarque (nouvelle fonctionnalit√©, bogue, t√©che, &amp;#8230;)&lt;/li&gt;
 
-&lt;li&gt;le rÈsumÈ&lt;/li&gt;
+&lt;li&gt;le r√©sum√©&lt;/li&gt;
 
-&lt;li&gt;la prioritÈ&lt;/li&gt;
+&lt;li&gt;la priorit√©&lt;/li&gt;
 
 &lt;li&gt;le descriptif&lt;/li&gt;
 
 &lt;li&gt;le composant * &amp;#8230;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;AprËs avoir cliquÈ sur le bouton &amp;#8220;CrÈer&amp;#8230; &amp;#8220;, les informations sont ainsi ajoutÈes dans JIRA comme vous pouvez le constater dans la capture d&amp;#8217;Ècran suivante :&lt;/p&gt;
-&lt;img width='800px' src='/assets/images/JIRA-Capture-3.png' /&gt;
+&lt;p&gt;Apr√©s avoir cliqu√© sur le bouton &amp;#8220;Cr√©er&amp;#8230; &amp;#8220;, les informations sont ainsi ajout√©es dans JIRA comme vous pouvez le constater dans la capture d&amp;#8217;√©cran suivante :&lt;/p&gt;
+&lt;img src='/assets/images/JIRA-Capture-3.png' width='800px' /&gt;
 &lt;h1 id='conclusion'&gt;Conclusion&lt;/h1&gt;
 
-&lt;p&gt;JIRA Capture facilite la rÈalisation des tests gr‚ce ‡ cet outil. En effet, le principal obstacle constituÈ par la rÈalisation des captures d&amp;#8217;Ècran est levÈ car la procÈdure est extrÍmement simplifiÈe.&lt;/p&gt;
+&lt;p&gt;JIRA Capture facilite la r√©alisation des tests gr√¢ce √† cet outil. En effet, le principal obstacle constitu√© par la r√©alisation des captures d&amp;#8217;√©cran est lev√© car la proc√©dure est extr√™mement simplifi√©e.&lt;/p&gt;
 
 &lt;h1 id='resources'&gt;Resources&lt;/h1&gt;
 
@@ -1533,7 +1551,7 @@ vzctl exec $CTID mknod /dev/fuse c 10 229&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;I just discovered zxing.org a few days ago. It&amp;#8217;s an interesting tool to generate and analyze bar code and QR Codes.&lt;/p&gt;
 
 &lt;p&gt;A QRCode stands for Quick Response Code and aims at replacing bar codes in the future. Here is an example of QRCode:&lt;/p&gt;
-&lt;img width='100px' src='http://www.myxph.com/photos/29315-qr-code-barcode-example-ets.png' class='center' height='100px' /&gt;
+&lt;img class='center' src='http://www.myxph.com/photos/29315-qr-code-barcode-example-ets.png' width='100px' height='100px' /&gt;
 &lt;h1 id='advantages_on_bar_codes'&gt;Advantages on bar codes&lt;/h1&gt;
 
 &lt;p&gt;Bar code stores information in one dimension. QR Code stores information on 2 dimensions. You then can store more information, and this one ay be redundant so if your QRCode isn&amp;#8217;t complete, you can still get the information.&lt;/p&gt;
