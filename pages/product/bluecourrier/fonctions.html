@@ -1,0 +1,729 @@
+<h1>Fonctions</h1>
+
+<h2>Fonctions générales et spécifiques</h2>
+
+<h3>Naviguer dans les courriers</h3>
+
+<p>Lorsque l'utilisateur est connecté, il accède à une interface qui se
+décompose en 3 parties :</p>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_d0ac5b87.png" alt="" />\</p>
+
+<p>La première partie liste les courriers :</p>
+
+<ul>
+<li>en fonction des tâches à faire par l'utilisateur sur les courriers ;</li>
+<li>par service et par processus ;</li>
+<li>par conversation</li>
+</ul>
+
+
+<h4>Lister les courriers en fonction des tâches à faire par l'utilisateur</h4>
+
+<p>L'utilisateur n'a dans cette vue que les courriers qui le concernent.
+Ils sont groupés par état du courrier :</p>
+
+<ul>
+<li>courriers en cours de distribution</li>
+<li>courriers en cours de traitement</li>
+<li>courriers en cours d'envoi postal</li>
+<li>...</li>
+</ul>
+
+
+<p>Un courrier concerne un utilisateur à partir du moment où il peut y
+accéder et qu'il a les droits Blue Courrier adéquats.</p>
+
+<p>Sur chaque courrier, les actions que peut faire l'utilisateur sont
+accessibles sous forme d'icône. En double-cliquant sur un courrier,
+l'utilisateur est positionné sur la vue 'Conversation'.</p>
+
+<p>Si plusieurs documents sont sélectionnés, les actions suivantes peuvent
+être réalisées sur l'ensemble des documents en une fois :</p>
+
+<ul>
+<li>préparer la distribution</li>
+<li>distribuer</li>
+<li>assigner</li>
+<li>clôturer</li>
+</ul>
+
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_505f5a42.png" alt="" /></p>
+
+<h4>Lister les courriers par service et par étape de processus</h4>
+
+<p>L'utilisateur a dans cette vue tous les courriers auxquels il a accès.
+Elle permet donc aux utilisateur ayant des droits sur toute
+l'organisation de voir tous les courriers.</p>
+
+<p>Une vue plus restreinte est possible en sélectionnant un service et/ou
+un processus.</p>
+
+<p>Par défaut, l'utilisateur est positionné sur la vue correspondant à son
+service.</p>
+
+<p>Le traitement par lot est possible comme précédemment.</p>
+
+<h4>Lister les courriers dans le cadre d'une conversation</h4>
+
+<p>Cette vue permet de visualiser un échange de courriers et resitue le
+courrier concerné dans cet échange.</p>
+
+<p>Les actions que peut faire l'utilisateur sont disponibles sous forme
+d'icône comme dans la vue par tâches.</p>
+
+<p>Le traitement par lot n'est pas accessible dans cette vue.</p>
+
+<h4>Visualiser le courrier principal sans avoir besoin de le télécharger pour les formats bureautiques principaux (MS Office - .doc, .xls et .ppt et Open Office - .odt, .ods et .odp)</h4>
+
+<p>Cette vue permet de prévisualiser les courriers et les pièces jointes.
+La prévisualisation repose sur le moteur de GED Alfresco avec les mêmes
+limites en terme de qualité, notamment lorsqu'il s'agit de prévisualiser
+des documents au format Office (.odc, .xls, .ppt).</p>
+
+<h3>Rechercher un courrier</h3>
+
+<p>Les courriers sont des documents stockés dans la GED et soumis aux mêmes
+règles au niveau des conditions d'accès. Les recherches sont effectuées
+sur l'ensemble des courriers auquel l'utilisateur a accès, c'est à dire
+sur lequel l'utilisateur a au moins les droits de lecture.</p>
+
+<p>L'utilisateur peut rechercher un courrier :</p>
+
+<ul>
+<li><p>soit à partir de l'interface Blue Courrier, qui facilite par la
+  suite sa circulation en vue de son traitement ;</p></li>
+<li><p>soit à partir de la GED, qui facilite la consolidation des données
+  en restituant aussi bien les courriers que les autres documents
+  répondant aux critères de recherche.</p></li>
+</ul>
+
+
+<h4>Rechercher à partir de Blue Courrier</h4>
+
+<p>La recherche peut s'effectuer :</p>
+
+<ul>
+<li><p>à partir d'un champ de recherche global ; les champs recherchés
+  sont :</p>
+
+<ul>
+<li>le nom du document ;</li>
+<li>le titre ;</li>
+<li>la description ;</li>
+<li>le contenu ;</li>
+</ul>
+</li>
+</ul>
+
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_9f9c55be.png" alt="" />\
+\</p>
+
+<ul>
+<li><p>à partir de formulaires spécifiques pour la recherche avancée ; les
+  types disponibles, avec leurs champs correspondants, sont :</p>
+
+<ul>
+<li>le courrier entrant ;</li>
+<li>le courrier sortant.</li>
+</ul>
+</li>
+</ul>
+
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_bb532710.png" alt="" />Les
+catégories sont également disponibles pour la recherche.</p>
+
+<p>Le résultat de la recherche retourne une liste de courriers, répondants
+aux critères indiqués, qui s'affiche dans la partie centrale. Le fait de
+double-cliquer sur un courrier le positionne alors dans la discussion où
+il est apparu.</p>
+
+<h4>Rechercher à partir de la GED</h4>
+
+<p>La fonctionnalité de recherche est également disponible dans la GED.</p>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_5e75e33c.png" alt="" /></p>
+
+<p>En outre, les courriers entrants et sortants pouvant être catégorisés,
+il est possible de naviguer sur les courriers via les catégories à
+partir de l'entrepôt ou des sites.</p>
+
+<h3>Imprimer le bordereau de validation et le courrier</h3>
+
+<p>Le bordereau de validation correspond à l'historique du courrier
+'départ'. Disponible en en html pour une consultation en ligne, il est
+possible de l'imprimer directement à partir du courrier pour une
+validation manuelle.</p>
+
+<p>C'est une action de masse. L'assistant(e) peut ainsi sélectionner
+plusieurs courriers et imprimer en une seule action tous les courriers
+précédés de leur bordereau de validation. Des pages blanches sont
+automatiquement injectées dans le pdf obtenu afin que l'impression se
+fasse correctement.</p>
+
+<h3>Gérer les nomenclatures (priorité, délai, confidentialité)</h3>
+
+<p>L'utilisateur avec ce rôle peut gérer (ajouter, renommer, supprimer) les
+priorités, délais et niveaux de confidentialité.</p>
+
+<p>Les listes de données sont stockées dans un site appelé Blue
+Configuration. L'administrateur fonctionnel va dans les listes de
+données de ce site et édite les listes correspondantes. Il peut alors
+ajouter ou modifier des valeurs. Il est préférable de ne pas supprimer
+de valeurs afin d'éviter que les courriers y faisant référence ne se
+retrouvent dans un état instable.</p>
+
+<h3>Gérer l'organigramme des services</h3>
+
+<p>L'utilisateur avec ce rôle peut ajouter la fonctionnalité de gestion de
+courrier à un site Alfresco Share, que ce soit un site organisationnel
+ou un site projet. Il indique le site parent lors de cette
+configuration.</p>
+
+<p>L'administrateur fonctionnel se connecte au site d'administration de
+Blue Courrier à l'adresse suivante :</p>
+
+<ul>
+<li>http://gecod.anfr.fr/share/page/yamma-admin</li>
+</ul>
+
+
+<p>Ce site permet d'initialiser Blue Courrier ainsi que :</p>
+
+<ul>
+<li><p>créer un nouveau site</p></li>
+<li><p>créer l'organigramme de la structure en positionnant les sites les
+  uns par rapport aux autres.</p></li>
+</ul>
+
+
+<h3>Gérer et assigner les permissions</h3>
+
+<p>Cette fonctionnalité repose sur Alfresco Share. Elle permet à
+l'utilisateur avec ce rôle de gérer les utilisateurs et de les mettre
+dans les groupes correspondants aux rôles qu'ils ont.</p>
+
+<p>L'administrateur fonctionnel être déclaré en tant qu'administrateur
+Alfresco afin de bénéficier de cette fonctionnalité. Il peut ainsi
+accéder à la gestion des groupes de chaque site et plus particulièrement
+ajouter des utilisateurs aux groupes caractéristiques de Blue Courrier
+pour le site souhaité. Ces groupes sont nommés à partir de du' nom du
+site, complété par ServiceAssistant, ServiceInstructor ou
+ServiceManager. Par exemple, pour le site Direction, les groupes de Blue
+Courrier sont :</p>
+
+<ul>
+<li>site_Direction_ServiceAssistant</li>
+<li>site_Direction_ServiceInstructor</li>
+<li>site_Direction_ServiceManager</li>
+</ul>
+
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_19f61f23.png" alt="" /></p>
+
+<h3>Analyser les données</h3>
+
+<p>Le décideur a un tableau de bord à sa disposition affichant les
+statistiques suivantes sur les courriers :</p>
+
+<ul>
+<li>Nombre de courriers par jour/mois/année</li>
+<li>Courriers en attente de traitement au service courrier</li>
+</ul>
+
+
+<h2>Fonctions relatives au courrier arrivé</h2>
+
+<h3>Dématérialiser un courrier</h3>
+
+<p>BlueCourrier repose sur Alfresco et bénéficie par conséquent de la
+totalité des protocoles supportés par Alfresco. L'utilisateur peut
+dématérialiser le courrier :</p>
+
+<ul>
+<li><p>via un scanner. Les enveloppes sont ouvertes, les courriers
+  extraits et empilés, séparés à l'aide d'intercalaires indiquant les
+  services de destination. Le résultat est déposé en 1 ou 2 étapes
+  (permettant ainsi un traitement intermédiaire) dans un répertoire
+  directement connecté sur Alfresco via un lecteur réseau CIFS. Les
+  courriers sont automatiquement nommés par le système et n'ont pas
+  besoin d'être modifiés. En effet, d'autres méta-données permettent
+  de retrouver le courrier. Les éléments ainsi déposés sont déplacés
+  dans la bannette du site 'cabinet DG' pour validation et
+  ventilation ;</p></li>
+<li><p>via l'outil de messagerie Outlook capable de gérer des comptes
+  secondaires IMAPS connectés sur le serveur Alfresco. L'import d'un
+  mél avec des pièces jointes intègre le mél et les pièces jointes en
+  tant que telles dans Blue Courrier ;</p></li>
+<li><p>via un import unitaire direct dans l'interface Blue Courrier. Cette
+  fonctionnalité permet d'importer un document présent sur le poste de
+  l'utilisateur ou déjà présent dans la GED. Certaines organisations
+  préfèrent ne garder que la fonctionnalité d'import à partir de la
+  GED afin de limiter l'utilisation des ressources locales (en
+  l'occurrence son ordinateur) par l'utilisateur ;</p></li>
+<li><p>via un import en masse dans l'interface Alfresco Share. Les
+  documents peuvent venir de la GED, où ils sont déjà stockés, ou du
+  système de fichiers local.</p></li>
+</ul>
+
+
+<h3>Préparer la distribution d'un courrier</h3>
+
+<p>Elle est effectuée par les utilisateurs ayant un rôle d'assistant.
+Distribuer un courrier consiste à sélectionner le service de destination
+et les éventuels services en copie.</p>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_b2959d8.png" alt="" /></p>
+
+<p>L'organigramme des services apparaît. L'utilisateur peut choisir :</p>
+
+<ul>
+<li>1 service destinataire en le sélectionnant ;</li>
+<li>0, 1 ou plusieurs services en copie en double-cliquant dessus.</li>
+</ul>
+
+
+<p>Cette action peut être réalisée en masse afin d'accélérer les
+traitements. Il suffit de sélectionner plusieurs courriers puis de
+cliquer sur l'action en masse correspondante.</p>
+
+<p>La distribution devant-être validée par le cabinet 'DG' avant
+ventilation réelle dans l’interface dédiée à cet effet, les courriers
+intéressant la DG sont déplacés dans le cabinet 'DG'.</p>
+
+<p>Pour les courriers n'intéressant pas la DG (factures, missions...),
+l'assistant(e) a une action permettant de distribuer les courriers
+directement sans passer par la validation du cabinet 'DG'.</p>
+
+<h3>Distribuer du courrier</h3>
+
+<p>L'utilisateur, membre du cabinet 'DG' visualise pour chaque courrier le
+service de destination qui a été choisi en amont lors de la préparation
+de la distribution :</p>
+
+<ul>
+<li><p>Si la pré-distribution convient, l'utilisateur peut confirmer la
+  distribution. Cette action est disponible en masse ;</p></li>
+<li><p>Si la pré-distribution ne convient pas sur un ou plusieurs
+  courriers, il peut modifier la distribution en cliquant sur l'icône
+  correspondante. La même fenêtre que pour la préparation de la
+  distribution s'affiche alors et l'utilisateur peut la modifier comme
+  il le souhaite. En cliquant sur distribuer, l'utilisateur valide
+  alors celle-ci.</p></li>
+</ul>
+
+
+<p>A la fin de cette action, les courriers sont déplacés dans les bannettes
+des services destinataires.</p>
+
+<h3>Renseigner un courrier entrant</h3>
+
+<h4>Remplir la fiche d'indexation d'un courrier arrivé</h4>
+
+<p>Les informations à renseigner sont les suivantes :</p>
+
+<ul>
+<li><p>date de réception : date à laquelle le courrier a été déposé à
+  l'ANFR ;</p></li>
+<li><p>date de rédaction: date à laquelle le courrier a été rédigé ;</p></li>
+<li><p>date d'envoi : date à laquelle le courrier a été envoyé (cachet de
+  la poste) ;</p></li>
+<li><p>numéro : numéro de recommandé (national, international...)</p></li>
+<li><p>référence de l'organisation ;</p></li>
+<li><p>objet ;</p></li>
+<li><p>référence Blue Courrier (non modifiable)</p></li>
+<li><p>délai : délai de traitement du courrier. Ce délai s'ajoutera à la
+  date de réception pour calculer une date d'échéance</p></li>
+<li><p>priorité</p></li>
+<li><p>visibilité</p></li>
+</ul>
+
+
+<h5>Lier un courrier arrivé avec un courrier départ de façon à reproduire une conversation</h5>
+
+<ul>
+<li>lien : association avec un courrier 'départ'. Permet de reproduire
+  les conversations sur plusieurs allers-retours et d'avoir une vision
+  complète et globale sur les échanges concernant un sujet.</li>
+</ul>
+
+
+<p>En double-cliquant dans la vue Conversation, l'utilisateur est ainsi
+directement positionné sur le courrier, celui étant situé dans une
+conversation éventuelle.</p>
+
+<h5>Renseigner un thème à partir d'un arbre de catégories commun avec la GED</h5>
+
+<ul>
+<li>classification : catégories permettant de classer et retrouver le
+  courrier ; elles sont initialisée avec le type 'courrier entrant'</li>
+</ul>
+
+
+<h5>Renseigner un expéditeur (personne physique ou organisme, instructeur, signataire) à partir d'un annuaire</h5>
+
+<ul>
+<li><p>expéditeur :</p>
+
+<ul>
+<li><p>personne physique ou organisation/pôle/direction/service</p></li>
+<li><p>instructeur</p></li>
+<li><p>signataire</p></li>
+</ul>
+</li>
+</ul>
+
+
+<p>Une liste permet de sélectionner le nom et l'adresse de l'expéditeur. 3
+cas peuvent se présenter :</p>
+
+<ul>
+<li><p>s'il n'est pas dans cette liste, l'utilisateur peut en créer un
+  directement dans l'interface de GED Alfresco Share depuis Blue
+  Courrier  ;</p></li>
+<li><p>s'il est dans la liste, les informations sont automatiquement
+  copiées dans les champs prévus à cet effet. Une référence peut être
+  conservée mais simplement à titre informatif car il est important de
+  conserver les données présentes au moment de l'enregistrement du
+  courrier et de ne pas les mettre à jour ;</p></li>
+<li><p>s'il s'agit d'un contact unique, alors il suffit de saisir les
+  informations nécessaires</p></li>
+</ul>
+
+
+<p>S'il s'agit d'une personne physique, l'instructeur et le signataire
+auront les mêmes informations que pour la personne physique.
+L'information est redondante mais elle est destinée à faciliter le
+travail des utilisateurs qui n'auront pas ainsi à choisir le champ où
+saisir le critère. En effet, selon qu'il s'agisse d'une personne
+physique ou d'une organisation, le signataire sera toujours saisi au
+même endroit.</p>
+
+<h5>Renseigner un destinataire (idem)</h5>
+
+<ul>
+<li><p>destinataire :</p></li>
+<li><p>service : service de l'instructeur ;</p></li>
+<li><p>instructeur : personne suivant le courrier</p></li>
+<li><p>signataire : responsable de l'instructeur</p></li>
+</ul>
+
+
+<p>L'instructeur peut aussi être le signataire lorsqu'un responsable traite
+lui-même un courrier.</p>
+
+<p>Le service est sélectionné dans une liste déroulante. La liste des
+instructeurs est directement mise à jour en fonction des utilisateurs
+enregistrés dans le groupe 'ServiceInstructor' du site. La liste des
+signataires est constituée de l'ensemble des utilisateurs enregistrés
+dans 'ServiceManager' du service (et donc du site) et des utilisateurs
+enregistrés dans 'ServiceManager' du cabinet 'DG'.</p>
+
+<h4>Exemples de formulaire</h4>
+
+<p>Les écrans suivants présentent la mise en page des champs à partir du
+découpage présenté précédemment :</p>
+
+<ul>
+<li><p>Ecran principal (défaut)</p></li>
+<li><p>Instruction</p></li>
+<li><p>Système</p></li>
+</ul>
+
+
+<h5>Défaut</h5>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_704a6a89.png" alt="" /></p>
+
+<h5>Instruction</h5>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_c388ad13.png" alt="" /></p>
+
+<h5>Système</h5>
+
+<p>Cet écran contient des informations techniques qui peuvent être utiles
+en cas de problèmes afin d'aider au diagnostic.</p>
+
+<h4>Historique</h4>
+
+<p>Un historique retrace l'ensemble des actions survenant sur les courriers
+entrants et sortants.</p>
+
+<p>Cette liste l'ensemble des actions, la date, l'heure et les personnes
+les ayant réalisées.</p>
+
+<h4>Commentaires</h4>
+
+<p>L'utilisateur peut apporter des commentaires au courrier entrant ou au
+courrier sortant. Ces commentaires sont également accessibles via la
+GED.</p>
+
+<h4>Pièces jointes</h4>
+
+<p>L'utilisateur peut joindre des documents au courrier entrant ou au
+courrier sortant. Ces pièces jointes peuvent être de toute nature.</p>
+
+<p>Lorsque l'utilisateur importe un mél dans Blue Courrier, le corps
+principal du message constitue le courrier entrant alors que les pièces
+jointes sont automatiquement ajoutées au courrier entrant avec leur
+propre format.</p>
+
+<h3>Assigner un courrier</h3>
+
+<p>A chaque étape de la distribution d'un courrier après sa validation par
+le cabinet 'DG', un instructeur peut être assigné au traitement du
+courrier.</p>
+
+<p>Le courrier peut être réassigné par l'assistant ou le responsable du
+site afin de gérer les absences.</p>
+
+<p>L'assignation est une action disponible sur les courriers dans les vues
+Tâches et Conversation. Dans la vue Tâches, les courriers peuvent être
+assignés en masse.</p>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_ebdf7279.png" alt="" /></p>
+
+<p>En cliquant sur l'icône d'assignation, les instrcuteurs disponibles dans
+le service apparaissent. Une recherche sur leur nom peut être effectuée
+afin de diminuer leur nombre.</p>
+
+<h2>Fonctions relatives au courrier sortant</h2>
+
+<h3>Instruire un courrier</h3>
+
+<p>Le courrier étant assigné, l'utilisateur désigné peut en commencer
+l'instruction.</p>
+
+<h4>Démarrer l'instruction</h4>
+
+<p>L'instructeur indique qu'il a démarré le traitement du courrier en
+cliquant sur l'action 'Démarrer l'instruction'. Cette action est
+importante pour le calcul des délais et vérifier notamment le délai de
+prise en compte.</p>
+
+<h4>Déplacer le document dans le plan de classement métier</h4>
+
+<p>La première chose à faire est de déplacer le courrier de la bannette
+'Courrier entrant' du service dans le répertoire métier, stocké dans le
+même site. L'instructeur déplace tout le répertoire et pas seulement le
+fichier. En effet, quand un fichier est importé dans Blue Courrier, un
+répertoire est automatiquement créé afin de pouvoir y stocker
+éventuellement des pièces jointes.</p>
+
+<p>L'instructeur peut remplir/compléter la fiche d'indexation. Le même
+formulaire est présenté à tous les acteurs accédant au courrier, quelle
+que soit l'étape où ils sont.</p>
+
+<h4>Créer le courrier sortant</h4>
+
+<p>Cette fonctionnalité repose sur le poste de l'utilisateur et/ou sur les
+fonctions de GED disponibles à travers Alfresco Share.</p>
+
+<p>Le courrier sortant peut être stocké n'importe où dans Alfresco Share.
+Il est généralement stocké dans le plan de classement métier à côté du
+courrier entrant.</p>
+
+<h4>Ajouter une ou plusieurs réponses à partir du système de fichiers de l'utilisateur ou de la GED</h4>
+
+<p>Une fois le courrier créé, il est attaché au courrier en entrée via un
+mécanisme comparable à celui de l'import d'un courrier entrant.
+L'attachement peut se faire par copie ou par déplacement. Dans ce
+dernier cas, le courrier est déplacé par Blue Courrier dans un
+sous-répertoire du répertoire du courrier entrant.</p>
+
+<p>Par exemple, pendant la création de la réponse, on a l'arborescence
+suivante, le répertoire correspondant au courrier entrant ayant été
+déplacé dans le répertoire 'Réclamations usager/2013/10':</p>
+
+<ul>
+<li>Réclamations usager
+
+<ul>
+<li>2013
+
+<ul>
+<li>10
+
+<ul>
+<li>Kermagoret.pdf.container
+
+<ul>
+<li>Kermagoret.pdf</li>
+<li>PJ1.pdf</li>
+<li>PJ2.pdf</li>
+</ul>
+</li>
+<li>Kermagoret-reponse.doc</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Une fois la réponse ajoutée au courrier arrivé via le logiciel Blue
+Courrier, on a l'arborescence suivante (les 3 premiers répertoires ont
+été fusionnés afin de pouvoir se concentrer sur les autres) :</p>
+
+<ul>
+<li>Réclamations usager/2013/10 :
+
+<ul>
+<li>Kermagoret.pdf.container
+
+<ul>
+<li>Kermagoret.pdf</li>
+<li>PJ1.pdf</li>
+<li>PJ2.pdf</li>
+</ul>
+</li>
+<li>Replies
+
+<ul>
+<li>Kermagoret.doc.container
+
+<ul>
+<li>Kermagoret.doc</li>
+<li>PJ1.png</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Blue Courrier ajoute un répertoire 'replies' destiné à stocker les
+réponses éventuellement multiples apportées au courrier 'arrivé'.</p>
+
+<p>Garder le document au niveau du plan de classement métier en même temps
+que dans le répertoire 'replies' créerait de la redondance et risquerait
+de rendre l'arborescence confuse. Nous préconisons par conséquent de
+déplacer la réponse et de ne pas faire de lien.</p>
+
+<h3>Renseigner un courrier sortant</h3>
+
+<p>Les informations disponibles pour le courrier sortant sont les mêmes que
+pour un courrier arrivé aux différences suivantes :</p>
+
+<ul>
+<li><p>date de rédaction : elle est initialisée avec la date de l'ajout de
+  la réponse ;</p></li>
+<li><p>date d'envoi : elle sera mise à jour lorsque l'action 'Marquer comme
+  envoyé' sera joué ;</p></li>
+<li><p>référence : la référence de la réponse est la référence du courrier
+  'arrivé' suivi de '/R1' pour la première réponse, '/R2' pour la
+  deuxième réponse à ce même courrier arrivé...</p></li>
+<li><p>objet ; l'objet de la réponse est l'objet du courrier 'arrivé'
+  précédé de 'Re :';</p></li>
+<li><p>catégories : les catégories de la réponse sont initialisées avec les
+  catégories du courrier 'arrivé'. En revanche, la catégorie 'courrier
+  entrant' a été remplacée par la catégorie 'courrier sortant';</p></li>
+<li><p>expéditeur : l'expéditeur est initialisé avec les valeurs du
+  destinataire du courrier entrant :</p></li>
+<li><p>service ;</p></li>
+<li><p>instructeur ;</p></li>
+<li><p>signataire : contient le dernier signataire : soit le responsable du
+  service, soit un responsable du cabinet 'DG'.</p></li>
+<li><p>destinataire : le destinataire est initialisé avec les valeurs de
+  l'expéditeur du courrier entrant ;</p></li>
+<li><p>priorité</p></li>
+<li><p>visibilité</p></li>
+</ul>
+
+
+<h3>Supprimer une réponse</h3>
+
+<p>Une réponse peut être supprimée par l'instructeur en cas d'erreur. Il
+suffit de cliquer sur l'icône correspondante sur la réponse.</p>
+
+<h3>Mettre un courrier en validation</h3>
+
+<p>L'instructeur peut mettre un courrier en validation une fois qu'il
+estime l'avoir terminé. Cette action est importante pour le calcul des
+délais et vérifier notamment le délai de validation.</p>
+
+<h3>Valider un courrier</h3>
+
+<p>L'utilisateur visualise les courriers qu'il a à valider dans la vue
+Tâches à faire par l'utilisateur.</p>
+
+<p>Blue Courrier propose 2 traitements possibles :</p>
+
+<ul>
+<li><p>Si le contenu ne convient pas, l'utilisateur peut :</p></li>
+<li><p>le modifier directement dans la GED puis l'associer explicitement
+  via Blue Courrier ; la nouvelle réponse remplacera alors l'ancienne
+  en la versionnant.</p></li>
+<li><p>le refuser, ce qui signifie que le rédacteur précédent (qui peut ne
+  pas être l'auteur original du document) devra corriger le document ;</p></li>
+<li><p>Lorsque le contenu convient (après éventuelles modifications),
+  l'utilisateur peut (choix exclusifs) :</p></li>
+<li><p>le valider et le transmettre pour validation à un autre
+  responsable ;</p></li>
+<li><p>le mettre au parapheur pour signature.</p></li>
+</ul>
+
+
+<p>Cette étape est informatisée mais peut être traitée manuellement. Ainsi,
+il est possible d'imprimer un courrier avec son bordereau de validation.
+Cette action peut être faite en masse. Un parapheur peut ainsi être
+constitué et soumis au responsable. Celui-ci peut traiter le document,
+le refuser et l'annoter ou le signer.</p>
+
+<p>Une fois le parapheur récupéré, l'assistant(e) reproduit dans Blue
+Courrier les actions faites par le responsable, au nom de celui-ci afin
+que l'historique soit pertinent. Le signataire indiqué sera bien sûr le
+responsable.</p>
+
+<p>Pour conclure, en cas de validation, le document signé est numérisé et
+vient remplacer la version précédente en la versionnant.</p>
+
+<h3>Amender un courrier</h3>
+
+<p>Les courriers à corriger sont visualisés pour un site donné en cliquant
+sur le filtre 'A corriger'.</p>
+
+<p>L'utilisateur consulte alors d'abord les commentaires, puis l'historique
+et enfin le document pour voir les corrections éventuellement apportées
+par des acteurs ayant participé au circuit de validation. Il utilise
+alors la GED pour le modifier.</p>
+
+<h3>Marquer un courrier comme envoyé</h3>
+
+<p>Les courriers à envoyer sont visualisés pour un site donné en cliquant
+sur le filtre 'Envoi postal'. L'utilisateur peut :</p>
+
+<ul>
+<li>marquer le courrier comme envoyé.</li>
+</ul>
+
+
+<p>S'il s'agit d'un service autre que le service courrier, le courrier est
+alors déplacé dans la bannette 'Envoi postal' du service courrier
+sortant. En parallèle, le courrier est fourni physiquement au service
+courrier sortant.</p>
+
+<p>S'il s'agit du service courrier sortant, le courrier est alors stocké
+dans le site archive. En parallèle, le courrier est physiquement donné à
+la poste.</p>
+
+<h3>Clôturer un courrier</h3>
+
+<p>Cette action permet de marquer un courrier comme traité lorsqu'aucune
+réponse n'est requise.</p>
+
+<h3>Archiver un courrier</h3>
+
+<p>Du point de vue de la GED, les courriers sont des documents comme les
+autres. Les DUAs peuvent donc s'appliquer et les courriers seront
+archivés de la même maninière.</p>
+
+<p>Cette action étant une action de GED, Blue Courrier ne propose pas de
+fonction d'archivage.</p>

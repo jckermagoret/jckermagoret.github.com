@@ -1,0 +1,138 @@
+<h1>Processus</h1>
+
+<h2>Rappel du fonctionnement attendu</h2>
+
+<p>Le cahier des charges décrit 3 processus :</p>
+
+<ul>
+<li>circuit courrier arrivé</li>
+<li>circuit courrier départ
+
+<ul>
+<li>circuit courrier départ 'DG'</li>
+<li>circuit courrier départ simplifié</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>Circuit courrier arrivé</h3>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_382c737a.jpg" alt="" /></p>
+
+<p>Une fonction d’information du Cabinet DG permettra un retour de
+l’attribution faites à un service avec un commentaire de justification.
+Le courrier sera alors de nouveau visible dans la console de
+consultation du 'cabinet DG'.</p>
+
+<p>Une fonction de clôture de courrier permettra d’indiquer que le courrier
+a été traité.\
+Une fonction de lien entre courriers permettra de suivre y compris la
+réception de courrier due à un courrier précédent.</p>
+
+<p>Une fonction de suivi de l’avancement du traitement du courrier
+'arrivée' est aussi à mettre en place</p>
+
+<h3>Circuit courrier départ</h3>
+
+<h4>Circuit courrier départ 'DG'</h4>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_3f15f40e.png" alt="" /></p>
+
+<h4>Circuit courrier départ simplifié</h4>
+
+<p><img src="./images/GECOD_DSE_Courrier-20131118_2.0.0trav_html_7ca292e.png" alt="" /></p>
+
+<h2>Blue Courrier</h2>
+
+<p>Le processus de gestion de courrier implémenté par Blue Courrier se
+décompose en 3 processus :</p>
+
+<ul>
+<li>distribution, qui s'applique aux courriers entrants ;</li>
+<li>validation, qui s'applique aux courriers sortants ;</li>
+<li>sortie, qui s'applique aux courriers sortants.</li>
+</ul>
+
+
+<h3>Distribution</h3>
+
+<p>Cette distribution comporte :</p>
+
+<ul>
+<li>une partie manuelle de dématérialisation du courrier entrant ;</li>
+<li>une partie informatisée de distribution proprement dite.</li>
+</ul>
+
+
+<h4>Partie manuelle</h4>
+
+<p>Le processus manuel permet de réaliser l'action suivante :</p>
+
+<ul>
+<li>dématérialiser le courrier : tri et numérisation du courrier.</li>
+</ul>
+
+
+<h4>Partie informatisée</h4>
+
+<p>Le processus informatisé permet de réaliser les actions suivantes :</p>
+
+<ul>
+<li><p>préparer la distribution:</p></li>
+<li><p>remplir la fiche d'indexation : indiquer toutes les informations sur
+  le courrier arrivé (dates, délai, priorité, catégories, expéditeur,
+  destinataire, pièces jointes, commentaires) ;</p></li>
+<li><p>indiquer le service destinataire du courrier et les services
+  éventuels en copie ;</p></li>
+<li><p>distribuer : valider la distribution ;</p></li>
+<li><p>(ré)assigner : indiquer l'agent/collaborateur chargé du traitement
+  du courrier ;</p></li>
+<li><p>instruire : créer et ajouter une ou plusieurs réponses au courrier
+  arrivé. Chaque réponse suivra son propre processus. Cette réponse
+  est visible dans un fil de discussion ;</p></li>
+<li><p>mettre en validation : faire partir le courrier en validation par le
+  responsable du service ;</p></li>
+<li><p>terminer le traitement : clôturer le courrier pour indiquer qu'aucun
+  traitement n'était nécessaire. Cette action ne peut être réalisée
+  que par un service métier et non par le service courrier.</p></li>
+</ul>
+
+
+<p>La distribution des courriers est validée par le cabinet 'DG'.</p>
+
+<h3>Validation</h3>
+
+<p>Le processus de validation permet de réaliser les actions suivantes :</p>
+
+<ul>
+<li><p>indiquer le responsable suivant : si aucune responsable n'est
+  indiqué alors la validation est finale, sinon cela permet de faire
+  valider par une autre personne (par exemple le n+1)</p></li>
+<li><p>valider : l'approbation ne nécessite pas de commentaire</p></li>
+<li><p>refuser : un commentaire doit obligatoirement être joint pour
+  refuser un document</p></li>
+</ul>
+
+
+<h3>Sortie</h3>
+
+<p>Le processus de sortie permet de réaliser les actions suivantes :</p>
+
+<ul>
+<li><p>faire valider une réponse au responsable du service : le responsable
+  de service est celui qui par défaut valide la réponse de son service</p></li>
+<li><p>faire valider une réponse à un autre responsable : le processus de
+  validation peut être répété</p></li>
+<li><p>imprimer le courrier</p></li>
+<li><p>faire signer le courrier</p></li>
+<li><p>numériser le courrier</p></li>
+<li><p>marquer comme envoyé</p></li>
+</ul>
+
+
+<h3>Synthèse</h3>
+
+<h4>Synthèse des fonctions générales et spécifiques par rôle</h4>
+
+<h4>Synthèse des fonctions par processus et par rôle</h4>

@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dématérialiser (exécution) une demande de validation par le SG</title>
+    
+    <meta name="author" content="Jean-Christophe KERMAGORET">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">JCK's Blog</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <h1>Introduction</h1>
+
+<p>Ce document fait suite au <a href="/blogs/blog-jckermagoret/2014/09/01/Dematerialisation-1-definition">tutoriel</a> décrivant la définition d'un processus sur Alfresco avec Blue Parapheur.</p>
+
+<p>Ce document décrit l'exécution d'un processus de dématérialisation conçu avec Blue Parapheur.</p>
+
+<p>Après sa définition, le processus est immédiatement disponible, sans aucune action d'aucune sorte de compilation, déploiement...</p>
+
+<p>Les écrans suivants s'enchainent alors :</p>
+
+<ul>
+<li>Lancement du processus sur un répertoire contenant une demande d'achat (formulaire de demande, devis pdf...)</li>
+<li>Sélection du processus de validation en 2 étapes</li>
+<li>Sélection du premier approbateur</li>
+<li>Demande de correction car la demande est incorrecte</li>
+<li>Retour au premier approbateur</li>
+<li>Validation par le premier approbateur</li>
+<li>Sélection du second acteur</li>
+<li>Validation par le second approbateur</li>
+<li>Diffusion par l'initiateur</li>
+<li>Vérification de la traçabilité</li>
+</ul>
+
+
+<h1>Déroulement du processus</h1>
+
+<h2>Lancement du processus</h2>
+
+<div class="screenshot">
+<img alt="Lancement du processus" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-010-lancement.png">
+</div>
+
+
+<h2>Sélection du processus de validation en 2 étapes</h2>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-012-selection.png">
+</div>
+
+
+<p>Il est également possible d'indiquer :</p>
+
+<ul>
+<li>des acteurs pour diffusion. Dans ce cas, un accusé de réception notifiera l'initiateur de la  prise de connaissance du document par le destinaire ;</li>
+<li>des acteurs pour consultation. Aucun accusé de réception ne sera notifié.</li>
+</ul>
+
+
+<h2>Sélection du premier approbateur</h2>
+
+<p>En cliquant sur le bouton "Intervenants initiaux", l'écran suivant s'affiche, permettant de sélectionner dans l'annuaire issu de votre organisation (Active Directory, Ldap...) le(s) premier(s) approbateur(s) :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-012-selection-destinataire-initial.png">
+</div>
+
+
+<h2>Premier approbateur / Tableau de bord / Mes tâches</h2>
+
+<p>Lorsqu'il se connecte, le premier approbateur qu'il a une tâche à réaliser :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-020-tdb-mes-taches.png">
+</div>
+
+
+<p>En cliquant sur cette tâche, il accède directement à la demande.</p>
+
+<h2>Premier approbateur / Consultation de la demande</h2>
+
+<p>L'approbateur peut consulter les détails de la demande, contenus dans le répertoire correspondant.</p>
+
+<div class="screenshot">
+<img alt="Icône pour réaliser l'action documentaire" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-022-consultation.png">
+</div>
+
+
+<p>L'approbateur peut alors effectuer l'action "Réaliser ma tâche documentaire".</p>
+
+<h2>Demande de correction car la demande est incorrecte</h2>
+
+<p>En cliquant sur l'action "Réaliser ma tâche documentaire", l'écran suivant s'affiche :</p>
+
+<div class="screenshot">
+<img alt="Refus de la validation" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-024-refus.png">
+</div>
+
+
+<p>L'acteur (actuellement) approbateur ayant constaté une erreur dans les dates refuse de valider la proposition et demande une correction en appuaynt sur le bouton "Refuser". Il est possible de modifier les intitulés des boutons soit au niveau de la définition du processus, soit au niveau de la définition de chaque tâche afin d'avoir un comportement correspondant exactement à vos besoins.</p>
+
+<h2>Retour à l'initiateur de la demande</h2>
+
+<p>L'initiateur de la demande constate qu'il a une tâche sur son tableau de bord, comme l'avait constaté auparavant le premier approbateur. En cliquant sur "Réaliser ma tâche documentaire", l'écran suivant s'affiche pour l'initiateur qui peut ainsi indiquer qu'il a fini sa correction. Celui-ci n'a pas la possibilité d'abandonner le processus à cet instant. On peut facilement ajouter cette action à cette étape en activant l'option correspondante dans la définition de la tâche.</p>
+
+<div class="screenshot">
+<img alt="Etape de correction" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-024-correction-ok.png">
+</div>
+
+
+<h2>Retour au premier approbateur pour validation</h2>
+
+<p>L'approbateur clique sur le détail de la demande à partir de son tableau de bort pour traiter cette nouvelle tâche. Il clique alors sur l'action "Réaliser ma tâche documentaire" qui affiche l'écran suivant :</p>
+
+<div class="screenshot">
+<img alt="Etape de validation" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-028-validation.png">
+</div>
+
+
+<p>Tant qu'il n'a pas sélectionné l'intervenant suivant, il ne peut approuver la demande. Il peut avant de valider effectuer les tâches suivantes :</p>
+
+<ul>
+<li>Afficher le processus, afin de voir le cycle de validation du document</li>
+<li>Visualiser les détails du processus, afin de consulter les étapes ayant permis d'arriver jusqu'à lui :</li>
+</ul>
+
+
+<div class="screenshot">
+<img alt="Historique de validation" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-029-historique.png">
+</div>
+
+
+<p>Il décide alors de sélectionner l'intervenant suivant.</p>
+
+<h2>Validation par le second approbateur</h2>
+
+<p>Cet acteur accède à ses tâches à partir de son tableau de bord et réalise ses tâches documentaires. En l'occurrence, comme la demande lui convient, il la valide. Il n'a pas besoin de sélectionner un nouvel acteur à ce niveau car la dernière tâche de diffusion revient à l'acteur initial :</p>
+
+<div class="screenshot">
+<img alt="Etape de validation finale" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-030-validation-finale.png">
+</div>
+
+
+<h2>Diffusion par l'initiateur</h2>
+
+<p>L'acteur initial ayant lancé le processus traite la dernière tâche de diffusion :</p>
+
+<div class="screenshot">
+<img alt="Etape de diffusion" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-031-diffusion-finale.png">
+</div>
+
+
+<h2>Vérification de la traçabilité</h2>
+
+<p>A posteriori, il est possible de consulter l'historique de validation de la demande d'achat en consultant les détails du dossier :</p>
+
+<div class="screenshot">
+<img alt="Historique de validation" src="/blogs/blog-jckermagoret/images/2014-09-01/execute-processus-032-historique-finale.png">
+</div>
+
+
+<p>En consultant le détail de la demande d'achat, les informations de traçabilité sont disponibles permettant de vérifier ce qui s'est passé :</p>
+
+<h1>Conclusion</h1>
+
+<p>La réalisation de ce tutoriel nécessite 1 à 2h afin de bien suivre et comprendre les concepts et exemples rapidement présentés ici.</p>
+
+<p>Comme vous venez de le voir, l'utilisation des processus est très simple et ne nécessite pas de formation particulière, autre que l'utilisation d'Alfresco finalement.</p>
+
+<h1>Ressources</h1>
+
+<ul>
+<li><a href="https://docs.cloud.bluedolmen.com/docs/blue-parapheur/fr/latest/xx01.html">Manuel utilisateur de BlueParapheur</a></li>
+</ul>
+
+
+      </div>
+
+    </div> <!-- /container -->
+
+	<div style="text-align: center">
+      <footer>
+        <p>&copy; Jean-Christophe KERMAGORET 2012
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+	</div>
+    
+  </body>
+</html>
+

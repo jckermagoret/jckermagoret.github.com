@@ -1,0 +1,156 @@
+<h1>Concepts</h1>
+
+<h2>Acteurs</h2>
+
+<p>Blue Courrier définit 3 groupes d'utilisateur :</p>
+
+<ul>
+<li>Assistant : distribue le courrier et l'assigne à un instructeur</li>
+<li>Instructeur : décide de rédiger une réponse, la rédige puis la fait
+valider</li>
+<li>Responsable : valide une réponse au courrier et la fait
+éventuellement valider par un autre responsable</li>
+</ul>
+
+
+<p>Blue Courrier fonctionnant sur la notion de site Alfresco Share, les
+groupes ci-dessus s'ajoutent aux groupes Alfresco Share qui sont au
+nombre de 4. Les sites Blue Courrier auront donc 7 groupes.</p>
+
+<h2>Service</h2>
+
+<p>Blue Courrier fait circuler le courrier par service, réel ou virtuel (on
+peut ainsi créer des sites pour des services n'existant pas mais jouant
+un rôle au niveau de la gestion du courrier ou de la GED). Un service
+correspond à un site Alfresco Share. Une organisation en
+Pôle/Direction/Service aura ainsi autant de sites Alfresco Share que de
+strates organisationnelles.</p>
+
+<p>Il peut être attribué une gestion de courrier à tous les sites
+choisissant d’en recevoir (par paramétrage de l’administrateur Alfresco
+) au moment de la création ou par la suite, par l'intermédiaire d'un
+script. Le nom du 'service' apparaissant dans l’interface Blue
+Courrier est le nom du site.</p>
+
+<p>Les sites existant dans la partie GED de GECOD (Alfresco) ou ceux créés
+dans l’avenir pourront donc bénéficier de cette possibilité.</p>
+
+<p>Plusieurs personnes peuvent avoir le même rôle sur le même site.</p>
+
+<h3>Services avec une fonction particulière</h3>
+
+<p>Dans le cadre de la gestion de courrier pour l'ANFR, certains services
+jouent un rôle particulier :</p>
+
+<ul>
+<li><p>service logistique : il centralise les courriers entrants dans
+  l'organisation et préparer leut distribution</p></li>
+<li><p>le cabinet 'DG': il valide la distribution des courriers qu'elle ne
+  soit effective au niveau des services</p></li>
+</ul>
+
+
+<h4>Service Logistique</h4>
+
+<p>Ce service centralise les courriers entrants dans l'organisation. Le
+nombre de courriers est donc maximal dans ce service : il faut gagner du
+temps pour ne pas retarder la distribution.</p>
+
+<p>Le courrier est extrait des enveloppes, le contenu de chaque enveloppe
+étant séparé du précédent par un intercalaire comportant :</p>
+
+<ul>
+<li><p>un code barre. Celui-ci permet à l'OCR de détecter le début d'une
+  enveloppe.</p></li>
+<li><p>le nom du service destinataire choisi par l'utilisateur</p></li>
+</ul>
+
+
+<p>Le nombre d'intercalaires différents est égal au nombre de services
+destinataires différents. Les intercalaires sont imprimés en nombre
+suffisant afin de pouvoir traiter le volume maximal que le service
+courrier peut avoir à traiter.</p>
+
+<p>Les documents peuvent alors être numérisés.</p>
+
+<p>A l'issue de la numérisation :</p>
+
+<ul>
+<li><p>les courriers numériques apparaissent dans la bannette du service
+  courrier. Les fiches d'indexation de chaque courrier sont alors
+  éventuellement complétées en fonction de la répartition des tâches.
+  Les documents ayant été passés à un OCR, il est possible de faire
+  des copier/coller entre le courrier et les champs de la fiche
+  d'indexation.</p></li>
+<li><p>les courriers sont stockés 'tel quel' afin de gagner du temps en
+  limitant les manipulations et conservent donc leur intercalaire. Ils
+  sont classés dans un carton intitulé Année/mois/semaine. En fonction
+  du nombre de courrier, il est possible de les classer dans un carton
+  Année/mois/jour. En fonction du volume de courrier, chaque mois, ou
+  chaque semaine, la pile précédente est fournie au service des
+  archives qui le stocke selon ses règles et procédures. Le numéro de
+  référence interne de chaque courrier 'arrivé', reprenant la date du
+  jour, permettra de savoir dans quel carton d'archives chercher les
+  courriers.</p></li>
+<li><p>les courriers sont fournis aux services métier qui les traitent puis
+  les archivent.</p></li>
+</ul>
+
+
+<p>\
+\</p>
+
+<h4>Cabinet 'DG'</h4>
+
+<p>Ce cabinet est constitué :</p>
+
+<ul>
+<li><p>de la présidence du conseil d’administration (le président, son
+  assistante),</p></li>
+<li><p>de la direction générale (le directeur général, le directeur général
+  adjoint, les assistantes),</p></li>
+</ul>
+
+
+<p>L’ensemble du courrier à l’exception du courrier RH et de courriers
+spécifiques (factures, missions, demandes AUF, chèques régie) passent
+par la DG qui valide la ventilation. Une fois la ventilation validée,
+les courriers sont transmis dans les bannettes des différents sites.</p>
+
+<p>Les utilisateurs du groupe 'Cabinet_DG' pourront visualiser la liste
+des des courriers entrants et valider ou changer la ventilation
+(attribution) proposée par le service courrier.</p>
+
+<p>Les courriers seront alors déplacés dans les bannettes correspondantes.</p>
+
+<h2>Bannettes</h2>
+
+<p>Blue Courrier fonctionne sur la notion de bannette. Les bannettes
+visibles en tant que telles sont des répertoires temporaires utiles pour
+stocker les documents avant leur rangement selon le plan de classement
+métier.</p>
+
+<p>Chaque service dont le courrier est géré par Blue Courrier aura les
+bannettes suivantes :</p>
+
+<ul>
+<li><p>Bannette ' Courrier entrant'</p></li>
+<li><p>Elle contient les courriers qui viennent d'être dématérialisés, qui
+  sont en distribution ou qui sont assignés. Une fois que
+  l'instructeur démarre leur traitement, il les déplace généralement
+  dans le plan de classement métier du service auquel il appartient.
+  Il ne peut pas les déplacer dans un autre service. Toutes les
+  opérations relatives à un courrier sont journalisées et donc
+  visibles par une fonction d’historique du courrier.</p></li>
+<li><p>Bannette 'En Copie'</p></li>
+<li><p>Elle contient les copies des courriers adressés au service concerné.
+  Un utilisateur du service peut les déplacer et les classer à l'aide
+  de la GED. C'est une copie du courrier original qui contient une
+  association sur la source que l'on peut ainsi retrouver. Ces
+  courriers peuvent être déplacés, supprimés, renommés tout simplement
+  avec l'outil de GED.</p></li>
+<li><p>Bannette 'Courrier sortant'</p></li>
+<li><p>Elle contient les courriers spontanés. Ceux-ci peuvent par la suite
+  être déplacés selon le plan de classement métier à l'aide de la GED</p></li>
+</ul>
+

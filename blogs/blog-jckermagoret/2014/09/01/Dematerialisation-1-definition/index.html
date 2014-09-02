@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dématérialiser (définition) une demande de validation par le SG</title>
+    
+    <meta name="author" content="Jean-Christophe KERMAGORET">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">JCK's Blog</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <h1>Introduction</h1>
+
+<p>Ce document décrit comment développer avec Blue Parapheur un processus de dématérialisation de demande de validation en 2 étapes dans une collectivité territoriale. Les 2 étapes de validation sont réalisées par le responsable hiérarchique du demandeur d'abord et enfin par le secrétaire général.</p>
+
+<p>Initialement utilisé dans un Conseil Régional, ce processus, finalement assez classique, s'applique assez naturellement à toutes les organisations.</p>
+
+<h1>Processus</h1>
+
+<p>Le processus tel qu'il a été dessiné par le client ou l'AMOA est le suivant :</p>
+
+<p><img name="Demande simple de validation en 2 étapes" src="/blogs/blog-jckermagoret/images/2014-09-01/workflow.png" width="619"/></p>
+
+<h1>Définition</h1>
+
+<h2>Méthodologie</h2>
+
+<p>Blue Parapheur propose de définir un processus en plusieurs étapes :</p>
+
+<ol>
+<li>définition du processus
+
+<ul>
+<li>sélection des services par défaut</li>
+</ul>
+</li>
+<li>définition des étapes
+
+<ul>
+<li>description de l'étape</li>
+<li>déclaration des transitions entre l'étape courante et les autres étapes</li>
+<li>activation des services spécifiques</li>
+</ul>
+</li>
+</ol>
+
+
+<p>En outre, il est possible de définir des services spécifiques en écrivant le code nécessaire.</p>
+
+<p>Pour chaque étape, il est possible d'indiquer quels sont les acteurs assignés ou simplement définir un groupe et laisser les acteurs choisir parmir ce groupe les acteurs nécessaires.</p>
+
+<h2>Structure de Blue Parapheur</h2>
+
+<p>Blue Parapheur stocke les informations concernant les processus qu'il gère dans un site éponyme dans 3 répertoires :</p>
+
+<ul>
+<li>Modèle : stocke les modèles documentaires utilisés dans le cadre des processus ;</li>
+<li>Paraphe : stocke l'ensemble des paraphes constituant les instances de processus en cours. Ces instances se décomposent en instances en archives, en saisie ou valides. Vous n'avez bien sûr accès qu'aux seuls instances auxquelles vous donnent droit vos permissions ;</li>
+<li>Processus : stocke les définitions des processus selon leur type. Par défaut, les types cm_folder et cm_content correspondants respectivement à cm:folder (dossier) et cm:content (fichier) d'Alfresco sont disponibles.</li>
+</ul>
+
+
+<h2>Définition du processus</h2>
+
+<p>Comme indiqué ci-dessus, pour créer un processus, nous nous rendons dans un premier temps dans le site Blue Parapheur, plus particulièrement dans le répertoire Processus/cm_folder, puisqu'on souhaite valider un répertoire, et cliquons sur le bouton "Créer un processus" :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-1.png">
+</div>
+
+
+<h3>Description générale du processus</h3>
+
+<p>Le formulaire de définition du processus s'affiche :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-2.png">
+</div>
+
+
+<p>Les informations correspondantes sont saisies. Elles faciliteront le choix par l'utilisateur du service adéquat.</p>
+
+<h3>Sélection des services par défaut</h3>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-3.png">
+</div>
+
+
+<p>Blue Parapheur propose les services par défaut suivants :</p>
+
+<ul>
+<li>Notification</li>
+<li>Délégation</li>
+<li>Réassignation</li>
+<li>Demande d’Avis</li>
+<li>Suggestion</li>
+<li>Injection de métadonnées</li>
+<li>Transformation pdf/A</li>
+<li>Signature Électronique</li>
+<li>Contrôle de légalité</li>
+<li>Traçabilité</li>
+<li>Gestion de Version et Historisation</li>
+<li>Accusé de réception</li>
+<li>Demande de modifications</li>
+<li>Archivage</li>
+<li>Horodatage</li>
+<li>Statistiques &amp; Rapports</li>
+<li>Édition en ligne</li>
+</ul>
+
+
+<p>Pour chaque service, il suffit de cliquer sur l'icône représentant un point d'interrogation pour obtenir la description du service correspondant.</p>
+
+<p>Les 4 premiers services sont activés par défaut. Nous ne gardons finalement que les services suivants :</p>
+
+<ul>
+<li>Notification : les services de notification permettent de notifier par mail les acteurs assignés à une tâche ;</li>
+<li>Délégation : les services de délégation permettent d'indiquer un délégataire. Ce service peut être désactivé afin d'obliger un acteur à réaliser une action et à ne pas la déléguer.</li>
+</ul>
+
+
+<h3>Autres onglets</h3>
+
+<p>Les autres onglets permettent de définir des services supplémentaires, de renommer les libellés... Ils ne sont pas utiles dans notre exemple.</p>
+
+<p>En cliquant sur le bouton "Sauvegarder", le processus est alors sauvegardé et on obtient la capture d'écran suivante.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-4.png">
+</div>
+
+
+<h2>Définition des différentes étapes du processus</h2>
+
+<p>Le processus étant défini, nous passons maintenant à la définition des différentes étapes.</p>
+
+<h3>Etape de lancement</h3>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/start-processus-0.png">
+</div>
+
+
+<p>L'étape de lancement n'est pas à définir, elle est automatiquement gérée par le système qui propose l'ensemble des processus disponibles pour le type sur lequel vous lancez la validation.</p>
+
+<p>Cliquez sur le bouton "Plus" et sélectionnez l'action "Lancer un processus". L'écran suivant s'affiche :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/start-processus-1.png">
+</div>
+
+
+<p>La liste déroulante permet de sélectionner le processus de votre choix. Vous pouvez également saisir la personne devant valider votre demande.</p>
+
+<p>Il est bien sûr possible :</p>
+
+<ul>
+<li>de définir un bouton pour faciliter l'utilisation des processus les plus utilisés ;</li>
+<li>de définir en fonction de votre rôle dans l'organisation les personnes aptes à valider votre demande afin d'éviter les erreurs.</li>
+</ul>
+
+
+<h3>Première étape de validation</h3>
+
+<p>L'étape de lancement étant réglée, à partir du processus précédent, cliquez sur le bouton "Plus" et sélectionnez l'action "Afficher le processus". L'écran suivant, vide, s'affiche :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-modeler-1.png">
+</div>
+
+
+<p>Cliquez sur le bouton "Créer une étape" pour créer la première étape de validation.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-validation1-1.png">
+</div>
+
+
+<p>Cet écran permet de saisir les informations concernant la première étape de validation. En cliquant sur l'onglet intitulé "Etapes et intervenants", on indique qu'il s'agit du premier écran du processus (hormis l'écran de démarrage géré à part par le système). On peut aussi indiquer un acteur particulier pour cet écran ou utiliser l'acteur indiqué par l'initiateur de la demande. Bien sûr, il est possible de modifier ce comportement par programmation pour exactement répondre à votre demande si le fonctionnement par défaut ne suffit pas.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-validation1-2.png">
+</div>
+
+
+<p>On a alors le modèle de processus suivant :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-validation1-modeler-2.png">
+</div>
+
+
+<p>A l'issue cet écran, notre première étape de validation est terminée.</p>
+
+<h3>Deuxième étape de validation</h3>
+
+<p>En suivant la même procédure que précédemment, nous définissons une deuxième et dernière étape de validation.</p>
+
+<p>Dans un premier temps, nous définissons sa description :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-validation2-1.png">
+</div>
+
+
+<p>Dans un deuxième temps, nous définissons l'étape de validation parente de l'étape en cours, en l'occurence, la première étape de validation nommée "Validation" :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-validation2-2.png">
+</div>
+
+
+<p>Les autres onglets permettent de modifier les paramètres indiqués lors de la définition du processus. Ne souhaitant pas les modifier, nous sauvegardons directement la définition de notre étape. L'écran qui appraît présente alors les tâches reliées entre elles. Vous pouvez les déplacer afin d'avoir une représentation fonctionnelle de votre processus. En cliquant sur le bouton "Sauvegarder", vous sauvez les positions de vos étapes à l'écran.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-validation2-modeler-3.png">
+</div>
+
+
+<h3>Etape de correction</h3>
+
+<p>En suivant la même procédure que précédemment, nous définissons une étape de correction.</p>
+
+<p>Dans un premier temps, nous définissons sa description :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-correction-1.png">
+</div>
+
+
+<p>Cette étape est accessible à partir des transitions correction de chaque étape de validation. En outre, l'acteur initial est automatiquement assigné à cette étape de correction. En cliquant sur l'onglet "Etapes et intervenants", nous pouvons indiquer les relations entre les transitions de chacun des autres étapes et l'étape en cours :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-correction-2.png">
+</div>
+
+
+<h3>Première étape de validation</h3>
+
+<p>Il est nécessaire de revenir sur cette première étape de validation afin de la compléter. En effet, cette étape est accessible après une correction, qu'elle ait été demandée par le premier ou le deuxième approbateur. En effet, en cas de refus par le deuxième approbateur, il est nécessaire qu'à l'issue de la correction, le premier approbateur valide à nouveau la demande, avant qu'elle n'arrive au deuxième approbateur. Il est néanmoins possible de revenir directement au deuxième approbateur si cela correspond à votre besoin.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-validation1-3-1.png">
+</div>
+
+
+<p>Attention à bien activer l'option "Assigne acteur initial" pour que la tâche revienne systématiquement au premier approbateur.</p>
+
+<h3>Etape de diffusion</h3>
+
+<p>En suivant la même procédure que précédemment, nous définissons une étape de correction.</p>
+
+<p>Dans un premier temps, nous définissons sa description :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-diffusion-1.png">
+</div>
+
+
+<p>Cette étape est accessible à partir de la transition de validation de l'étape précédente, à savoir la validation par le SG appelé "Validation finale". En outre, l'acteur initial est automatiquement assigné à cette étape de diffusion. En cliquant sur l'onglet "Etapes et intervenants", nous pouvons indiquer ces informations :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-task-diffusion-2.png">
+</div>
+
+
+<h3>Transitions d'abandon</h3>
+
+<p>Le processus actuellement modélisé est le suivant :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-modeler-4.png">
+</div>
+
+
+<p>Lors d'une validation par les responsables ou le SG, il est possible d'abandonner le processus de validation à tout moment. Il faut donc définir cette transition.</p>
+
+<p>Pour cela, cliquer dans le modèle ci-dessus sur l'icône avec un crayon. Elle permet d'accéder au détail de chaque tâche. Cliquez ensuite sur l'onglet "Etapes et intervenants". Il suffit alors de sélectionner l'action "" :</p>
+
+<div class="screenshot">
+![Définition de la transition "Abandonner"](/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-transition-cancel-1.png)
+</div>
+
+
+<p>Il suffit alors d'opérer de même pour la tâche de validation finale.</p>
+
+<h2>Finalisation des définitions des tâches</h2>
+
+<p>Il est nécessaire d'indiquer pour chaque tâche des intervenants. Ils peuvent :</p>
+
+<ul>
+<li>soit être indiqués en "dur", dans la définition de la tâche ;</li>
+<li>soit être indiqués à l'exécution par les utilisateurs de la tâche précédente. Les intervenants sélectionnés pouvant être limités à un groupe ;</li>
+<li>soit être indiqués par référence aux intervenants d'une autre tâche déjà réalisée.</li>
+</ul>
+
+
+<h3>Intervenants pour la tâche de validation</h3>
+
+<p>@TODO</p>
+
+<h3>Intervenant pour la tâche de diffusion</h3>
+
+<p>On veut le même intervenant que pour la tâche de correction, c'est à dire l'acteur initial. Il convient donc de l'indiquer dans la définition de la tâche "Diffusion".</p>
+
+<h2>Conclusion</h2>
+
+<p>On obtient au final le modèle suivant :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-01/create-processus-5-modeler-6.png">
+</div>
+
+
+<p>Pour mémoire, les flèches ont différentes couleurs dont la signification est la suivante :</p>
+
+<ul>
+<li>vert : transition menant à la tâche de validation suivante suite à l'appui sur le bouton "Approuver"</li>
+<li>rouge : transition menant à la tâche de correction suite à l'appui sur le bouton "Corriger"</li>
+<li>bleu : transition 'autre' à laquelle on peut donner la sémantique que l'on souhaite.</li>
+</ul>
+
+
+<p>En outre, les tâches encadrées en rouge proposent une transition permettant d'abandonner le processus.</p>
+
+<p>Blue Parapheur est un outil très simple, permettant de définir 95% des processus de validation.</p>
+
+<h1>Ressources</h1>
+
+<ul>
+<li><a href="https://docs.cloud.bluedolmen.com/docs/blue-parapheur/fr/latest/xx01.html">Manuel utilisateur de BlueParapheur</a></li>
+</ul>
+
+
+      </div>
+
+    </div> <!-- /container -->
+
+	<div style="text-align: center">
+      <footer>
+        <p>&copy; Jean-Christophe KERMAGORET 2012
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+	</div>
+    
+  </body>
+</html>
+
