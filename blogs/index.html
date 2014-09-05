@@ -23,6 +23,11 @@
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
   -->
+
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
   </head>
 
   <body>
@@ -140,6 +145,30 @@
 		<div style="float: right">
 			<img src="./blog-jckermagoret/images/jckermagoret.png" width="75px"/>
 		</div>
+		<h3 class="title"><a href="/blogs/blog-jckermagoret/2014/09/05/Testing-server-side-javascript-with-qunit-and-junit">Testing server side javascript with qunit and junit</a></h3>
+		<p class="meta">Date: Fri Sep 05 00:00:00 +0200 2014</p>
+		<p class="author">Auteur: jckermagoret</p>
+		<div class="entry">
+			Introduction This tutorial aims at testing server side javascript on Alfresco and Alfresco Share through BDD test for Behavioral Development Driven. Such a test looks like the following: pavlov.specify("AutoComplete Test Set", function() { describe("Should be able to automatically update meta data ...", function() { var doc; function fail(msg) { $Logger.debug(msg); assert(true).equals(false); }; before(function() { }); after(function() { }); it("for MarchesPublics:ECategory type", function() { fail("Not yet implemented"); }); it("for MarchesPublics:EPayment type", function() { fail("Not yet implemented"); }); it("for MarchesPublics:EOrganization type", function() { fail("Not yet implemented"); }); }); }); Development process Usual way I won't detail here why writing tests is important....
+		</div>
+	</div>
+
+	<div class="post">
+		<div style="float: right">
+			<img src="./blog-jckermagoret/images/jckermagoret.png" width="75px"/>
+		</div>
+		<h3 class="title"><a href="/blogs/blog-jckermagoret/2014/09/05/How-to-test-server-side-javascript-with-qunit-and-pavlov">How to test server side javascript with qunit and pavlov</a></h3>
+		<p class="meta">Date: Fri Sep 05 00:00:00 +0200 2014</p>
+		<p class="author">Auteur: jckermagoret</p>
+		<div class="entry">
+			Introduction qUnit and pavlov have been slightly modified so they can be run into a server side javascript. Modifications consist in: creating a window object so the library believes it is runnning into a browser, adding a renderer so the output is either in plain text, to run it in debug mode, or in xml unit format to integrate it into existing The corresponding libraries must be loaded. Pavlov Test script ``` &lt;import resource="classpath:alfresco/webscripts/extension/js/org/bluedolmen/utils/Logger.js"&gt; &lt;import resource="classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit/src/bluedolmen-qunit-headless.js"&gt; &lt;import resource="classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit-pavlov.js"&gt; &lt;import resource="classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit/test/bluedolmen-postload.js"&gt; &lt;import resource="classpath:alfresco/webscripts/extension/js/external/qunit-reporter-junit.js"&gt; &lt;import resource="classpath:alfresco/webscripts/extension/js/external/yaml.min.js"&gt; &lt;import resource="classpath:alfresco/webscripts/extension/js/org/bluedolmen/alfresco/rule/AutoComplete.js"&gt; &lt;import resource="classpath:alfresco/webscripts/extension/js/org/bluedolmen/Base.js"&gt; //$Logger.LEVEL.DEBUG = false; QUnit.specify.globalApi = true; QUnit.jUnitReport = function(data) { var console...
+		</div>
+	</div>
+
+	<div class="post">
+		<div style="float: right">
+			<img src="./blog-jckermagoret/images/jckermagoret.png" width="75px"/>
+		</div>
 		<h3 class="title"><a href="/blogs/blog-jckermagoret/2014/09/02/Dematerialisation-2-execution">Dématérialiser (exécution) une demande de validation par le SG</a></h3>
 		<p class="meta">Date: Tue Sep 02 00:00:00 +0200 2014</p>
 		<p class="author">Auteur: jckermagoret</p>
@@ -157,6 +186,18 @@
 		<p class="author">Auteur: jckermagoret</p>
 		<div class="entry">
 			Introduction Ce document décrit comment développer avec Blue Parapheur un processus de dématérialisation de demande de validation en 2 étapes dans une collectivité territoriale. Les 2 étapes de validation sont réalisées par le responsable hiérarchique du demandeur d'abord et enfin par le secrétaire général. Initialement utilisé dans un Conseil Régional, ce processus, finalement assez classique, s'applique assez naturellement à toutes les organisations. Processus Le processus tel qu'il a été dessiné par le client ou l'AMOA est le suivant : Définition Méthodologie Blue Parapheur propose de définir un processus en plusieurs étapes : définition du processus sélection des services par défaut...
+		</div>
+	</div>
+
+	<div class="post">
+		<div style="float: right">
+			<img src="./blog-jckermagoret/images/jckermagoret.png" width="75px"/>
+		</div>
+		<h3 class="title"><a href="/blogs/blog-jckermagoret/2014/08/27/Tester-le-code-ameliore-la-qualite">Tester le code améliore sa qualité</a></h3>
+		<p class="meta">Date: Wed Aug 27 00:00:00 +0200 2014</p>
+		<p class="author">Auteur: jckermagoret</p>
+		<div class="entry">
+			Introduction Dans le cadre du développement d'une application, quelle qu'elle soit, les tests sont indispensables afin de garantir un haut niveau de qualité. Il en existe plusieurs types : Unitaires, Intégration, Fonctionnels, Qualification... Ces tests constituent une part non négligeable du développement. Il est possible d'automatiser la plupart des tests, ce qui permet au final un gain de temps substantiel, et surtout une plus grande fiabilité. Tests Selenium Selenium est un outil d'automatisation de tests fonctionnels d'applications Web. Il permet de programmer les interactions de l'utilisateur avec l'application web. Celles-ci peuvent ensuite être paramétrées afin d'être rejouées pour simuler un...
 		</div>
 	</div>
 
@@ -262,61 +303,6 @@ precompiled
 [installation] http://famousphil.com/blog/2011/06/installing-gitorious-on-centos-5-6-x64/
 [ownership] https://groups.google.com/forum/#!topic/gitorious/gxlhm1qQ1fE
 [ENOMEM] https://groups.google.com/forum/#!topic/capistrano/WDAPMl6A1Z4
-
-
-
-		</div>
-	</div>
-
-	<div class="post">
-		<div style="float: right">
-			<img src="./blog-jckermagoret/images/jckermagoret.png" width="75px"/>
-		</div>
-		<h3 class="title"><a href="/blogs/blog-jckermagoret/2014/02/03/suspend-system">Suspend Processes for Quick Restarts</a></h3>
-		<p class="meta">Date: Mon Feb 03 00:00:00 +0100 2014</p>
-		<p class="author">Auteur: jckermagoret</p>
-		<div class="entry">
-			Introduction In a multi-host environment, I want to suspend system execution so I can save resources while not used and restart quickly as soon as user comes back. Before describing the problem, here is a short comparison beetween OepnVZ and KVM: * http://wiki.buyvm.net/doku.php/openvz_vs_kvm The problem In such an environment, saving resources is really very important. It's the only way to serve 100s of organizations with minimal hardware and lower down the hosting price. There are various ways to do it: * at the user space level: while running, just suspend process execution * at the system level: just make a...
-		</div>
-	</div>
-
-	<div class="post">
-		<div style="float: right">
-			<img src="./blog-jckermagoret/images/jckermagoret.png" width="75px"/>
-		</div>
-		<h3 class="title"><a href="/blogs/blog-jckermagoret/2014/02/03/HA-Alfresco">High Availability (HA) Alfresco</a></h3>
-		<p class="meta">Date: Mon Feb 03 00:00:00 +0100 2014</p>
-		<p class="author">Auteur: jckermagoret</p>
-		<div class="entry">
-			Introduction
-
-Ressources
-
-
-HA
-
-
-
-		</div>
-	</div>
-
-	<div class="post">
-		<div style="float: right">
-			<img src="./blog-jckermagoret/images/jckermagoret.png" width="75px"/>
-		</div>
-		<h3 class="title"><a href="/blogs/blog-jckermagoret/2014/02/03/Alfresco+performances">Alfresco performances</a></h3>
-		<p class="meta">Date: Mon Feb 03 00:00:00 +0100 2014</p>
-		<p class="author">Auteur: jckermagoret</p>
-		<div class="entry">
-			Introduction
-
-Starting Alfresco is slow, which prevents stopping/restarting it at will.
-
-Ressources
-
-
-Tomcat starts very slow
-PSI Probe
 
 
 

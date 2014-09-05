@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to test server side javascript with qunit and pavlov</title>
+    
+    <meta name="author" content="Jean-Christophe KERMAGORET">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">JCK's Blog</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <h1>Introduction</h1>
+
+<p>qUnit and pavlov have been slightly modified so they can be run into a server side javascript. Modifications consist in:</p>
+
+<ul>
+<li>creating a window object so the library believes it is runnning into a browser,</li>
+<li>adding a renderer so the output is either in plain text, to run it in debug mode, or in xml unit format to integrate it into existing</li>
+</ul>
+
+
+<p>The corresponding libraries must be loaded.</p>
+
+<h1>Pavlov Test script</h1>
+
+<p>```</p>
+
+<pre><code>&lt;import resource="classpath:alfresco/webscripts/extension/js/org/bluedolmen/utils/Logger.js"&gt;
+&lt;import resource="classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit/src/bluedolmen-qunit-headless.js"&gt;
+&lt;import resource="classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit-pavlov.js"&gt;
+&lt;import resource="classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit/test/bluedolmen-postload.js"&gt;
+&lt;import resource="classpath:alfresco/webscripts/extension/js/external/qunit-reporter-junit.js"&gt;
+
+&lt;import resource="classpath:alfresco/webscripts/extension/js/external/yaml.min.js"&gt;
+&lt;import resource="classpath:alfresco/webscripts/extension/js/org/bluedolmen/alfresco/rule/AutoComplete.js"&gt;
+
+&lt;import resource="classpath:alfresco/webscripts/extension/js/org/bluedolmen/Base.js"&gt;
+
+//$Logger.LEVEL.DEBUG = false;
+
+QUnit.specify.globalApi = true;
+
+QUnit.jUnitReport = function(data) {
+    var console = logger;
+    if (console) {
+        console.log(data.xml);
+    }
+};
+
+pavlov.specify("AutoComplete Test Set", function() {
+    describe("Should be able to update a document with...", function() {
+
+        var doc;
+
+        function fail(msg) {
+            $Logger.debug(msg);
+            assert(true).equals(false);
+        };
+
+        before(function() {
+            $Logger.debug("-&gt;Before");
+            //doc = search.findNode("workspace://SpacesStore/0b0139b3-7cb0-49f2-8429-c21f542f1f08");
+            doc = search.findNode("workspace://SpacesStore/35ceacd8-bb9e-45c0-be53-2d9844b54758");
+
+            // Create a dataList item, a doc, a calendarEvent, a post, a page, a link...
+        });
+
+        after(function() {
+            $Logger.debug("--&gt; After");
+        });
+
+        it("must work with the provided rule", function() {
+            var updatedProp = $AutoComplete.checkAndUpdate(
+                doc,
+                "MarchesPublics:ECategoriesDuMarche # cm:name = ${MarchesPublics:AspectMarche_libelleLong} (${MarchesPublics:AspectMarche_libelleCourt})"
+            );
+            $Logger.debug("UpdatedProp = " + updatedProp);
+            assert(doc.properties["cm:name"]).equals(updatedProp);
+        });
+
+        it("must work with a rule from bluedolmen/dataLists path in the same site", function() {
+            var updatedProp;
+
+            var rule = $AutoComplete.getRewritesFromBlueDolmenDataLists(doc);
+            $Logger.log("Main : Rule = " + rule);
+
+            if (undefined != rule &amp;&amp; null != rule) {
+                updatedProp = $AutoComplete.update(doc, rule);
+            }
+
+            $Logger.debug("UpdatedProp = " + updatedProp);
+            assert(doc.properties["cm:name"]).equals(updatedProp);
+        });
+    });
+});
+
+QUnit.load();
+</code></pre>
+
+<p>```</p>
+
+<p>Triple slash '///' are replaced when scripts are copied from my workspace to alfresco webscripts extension directory. We write import statements this way otherwise SIDE doesn't recognise js and methods.</p>
+
+<h1>IDE Integration</h1>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-05/SIDE-Test.png">
+</div>
+
+
+<h2>Launch tests</h2>
+
+<p>We wrote a small library that enables us to execute js code by providing it to a webscript. We then simply call it trough the following form:</p>
+
+<pre><code>#!/bin/bash
+
+JS_FILE=$1
+ADMIN_PASSWD=admin
+HOST=http://localhost:8080
+QUERY=/alfresco/service/bluedolmen/javascript/executer
+URL=${HOST}${QUERY}
+
+touch ${JS_FILE}; # if not, a cache seems to be present
+curl -u admin:${ADMIN_PASSWD} -F "script=@${JS_FILE}" ${URL}
+</code></pre>
+
+<p>The provided script is then loaded on the alfresco server and played.</p>
+
+<p>We defined external scripts in SIDE, named console1.js, console2.js... which calls this previous script with the corresponding code. It allows us to always use our IDE with usual procedures to write, test and version source code.</p>
+
+<h2>Debugging</h2>
+
+<p>By looking at Alfresco output into SIDE, we can see logs and analyse variable values. While less interactive than the javascript debugger, this approach presents the advantage to be activated by an administrator who can then follow-up its content to our team to help debugging.</p>
+
+<p>By selectively choosing the log level through the javascript console, it's possible to immediately have more or less information in production mode.</p>
+
+<h1>Conclusion</h1>
+
+<p>This tutorial showed you how to install your SIDE installation so you can develop and test your server side javascript in your preferred IDE. It allows you to use your toolbox the usual way, especially versioning tools.</p>
+
+      </div>
+
+    </div> <!-- /container -->
+
+	<div style="text-align: center">
+      <footer>
+        <p>&copy; Jean-Christophe KERMAGORET 2012
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+	</div>
+    
+  </body>
+</html>
+

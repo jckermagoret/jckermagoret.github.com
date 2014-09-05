@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Testing server side javascript with qunit and junit</title>
+    
+    <meta name="author" content="Jean-Christophe KERMAGORET">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">JCK's Blog</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <h1>Introduction</h1>
+
+<p>This tutorial aims at testing server side javascript on Alfresco and Alfresco Share through BDD test for Behavioral Development Driven.</p>
+
+<p>Such a test looks like the following:</p>
+
+<pre><code>pavlov.specify("AutoComplete Test Set", function() {
+    describe("Should be able to automatically update meta data ...", function() {
+
+        var doc;
+
+        function fail(msg) {
+            $Logger.debug(msg);
+            assert(true).equals(false);
+        };
+
+        before(function() {
+        });
+
+        after(function() {
+        });
+
+        it("for MarchesPublics:ECategory type", function() {
+            fail("Not yet implemented");
+        });
+
+        it("for MarchesPublics:EPayment type", function() {
+            fail("Not yet implemented");
+        });
+
+        it("for MarchesPublics:EOrganization type", function() {
+            fail("Not yet implemented");
+        });
+
+    });
+});
+</code></pre>
+
+<h1>Development process</h1>
+
+<h2>Usual way</h2>
+
+<p>I won't detail here why writing tests is important. Such a subject is already well documented.</p>
+
+<h3>Code Example</h3>
+
+<p>Just know a developer always write some tests to check its code, generally of the form :</p>
+
+<pre><code>print(new Date());
+print("Start");
+
+r = some code
+
+print("Result = " + r)
+print("End")
+</code></pre>
+
+<h3>+ and -</h3>
+
+<h4>Drawbacks</h4>
+
+<p>This approach has several drawbacks:</p>
+
+<ul>
+<li>No level: logs are always displayed,</li>
+<li>When the code is ok, logs are removed : need to rewrite them for the next debug iteration,</li>
+<li>No IDE integration,</li>
+<li>No CI integration,</li>
+<li>No unit test,</li>
+<li>No history.</li>
+</ul>
+
+
+<h2>An improved way</h2>
+
+<p>Imagine a $Logger object is available. The same code than before could be written the following way:</p>
+
+<pre><code>$Logger.debug("Start");
+
+r = some code
+
+$Logger.debug("End");
+</code></pre>
+
+<h3>+ and -</h3>
+
+<h4>Advantages</h4>
+
+<ul>
+<li>$Logger automatically adapts itself to context, so messages are displayed in a console for interactive development phase or not if code is executed in production</li>
+<li>logs are automatically prefixed by date and time</li>
+<li>logs are structured with levels so it is possible to selectively trace them to only have the interesting level</li>
+</ul>
+
+
+<h4>Drawbacks</h4>
+
+<ul>
+<li>Still no IDE integration,</li>
+<li>No CI integration,</li>
+<li>No unit test,</li>
+<li>No history</li>
+</ul>
+
+
+<h2>A more improved way</h2>
+
+<p>Logs are very important but aren't tests. Numerous frameworks exist to develop some tests. They generally provide a way to automate tests by extracting information from source code so they know the methods to tests.</p>
+
+<p>jQUery uses a framework called qUnit. This one enables the developer to write unit tests the following way:</p>
+
+<pre><code>QUnit.test( "ok test", function( assert ) {
+    assert.ok( true, "true succeeds" );
+    assert.ok( "non-empty", "non-empty string succeeds" );
+    assert.ok( false, "false fails" );
+    assert.ok( 0, "0 fails" );
+    assert.ok( NaN, "NaN fails" );
+    assert.ok( "", "empty string fails" );
+    assert.ok( null, "null fails" );
+    assert.ok( undefined, "undefined fails" );
+});
+</code></pre>
+
+<p>This approach is interesting but lacks some kind of glue to make this more functional and user oriented. BDD or Behavior Driven Development brings this lacking part and provides the following sugar:</p>
+
+<pre><code>pavlov.specify("AutoComplete Test Set", function() {
+    describe("Should be able to automatically update meta data ...", function() {
+
+        var doc;
+
+        function fail(msg) {
+            $Logger.debug(msg);
+            assert(true).equals(false);
+        };
+
+        before(function() {
+        });
+
+        after(function() {
+        });
+
+        it("for MarchesPublics:ECategory type", function() {
+            fail("Not yet implemented);
+        });
+
+        it("for MarchesPublics:EPayment type", function() {
+            fail("Not yet implemented);
+        });
+
+        it("for MarchesPublics:EOrganization type", function() {
+            fail("Not yet implemented);
+        });
+
+    });
+});
+</code></pre>
+
+<h3>+ and -</h3>
+
+<h4>Advantages</h4>
+
+<p>These tests may be written by a user, the developer implementing them to make them succeed. Results look like this:</p>
+
+<p>Tests may be done in a continuous integration build but results and historized (at least in an interesting and usable way).</p>
+
+<h4>Drawbacks</h4>
+
+<ul>
+<li>No IDE integration</li>
+<li>No history</li>
+</ul>
+
+
+<h2>The graal</h2>
+
+<p>We only lack 2 features:</p>
+
+<ul>
+<li>IDE integration</li>
+<li>Test History</li>
+</ul>
+
+
+<h3>IDE integration</h3>
+
+<p>IDE integration simply means to have a way to play tests from the IDE. It may be done through the use of external scripts in SIDE for example, based on Eclipse:</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-05/SIDE-Test.png">
+</div>
+
+
+<p>Please note:</p>
+
+<ul>
+<li>Tests are launched from the menu</li>
+<li>Output is done into the Alfresco log file as you can see at the bottom. Logs are also written in xml unit.</li>
+</ul>
+
+
+<p>A more tight integration could be done through the use of jUnit, widely supported in the IDE's world. It should be interesting to integrate our server side js tests as jUnit tests so we can benefit from IDE views. It has not been done yet, but it's on the roadmap :-)</p>
+
+<h3>History</h3>
+
+<p>History must be played at each build and graph should display results in a historized view so developers and users may see how succeeding tests evolve :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-09-05/unitth-2.png">
+</div>
+
+
+<h1>Ressources</h1>
+
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Behavior-driven_development">BDD in english</a></li>
+<li><a href="http://fr.wikipedia.org/wiki/Behavior_Driven_Development">BDD en français</a></li>
+<li><a href="https://github.com/mmonteleone/pavlov">Pavlov</a></li>
+</ul>
+
+
+      </div>
+
+    </div> <!-- /container -->
+
+	<div style="text-align: center">
+      <footer>
+        <p>&copy; Jean-Christophe KERMAGORET 2012
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+	</div>
+    
+  </body>
+</html>
+

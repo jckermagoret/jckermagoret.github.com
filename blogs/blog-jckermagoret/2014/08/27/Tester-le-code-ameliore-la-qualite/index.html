@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Tester le code améliore sa qualité</title>
+    
+    <meta name="author" content="Jean-Christophe KERMAGORET">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+
+	<script>hljs.initHighlightingOnLoad();</script>
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">JCK's Blog</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        <h1>Introduction</h1>
+
+<p>Dans le cadre du développement d'une application, quelle qu'elle soit, les tests sont indispensables afin de garantir un haut niveau de qualité. Il en existe plusieurs types :</p>
+
+<ul>
+<li>Unitaires,</li>
+<li>Intégration,</li>
+<li>Fonctionnels,</li>
+<li>Qualification...</li>
+</ul>
+
+
+<p>Ces tests constituent une part non négligeable du développement. Il est possible d'automatiser la plupart des tests, ce qui permet au final un gain de temps substantiel, et surtout une plus grande fiabilité.</p>
+
+<h1>Tests</h1>
+
+<h2>Selenium</h2>
+
+<p>Selenium est un outil d'automatisation de tests fonctionnels d'applications Web. Il permet de programmer les interactions de l'utilisateur avec l'application web. Celles-ci peuvent ensuite être paramétrées afin d'être rejouées pour simuler un utilisateur, plusieurs utilisateurs, avec des navigateurs différents, des systèmes d'exploitation différents. On peut donc aussi simuler des charges plus ou moins importantes.</p>
+
+<p>L'approche par les tests permet ainsi de produire au final un code plus robuste.</p>
+
+<h2>Alfresco Share</h2>
+
+<p>BlueXML a développé pour Alfresco Share de tels tests. Ils permettent actuellement d'effectuer automatiquement 130 tests de non régression fonctionnelle sur Alfresco Share Enterprise 4.0.2.9 et permettent d'économiser 2 heures de travail au niveau de BlueXML comme du client final, car sa recette est également facilitée.</p>
+
+<p>Sachant que les tests sont rejoués de nombreuses fois, ce sont plusieurs jours qui sont économisés pour chaque équipe, côté BlueXML comme côté client.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-08-27/selenium-alltests.png">
+</div>
+
+
+<p>Dans le cadre d'Alfresco Share, ces tests sont regroupés au sein de 11 modules afin de faciliter des tests partiels lorsque cela est nécessaire. La figure ci-dessous illustre les tests réalisés dans le cadre de l'écran principal des utilisateurs, à savoir le tableau de bord :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-08-27/selenium-testWorkspaceActionTest.png">
+</div>
+
+
+<p>Même si l'on peut parfois avoir l'impression que les tests ne sont pas utiles, il s'avère d'une efficacité redoutable pour détecter les problèmes immédiatement lorsqu'ils sont réalisés automatiquement dans une chaine d'intégration continue. BlueXML met systématiquement en place pour ses projets des environnements d'intégration continue permettant de lancer automatiquement chaque nuit les tests développés avec Selenium.</p>
+
+<p>Chaque matin, les développeurs ont dans leur boîte mail les résultats des tests et peuvent immédiatement diagnostiquer le problème, généralement lié à un conflit sur des fichiers modifiés par des développeurs différents. Le fait de corriger le problème immédiatement permet de limiter le coût des bugs à leur strict minimum. En effet, le coût des bugs est lié exponentiellement au temps nécessaire à leur découverte : plus un bug est découvert tard, plus le coût de sa résolution sera élevé. De quelques minutes s'il est traité immédiatement, il peut facilement nécessiter plusieurs heures, voire jours, pour une résolution tardive (car le développeur est sur un autre projet, car il n'est plus là, car il ne se rappelle plus de quelle modification il s'agit...).</p>
+
+<h2>Gains</h2>
+
+<p>Les gains liés aux tests sont visibles à chaque étape du projet :</p>
+
+<ul>
+<li>Maintenance aux Conditions Opérationnelles : en cas de crash, suite à la restauration du système, les tests fonctionnels permettent de valider automatiquement que les fonctions principales sont disponibles et opérationnelles,</li>
+<li>Développement : les développeurs ont dans Eclipse un environnement de test permettant de vérifier que leur travail est correct et s'intègre sans problème avec le travail de leurs collègue,</li>
+<li>Livraison : lors de la livraison, les tests sont joués et une vidéo fournie, ainsi que des screenshots, prouvant que la livraison est correcte,</li>
+<li>Migration : jouer les tests permet de mettre en évidence les points bloquants lors du passage à une nouvelle version. Cette étape nécessite de jouer souvent les tests et assurent une économie de temps intéressant qu'il est ainsi possible de passer ailleurs.</li>
+</ul>
+
+
+<p>Tous ces tests permettent d'améliorer la qualité du code, sa réutilisabilité et contribuent à optimiser pour chaque acteur son ROI, garant d'une relation pérenne de bonne qualité.</p>
+
+<h1>Phases</h1>
+
+<h2>Développement</h2>
+
+<p>L'environnement de développement Eclipse permet au développeur de jouer ses tests autant de fois qu'il le souhaite dans la journée. L'objectif est d'avoir une totale confiance dans ces tests afin qu'ils soient totalement intégrés dans le processus de développement.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-08-27/selenium-testok.png">
+</div>
+
+
+<p>En cas d'échec, les tests apparaissent en rouge et les éléments en cause sont détaillés :</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-08-27/selenium-testnok.png">
+</div>
+
+
+<h2>Livraison</h2>
+
+<p>Les tests sont joués tout le temps, plusieurs fois dans la journée par les développeurs, chaque nuit par le système d'intégration continue comme Hudson ou Jenkins. Les résultats sont alors disponibles au petit matin sur un tableau de bord général.</p>
+
+<div class="screenshot">
+<img src="/blogs/blog-jckermagoret/images/2014-08-27/unitth-2.png">
+</div>
+
+
+<p>Une vidéo peut aussi être générée automatiquement lors de la réalisation du test. Celle-ci permet de se rendre compte, de visu et très rapidement, que tout est correct ou non. Des captures d'écran à des moments 'sensibles' peuvent aussi être générées. Ces éléments permettent de vérifier que tout est correct ou non et que le travail réalisé la veille est valide.</p>
+
+<h2>Migration</h2>
+
+<p>Les tests représentent un coût non négligeable mais sont un véritable investissement qui garantit la qualité de votre solution.</p>
+
+<p>Utiles lors de la phase de développement et pour chaque livraison, les tests assistent aussi les développeurs en montrant les points bloquants sur le chemin fonctionnel critique</p>
+
+<h1>Conclusion</h1>
+
+<p>BlueXML dans le cadre de sa démarche qualité programme des actions sur l'interface, et à vérifier les réponses. Les actions à réaliser peuvent être exportées depuis Selenium IDE.</p>
+
+<p>Les tests doivent être maintenus car les éléments d'interface peuvent être modifiés lors de développement d'une nouvelle fonctionnalité ou du passage à une autre version d'Alfresco lors d'une migration par exemple.</p>
+
+<p>Les tests sont incontournables. En ne les faisant pas, vous n'aurez pas une solution de qualité professionnelle mais un jouet qui vous coûtera au final très cher.</p>
+
+<p>Ils garantissent la qualité de votre solution et la satisfaction de vos utilisateurs.</p>
+
+      </div>
+
+    </div> <!-- /container -->
+
+	<div style="text-align: center">
+      <footer>
+        <p>&copy; Jean-Christophe KERMAGORET 2012
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+	</div>
+    
+  </body>
+</html>
+

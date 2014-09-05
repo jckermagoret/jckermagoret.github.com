@@ -4,13 +4,376 @@
  <title>JCK's Blog</title>
  <link href="http://jckermagoret.github.io/" rel="self"/>
  <link href="http://jckermagoret.github.io"/>
- <updated>2014-09-02T16:23:15+02:00</updated>
+ <updated>2014-09-05T17:22:09+02:00</updated>
  <id>http://jckermagoret.github.io</id>
  <author>
    <name>Jean-Christophe KERMAGORET</name>
    <email>jc@kermagoret.net</email>
  </author>
 
+ 
+ <entry>
+   <title>Testing server side javascript with qunit and junit</title>
+   <link href="http://jckermagoret.github.io/blogs/blog-jckermagoret/2014/09/05/Testing-server-side-javascript-with-qunit-and-junit"/>
+   <updated>2014-09-05T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/blogs/blog-jckermagoret/2014/09/05/Testing-server-side-javascript-with-qunit-and-junit</id>
+   <content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;This tutorial aims at testing server side javascript on Alfresco and Alfresco Share through BDD test for Behavioral Development Driven.&lt;/p&gt;
+
+&lt;p&gt;Such a test looks like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pavlov.specify(&quot;AutoComplete Test Set&quot;, function() {
+    describe(&quot;Should be able to automatically update meta data ...&quot;, function() {
+
+        var doc;
+
+        function fail(msg) {
+            $Logger.debug(msg);
+            assert(true).equals(false);
+        };
+
+        before(function() {
+        });
+
+        after(function() {
+        });
+
+        it(&quot;for MarchesPublics:ECategory type&quot;, function() {
+            fail(&quot;Not yet implemented&quot;);
+        });
+
+        it(&quot;for MarchesPublics:EPayment type&quot;, function() {
+            fail(&quot;Not yet implemented&quot;);
+        });
+
+        it(&quot;for MarchesPublics:EOrganization type&quot;, function() {
+            fail(&quot;Not yet implemented&quot;);
+        });
+
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1&gt;Development process&lt;/h1&gt;
+
+&lt;h2&gt;Usual way&lt;/h2&gt;
+
+&lt;p&gt;I won't detail here why writing tests is important. Such a subject is already well documented.&lt;/p&gt;
+
+&lt;h3&gt;Code Example&lt;/h3&gt;
+
+&lt;p&gt;Just know a developer always write some tests to check its code, generally of the form :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;print(new Date());
+print(&quot;Start&quot;);
+
+r = some code
+
+print(&quot;Result = &quot; + r)
+print(&quot;End&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;+ and -&lt;/h3&gt;
+
+&lt;h4&gt;Drawbacks&lt;/h4&gt;
+
+&lt;p&gt;This approach has several drawbacks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No level: logs are always displayed,&lt;/li&gt;
+&lt;li&gt;When the code is ok, logs are removed : need to rewrite them for the next debug iteration,&lt;/li&gt;
+&lt;li&gt;No IDE integration,&lt;/li&gt;
+&lt;li&gt;No CI integration,&lt;/li&gt;
+&lt;li&gt;No unit test,&lt;/li&gt;
+&lt;li&gt;No history.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;An improved way&lt;/h2&gt;
+
+&lt;p&gt;Imagine a $Logger object is available. The same code than before could be written the following way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$Logger.debug(&quot;Start&quot;);
+
+r = some code
+
+$Logger.debug(&quot;End&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;+ and -&lt;/h3&gt;
+
+&lt;h4&gt;Advantages&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;$Logger automatically adapts itself to context, so messages are displayed in a console for interactive development phase or not if code is executed in production&lt;/li&gt;
+&lt;li&gt;logs are automatically prefixed by date and time&lt;/li&gt;
+&lt;li&gt;logs are structured with levels so it is possible to selectively trace them to only have the interesting level&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h4&gt;Drawbacks&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Still no IDE integration,&lt;/li&gt;
+&lt;li&gt;No CI integration,&lt;/li&gt;
+&lt;li&gt;No unit test,&lt;/li&gt;
+&lt;li&gt;No history&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;A more improved way&lt;/h2&gt;
+
+&lt;p&gt;Logs are very important but aren't tests. Numerous frameworks exist to develop some tests. They generally provide a way to automate tests by extracting information from source code so they know the methods to tests.&lt;/p&gt;
+
+&lt;p&gt;jQUery uses a framework called qUnit. This one enables the developer to write unit tests the following way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;QUnit.test( &quot;ok test&quot;, function( assert ) {
+    assert.ok( true, &quot;true succeeds&quot; );
+    assert.ok( &quot;non-empty&quot;, &quot;non-empty string succeeds&quot; );
+    assert.ok( false, &quot;false fails&quot; );
+    assert.ok( 0, &quot;0 fails&quot; );
+    assert.ok( NaN, &quot;NaN fails&quot; );
+    assert.ok( &quot;&quot;, &quot;empty string fails&quot; );
+    assert.ok( null, &quot;null fails&quot; );
+    assert.ok( undefined, &quot;undefined fails&quot; );
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This approach is interesting but lacks some kind of glue to make this more functional and user oriented. BDD or Behavior Driven Development brings this lacking part and provides the following sugar:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pavlov.specify(&quot;AutoComplete Test Set&quot;, function() {
+    describe(&quot;Should be able to automatically update meta data ...&quot;, function() {
+
+        var doc;
+
+        function fail(msg) {
+            $Logger.debug(msg);
+            assert(true).equals(false);
+        };
+
+        before(function() {
+        });
+
+        after(function() {
+        });
+
+        it(&quot;for MarchesPublics:ECategory type&quot;, function() {
+            fail(&quot;Not yet implemented);
+        });
+
+        it(&quot;for MarchesPublics:EPayment type&quot;, function() {
+            fail(&quot;Not yet implemented);
+        });
+
+        it(&quot;for MarchesPublics:EOrganization type&quot;, function() {
+            fail(&quot;Not yet implemented);
+        });
+
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3&gt;+ and -&lt;/h3&gt;
+
+&lt;h4&gt;Advantages&lt;/h4&gt;
+
+&lt;p&gt;These tests may be written by a user, the developer implementing them to make them succeed. Results look like this:&lt;/p&gt;
+
+&lt;p&gt;Tests may be done in a continuous integration build but results and historized (at least in an interesting and usable way).&lt;/p&gt;
+
+&lt;h4&gt;Drawbacks&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No IDE integration&lt;/li&gt;
+&lt;li&gt;No history&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h2&gt;The graal&lt;/h2&gt;
+
+&lt;p&gt;We only lack 2 features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IDE integration&lt;/li&gt;
+&lt;li&gt;Test History&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;h3&gt;IDE integration&lt;/h3&gt;
+
+&lt;p&gt;IDE integration simply means to have a way to play tests from the IDE. It may be done through the use of external scripts in SIDE for example, based on Eclipse:&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-09-05/SIDE-Test.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Please note:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tests are launched from the menu&lt;/li&gt;
+&lt;li&gt;Output is done into the Alfresco log file as you can see at the bottom. Logs are also written in xml unit.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;A more tight integration could be done through the use of jUnit, widely supported in the IDE's world. It should be interesting to integrate our server side js tests as jUnit tests so we can benefit from IDE views. It has not been done yet, but it's on the roadmap :-)&lt;/p&gt;
+
+&lt;h3&gt;History&lt;/h3&gt;
+
+&lt;p&gt;History must be played at each build and graph should display results in a historized view so developers and users may see how succeeding tests evolve :&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-09-05/unitth-2.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;h1&gt;Ressources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Behavior-driven_development&quot;&gt;BDD in english&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://fr.wikipedia.org/wiki/Behavior_Driven_Development&quot;&gt;BDD en français&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/mmonteleone/pavlov&quot;&gt;Pavlov&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>How to test server side javascript with qunit and pavlov</title>
+   <link href="http://jckermagoret.github.io/blogs/blog-jckermagoret/2014/09/05/How-to-test-server-side-javascript-with-qunit-and-pavlov"/>
+   <updated>2014-09-05T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/blogs/blog-jckermagoret/2014/09/05/How-to-test-server-side-javascript-with-qunit-and-pavlov</id>
+   <content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;qUnit and pavlov have been slightly modified so they can be run into a server side javascript. Modifications consist in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;creating a window object so the library believes it is runnning into a browser,&lt;/li&gt;
+&lt;li&gt;adding a renderer so the output is either in plain text, to run it in debug mode, or in xml unit format to integrate it into existing&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;The corresponding libraries must be loaded.&lt;/p&gt;
+
+&lt;h1&gt;Pavlov Test script&lt;/h1&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/org/bluedolmen/utils/Logger.js&quot;&amp;gt;
+&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit/src/bluedolmen-qunit-headless.js&quot;&amp;gt;
+&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit-pavlov.js&quot;&amp;gt;
+&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/external/bluedolmen-qunit/test/bluedolmen-postload.js&quot;&amp;gt;
+&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/external/qunit-reporter-junit.js&quot;&amp;gt;
+
+&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/external/yaml.min.js&quot;&amp;gt;
+&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/org/bluedolmen/alfresco/rule/AutoComplete.js&quot;&amp;gt;
+
+&amp;lt;import resource=&quot;classpath:alfresco/webscripts/extension/js/org/bluedolmen/Base.js&quot;&amp;gt;
+
+//$Logger.LEVEL.DEBUG = false;
+
+QUnit.specify.globalApi = true;
+
+QUnit.jUnitReport = function(data) {
+    var console = logger;
+    if (console) {
+        console.log(data.xml);
+    }
+};
+
+pavlov.specify(&quot;AutoComplete Test Set&quot;, function() {
+    describe(&quot;Should be able to update a document with...&quot;, function() {
+
+        var doc;
+
+        function fail(msg) {
+            $Logger.debug(msg);
+            assert(true).equals(false);
+        };
+
+        before(function() {
+            $Logger.debug(&quot;-&amp;gt;Before&quot;);
+            //doc = search.findNode(&quot;workspace://SpacesStore/0b0139b3-7cb0-49f2-8429-c21f542f1f08&quot;);
+            doc = search.findNode(&quot;workspace://SpacesStore/35ceacd8-bb9e-45c0-be53-2d9844b54758&quot;);
+
+            // Create a dataList item, a doc, a calendarEvent, a post, a page, a link...
+        });
+
+        after(function() {
+            $Logger.debug(&quot;--&amp;gt; After&quot;);
+        });
+
+        it(&quot;must work with the provided rule&quot;, function() {
+            var updatedProp = $AutoComplete.checkAndUpdate(
+                doc,
+                &quot;MarchesPublics:ECategoriesDuMarche # cm:name = ${MarchesPublics:AspectMarche_libelleLong} (${MarchesPublics:AspectMarche_libelleCourt})&quot;
+            );
+            $Logger.debug(&quot;UpdatedProp = &quot; + updatedProp);
+            assert(doc.properties[&quot;cm:name&quot;]).equals(updatedProp);
+        });
+
+        it(&quot;must work with a rule from bluedolmen/dataLists path in the same site&quot;, function() {
+            var updatedProp;
+
+            var rule = $AutoComplete.getRewritesFromBlueDolmenDataLists(doc);
+            $Logger.log(&quot;Main : Rule = &quot; + rule);
+
+            if (undefined != rule &amp;amp;&amp;amp; null != rule) {
+                updatedProp = $AutoComplete.update(doc, rule);
+            }
+
+            $Logger.debug(&quot;UpdatedProp = &quot; + updatedProp);
+            assert(doc.properties[&quot;cm:name&quot;]).equals(updatedProp);
+        });
+    });
+});
+
+QUnit.load();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```&lt;/p&gt;
+
+&lt;p&gt;Triple slash '///' are replaced when scripts are copied from my workspace to alfresco webscripts extension directory. We write import statements this way otherwise SIDE doesn't recognise js and methods.&lt;/p&gt;
+
+&lt;h1&gt;IDE Integration&lt;/h1&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-09-05/SIDE-Test.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;h2&gt;Launch tests&lt;/h2&gt;
+
+&lt;p&gt;We wrote a small library that enables us to execute js code by providing it to a webscript. We then simply call it trough the following form:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+
+JS_FILE=$1
+ADMIN_PASSWD=admin
+HOST=http://localhost:8080
+QUERY=/alfresco/service/bluedolmen/javascript/executer
+URL=${HOST}${QUERY}
+
+touch ${JS_FILE}; # if not, a cache seems to be present
+curl -u admin:${ADMIN_PASSWD} -F &quot;script=@${JS_FILE}&quot; ${URL}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The provided script is then loaded on the alfresco server and played.&lt;/p&gt;
+
+&lt;p&gt;We defined external scripts in SIDE, named console1.js, console2.js... which calls this previous script with the corresponding code. It allows us to always use our IDE with usual procedures to write, test and version source code.&lt;/p&gt;
+
+&lt;h2&gt;Debugging&lt;/h2&gt;
+
+&lt;p&gt;By looking at Alfresco output into SIDE, we can see logs and analyse variable values. While less interactive than the javascript debugger, this approach presents the advantage to be activated by an administrator who can then follow-up its content to our team to help debugging.&lt;/p&gt;
+
+&lt;p&gt;By selectively choosing the log level through the javascript console, it's possible to immediately have more or less information in production mode.&lt;/p&gt;
+
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;This tutorial showed you how to install your SIDE installation so you can develop and test your server side javascript in your preferred IDE. It allows you to use your toolbox the usual way, especially versioning tools.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Dématérialiser (exécution) une demande de validation par le SG</title>
@@ -512,6 +875,116 @@
 &lt;li&gt;&lt;a href=&quot;https://docs.cloud.bluedolmen.com/docs/blue-parapheur/fr/latest/xx01.html&quot;&gt;Manuel utilisateur de BlueParapheur&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Tester le code améliore sa qualité</title>
+   <link href="http://jckermagoret.github.io/blogs/blog-jckermagoret/2014/08/27/Tester-le-code-ameliore-la-qualite"/>
+   <updated>2014-08-27T00:00:00+02:00</updated>
+   <id>http://jckermagoret.github.io/blogs/blog-jckermagoret/2014/08/27/Tester-le-code-ameliore-la-qualite</id>
+   <content type="html">&lt;h1&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Dans le cadre du développement d'une application, quelle qu'elle soit, les tests sont indispensables afin de garantir un haut niveau de qualité. Il en existe plusieurs types :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Unitaires,&lt;/li&gt;
+&lt;li&gt;Intégration,&lt;/li&gt;
+&lt;li&gt;Fonctionnels,&lt;/li&gt;
+&lt;li&gt;Qualification...&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Ces tests constituent une part non négligeable du développement. Il est possible d'automatiser la plupart des tests, ce qui permet au final un gain de temps substantiel, et surtout une plus grande fiabilité.&lt;/p&gt;
+
+&lt;h1&gt;Tests&lt;/h1&gt;
+
+&lt;h2&gt;Selenium&lt;/h2&gt;
+
+&lt;p&gt;Selenium est un outil d'automatisation de tests fonctionnels d'applications Web. Il permet de programmer les interactions de l'utilisateur avec l'application web. Celles-ci peuvent ensuite être paramétrées afin d'être rejouées pour simuler un utilisateur, plusieurs utilisateurs, avec des navigateurs différents, des systèmes d'exploitation différents. On peut donc aussi simuler des charges plus ou moins importantes.&lt;/p&gt;
+
+&lt;p&gt;L'approche par les tests permet ainsi de produire au final un code plus robuste.&lt;/p&gt;
+
+&lt;h2&gt;Alfresco Share&lt;/h2&gt;
+
+&lt;p&gt;BlueXML a développé pour Alfresco Share de tels tests. Ils permettent actuellement d'effectuer automatiquement 130 tests de non régression fonctionnelle sur Alfresco Share Enterprise 4.0.2.9 et permettent d'économiser 2 heures de travail au niveau de BlueXML comme du client final, car sa recette est également facilitée.&lt;/p&gt;
+
+&lt;p&gt;Sachant que les tests sont rejoués de nombreuses fois, ce sont plusieurs jours qui sont économisés pour chaque équipe, côté BlueXML comme côté client.&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-08-27/selenium-alltests.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Dans le cadre d'Alfresco Share, ces tests sont regroupés au sein de 11 modules afin de faciliter des tests partiels lorsque cela est nécessaire. La figure ci-dessous illustre les tests réalisés dans le cadre de l'écran principal des utilisateurs, à savoir le tableau de bord :&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-08-27/selenium-testWorkspaceActionTest.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Même si l'on peut parfois avoir l'impression que les tests ne sont pas utiles, il s'avère d'une efficacité redoutable pour détecter les problèmes immédiatement lorsqu'ils sont réalisés automatiquement dans une chaine d'intégration continue. BlueXML met systématiquement en place pour ses projets des environnements d'intégration continue permettant de lancer automatiquement chaque nuit les tests développés avec Selenium.&lt;/p&gt;
+
+&lt;p&gt;Chaque matin, les développeurs ont dans leur boîte mail les résultats des tests et peuvent immédiatement diagnostiquer le problème, généralement lié à un conflit sur des fichiers modifiés par des développeurs différents. Le fait de corriger le problème immédiatement permet de limiter le coût des bugs à leur strict minimum. En effet, le coût des bugs est lié exponentiellement au temps nécessaire à leur découverte : plus un bug est découvert tard, plus le coût de sa résolution sera élevé. De quelques minutes s'il est traité immédiatement, il peut facilement nécessiter plusieurs heures, voire jours, pour une résolution tardive (car le développeur est sur un autre projet, car il n'est plus là, car il ne se rappelle plus de quelle modification il s'agit...).&lt;/p&gt;
+
+&lt;h2&gt;Gains&lt;/h2&gt;
+
+&lt;p&gt;Les gains liés aux tests sont visibles à chaque étape du projet :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Maintenance aux Conditions Opérationnelles : en cas de crash, suite à la restauration du système, les tests fonctionnels permettent de valider automatiquement que les fonctions principales sont disponibles et opérationnelles,&lt;/li&gt;
+&lt;li&gt;Développement : les développeurs ont dans Eclipse un environnement de test permettant de vérifier que leur travail est correct et s'intègre sans problème avec le travail de leurs collègue,&lt;/li&gt;
+&lt;li&gt;Livraison : lors de la livraison, les tests sont joués et une vidéo fournie, ainsi que des screenshots, prouvant que la livraison est correcte,&lt;/li&gt;
+&lt;li&gt;Migration : jouer les tests permet de mettre en évidence les points bloquants lors du passage à une nouvelle version. Cette étape nécessite de jouer souvent les tests et assurent une économie de temps intéressant qu'il est ainsi possible de passer ailleurs.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p&gt;Tous ces tests permettent d'améliorer la qualité du code, sa réutilisabilité et contribuent à optimiser pour chaque acteur son ROI, garant d'une relation pérenne de bonne qualité.&lt;/p&gt;
+
+&lt;h1&gt;Phases&lt;/h1&gt;
+
+&lt;h2&gt;Développement&lt;/h2&gt;
+
+&lt;p&gt;L'environnement de développement Eclipse permet au développeur de jouer ses tests autant de fois qu'il le souhaite dans la journée. L'objectif est d'avoir une totale confiance dans ces tests afin qu'ils soient totalement intégrés dans le processus de développement.&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-08-27/selenium-testok.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;En cas d'échec, les tests apparaissent en rouge et les éléments en cause sont détaillés :&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-08-27/selenium-testnok.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;h2&gt;Livraison&lt;/h2&gt;
+
+&lt;p&gt;Les tests sont joués tout le temps, plusieurs fois dans la journée par les développeurs, chaque nuit par le système d'intégration continue comme Hudson ou Jenkins. Les résultats sont alors disponibles au petit matin sur un tableau de bord général.&lt;/p&gt;
+
+&lt;div class=&quot;screenshot&quot;&gt;
+&lt;img src=&quot;/blogs/blog-jckermagoret/images/2014-08-27/unitth-2.png&quot;&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Une vidéo peut aussi être générée automatiquement lors de la réalisation du test. Celle-ci permet de se rendre compte, de visu et très rapidement, que tout est correct ou non. Des captures d'écran à des moments 'sensibles' peuvent aussi être générées. Ces éléments permettent de vérifier que tout est correct ou non et que le travail réalisé la veille est valide.&lt;/p&gt;
+
+&lt;h2&gt;Migration&lt;/h2&gt;
+
+&lt;p&gt;Les tests représentent un coût non négligeable mais sont un véritable investissement qui garantit la qualité de votre solution.&lt;/p&gt;
+
+&lt;p&gt;Utiles lors de la phase de développement et pour chaque livraison, les tests assistent aussi les développeurs en montrant les points bloquants sur le chemin fonctionnel critique&lt;/p&gt;
+
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;BlueXML dans le cadre de sa démarche qualité programme des actions sur l'interface, et à vérifier les réponses. Les actions à réaliser peuvent être exportées depuis Selenium IDE.&lt;/p&gt;
+
+&lt;p&gt;Les tests doivent être maintenus car les éléments d'interface peuvent être modifiés lors de développement d'une nouvelle fonctionnalité ou du passage à une autre version d'Alfresco lors d'une migration par exemple.&lt;/p&gt;
+
+&lt;p&gt;Les tests sont incontournables. En ne les faisant pas, vous n'aurez pas une solution de qualité professionnelle mais un jouet qui vous coûtera au final très cher.&lt;/p&gt;
+
+&lt;p&gt;Ils garantissent la qualité de votre solution et la satisfaction de vos utilisateurs.&lt;/p&gt;
 </content>
  </entry>
  

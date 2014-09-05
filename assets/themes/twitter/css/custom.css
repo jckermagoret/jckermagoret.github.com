@@ -1,7 +1,59 @@
+/* Override some defaults */
+html, body {
+  /*
+  background-color: #eee;
+  */
+  background-color: #fff;
+}
+
+.col1 {
+	width: 600px;
+	float: left;
+	clear: both;
+}
+
+.col2 {
+	border-left: grey solid 1px;
+	margin-left: 20px;
+	padding-left: 20px;
+	width: 150px;
+	float: right;
+}
+
 img.author {
-	width: 200px;
+	width: 100px;
 }
 
 .screenshot img {
-	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	max-width: 800px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.photo {
+	float: right;
+}
+
+.bordered {
+	padding: 0 0 10px 10px;
+	background-color: white;
 }

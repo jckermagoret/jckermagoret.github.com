@@ -1,11 +1,28 @@
 @import("./custom.css")
 
+.col1 {
+	width: 600px;
+	float: left;
+	clear: both;
+}
+
+.col2 {
+	border-left: grey solid 1px;
+	padding-left: 20px;
+	margin-left: 20px;
+	width: 150px;
+	float: right;
+}
+
 img.author {
-	width: 200px;
+	width: 100px;
 }
 
 .screenshot img {
-	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	max-width: 800px;
 }
 
 .video-container {
@@ -24,6 +41,15 @@ img.author {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.photo {
+	float: right;
+}
+
+.bordered {
+	padding: 0 0 10px 10px;
+	background-color: white;
 }
 
 /* Override some defaults */
