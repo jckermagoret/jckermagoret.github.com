@@ -20,6 +20,14 @@ html, body {
 	float: right;
 }
 
+.post-col2 {
+	border-left-style: solid;
+	border-bottom-style: solid;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	float: right;
+}
+
 img.author {
 	width: 100px;
 }
